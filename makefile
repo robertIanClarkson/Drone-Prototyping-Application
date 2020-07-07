@@ -1,0 +1,2 @@
+go:
+	npm start
