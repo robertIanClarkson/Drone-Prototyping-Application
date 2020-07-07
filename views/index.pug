@@ -2,4 +2,32 @@ extends layout
 
 block content
   h1= title
-  p Welcome to #{title}
+
+  - var btnType = 'info'
+  - var btnSize = 'lg'
+  body.background
+    
+    br
+    br
+
+    div#on
+      h5 ON / OFF
+      div.row
+        div.col
+          button(id='on' type='button' class='btn btn-' + btnType + ' btn-' + btnSize) on
+        div.col
+          button(id='off' type='button' class='btn btn-' + btnType + ' btn-' + btnSize) off
+    
+    br
+    br
+
+    div#speed
+      h5 SPEED
+      div.row
+        div.col
+          h6 Current Speed : 
+      div.row
+        div.col
+          button(id='down' type='button' class='btn btn-' + btnType + ' btn-' + btnSize) down
+        div.col
+          button(id='up' type='button' class='btn btn-' + btnType + ' btn-' + btnSize) up
