@@ -59,6 +59,15 @@ document.querySelector('#down').addEventListener('click', event => {
     refreshPWD()
 });
 
+// TEST
+document.querySelector('#test').addEventListener('click', event => {
+    console.log('TEST')
+    $.post('http://localhost:3000/test', null, function(data, status) {
+        console.log(`${data} and status is ${status}`)
+    })
+    
+});
+
 refreshPWD()
 refreshStatus()
 
