@@ -12,50 +12,59 @@ function setValue(value) {
     $('#speed').append(value)
 }
 
-// Refresh on load
-$(window).on('load', () => {
+function refreshData() {
     $.post('http://localhost:3000/refresh', null, function(data, status) {
         setStatus(data.status)
         setValue(data.value)
+        console.log('Client: POST --> refresh')
     })
-    console.log('Client: POST --> loaded')
+}
+
+// Refresh on load
+$(window).on('load', () => {
+    refreshData()
 });
 
 // REFRESH
 document.querySelector('#refresh').addEventListener('click', event => {
-    $.post('http://localhost:3000/refresh', null, function(data, status) {
-        setStatus(data.status)
-        setValue(data.value)
-    })
-    console.log('Client: POST --> refresh')
+    refreshData()
 });
 
 // ON
 document.querySelector('#on').addEventListener('click', event => {
-    $.post('http://localhost:3000/on')
-    console.log('Client: POST --> on')
+    $.post('http://localhost:3000/on', null, function(data, status) {
+        console.log('Client: POST --> on')
+        refreshData()
+    })
 });
 
 // OFF
 document.querySelector('#off').addEventListener('click', event => {
-    $.post('http://localhost:3000/off')
-    console.log('Client: POST --> off')
+    $.post('http://localhost:3000/off', null, function(data, status) {
+        console.log('Client: POST --> off')
+        refreshData()
+    })
 });
 
 // UP
 document.querySelector('#up').addEventListener('click', event => {
-    $.post('http://localhost:3000/up')
-    console.log('Client: POST --> up')
+    $.post('http://localhost:3000/up', null, function(data, status) {
+        console.log('Client: POST --> up')
+        refreshData()
+    })
 });
 
 // DOWN
 document.querySelector('#down').addEventListener('click', event => {
-    $.post('http://localhost:3000/down')
-    console.log('Client: POST --> down')
+    $.post('http://localhost:3000/down', null, function(data, status) {
+        console.log('Client: POST --> down')
+        refreshData()
+    })
 });
 
 // TEST
 document.querySelector('#test').addEventListener('click', event => {
-    $.post('http://localhost:3000/test')
-    console.log('Client: POST --> test')
+    $.post('http://localhost:3000/test', null, function(data, status) {
+        console.log('Client: POST --> test')  
+    })
 });
