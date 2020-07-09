@@ -1,14 +1,4 @@
-
-let isOn = false;
-let PWD_VALUE = 0;
-let PWD_AMOUNT = 100;
-
-// On/Off value
-function setStatus() {
-    
-}
-
-function refreshStatus() {
+function setStatus(isOn) {
     $('#status').empty()
     if(isOn) {
         $('#status').append('ON')
@@ -17,61 +7,55 @@ function refreshStatus() {
     }
 }
 
-// PWD value
-function setPWD() {
-
-}
-
-function refreshPWD() {
+function setValue(value) {
     $('#speed').empty()
-    $('#speed').append(PWD_VALUE)
+    $('#speed').append(value)
 }
+
+// Refresh on load
+$(window).on('load', () => {
+    $.post('http://localhost:3000/refresh', null, function(data, status) {
+        setStatus(data.status)
+        setValue(data.value)
+    })
+    console.log('Client: POST --> loaded')
+});
+
+// REFRESH
+document.querySelector('#refresh').addEventListener('click', event => {
+    $.post('http://localhost:3000/refresh', null, function(data, status) {
+        setStatus(data.status)
+        setValue(data.value)
+    })
+    console.log('Client: POST --> refresh')
+});
 
 // ON
 document.querySelector('#on').addEventListener('click', event => {
-    // console.log('ON')
-    isOn = true
-    setStatus()
-    refreshStatus()
+    $.post('http://localhost:3000/on')
+    console.log('Client: POST --> on')
 });
 
 // OFF
 document.querySelector('#off').addEventListener('click', event => {
-    // console.log('OFF')
-    isOn = false
-    setStatus()
-    refreshStatus()
+    $.post('http://localhost:3000/off')
+    console.log('Client: POST --> off')
 });
 
 // UP
 document.querySelector('#up').addEventListener('click', event => {
-    // console.log('UP')
-    PWD_VALUE += PWD_AMOUNT
-    setPWD()
-    refreshPWD()
+    $.post('http://localhost:3000/up')
+    console.log('Client: POST --> up')
 });
 
 // DOWN
 document.querySelector('#down').addEventListener('click', event => {
-    // console.log('DOWN')
-    PWD_VALUE -= PWD_AMOUNT
-    setPWD()
-    refreshPWD()
+    $.post('http://localhost:3000/down')
+    console.log('Client: POST --> down')
 });
 
 // TEST
 document.querySelector('#test').addEventListener('click', event => {
-    console.log('TEST')
-    $.post('http://localhost:3000/test', null, function(data, status) {
-        console.log(`${data} and status is ${status}`)
-    })
-    
+    $.post('http://localhost:3000/test')
+    console.log('Client: POST --> test')
 });
-
-refreshPWD()
-refreshStatus()
-
-
-
-
-
