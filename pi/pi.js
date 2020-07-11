@@ -1,33 +1,28 @@
 /* THIS IS WHERE HARDWARE CODE BELONGS */
 var rpio = require('rpio');
+const Gpio = require('pigpio').Gpio;
+const motor = new Gpio(18, {mode: Gpio.OUTPUT});
+
 
 let isOn = false;
 let PWD_VALUE = 0;
 let PWD_AMOUNT = 100;
 
 function setOn() {
-  var pin = 12;           /* P12/GPIO18 */
-  var range = 1860;       /* LEDs can quickly hit max brightness, so only use */
-  var max = 128;          /*   the bottom 8th of a larger scale */
-  var clockdiv = 8;       /* Clock divider (PWM refresh rate), 8 == 2.4MHz */
-  var interval = 5;       /* setInterval timer, speed of pulses */
-  var times = 5; 
-  rpio.open(pin, rpio.PWM)
-  rpio.pwmSetClockDivider(clockdiv);
-  rpio.pwmSetRange(pin, range)
-  rpio.pwmSetData(pin, 1860)
-  setTimeout(function(){ 
-    rpio.open(pin, rpio.INPUT);
-  }, 2000);
-  setTimeout(function(){ 
-    pio.open(pin, rpio.PWM)
-    rpio.pwmSetClockDivider(clockdiv);
-    rpio.pwmSetRange(pin, range)
-    rpio.pwmSetData(pin, 1860)
-  }, 2000);
-  setTimeout(function(){ 
-    rpio.open(pin, rpio.INPUT);
-  }, 2000);
+  // let pulseWidth = 1860;
+  let pulseWidth = 1000;
+  let increment = 100;
+  
+  setInterval(() => {
+    motor.servoWrite(pulseWidth);
+  
+    pulseWidth += increment;
+    if (pulseWidth >= 2000) {
+      increment = -100;
+    } else if (pulseWidth <= 1000) {
+      increment = 100;
+    }
+  }, 1000);
   isOn = true
 };
 
