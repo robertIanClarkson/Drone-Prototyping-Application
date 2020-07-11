@@ -11,11 +11,11 @@ let PWD_AMOUNT = 100;
 function setOn() {
   let pulseWidth = 1860;
   motor.servoWrite(pulseWidth);
-  setInterval(() => {
+  setTimeout(() => {
     motor.servoWrite(0);
   }, 2000);
   motor.servoWrite(pulseWidth);
-  setInterval(() => {
+  setTimeout(() => {
     motor.servoWrite(0);
   }, 2000);
   isOn = true
