@@ -34,7 +34,7 @@ document.querySelector('#refresh').addEventListener('click', event => {
 document.querySelector('#on').addEventListener('click', event => {
     $.post('http://10.0.0.5:3000/on', null, function(data, status) {
         console.log('Client: POST --> on')
-        refreshData()
+        // refreshData()
     })
 });
 
