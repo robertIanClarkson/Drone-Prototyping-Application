@@ -13,6 +13,7 @@
     "http-errors": "~1.6.3",
     "materialize-css": "^1.0.0-rc.2",
     "morgan": "~1.9.1",
+    "pigpio": "^3.2.3",
     "pug": "^3.0.0",
     "rpio": "^2.1.1"
   },
