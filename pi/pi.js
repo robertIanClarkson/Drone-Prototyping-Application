@@ -8,16 +8,19 @@ let isOn = false;
 let PWD_VALUE = 0;
 let PWD_AMOUNT = 100;
 
-function setOn() {
-  let pulseWidth = 1860;
-  motor.servoWrite(pulseWidth);
-  setTimeout(() => {
-    motor.servoWrite(0);
-  }, 2000);
-  motor.servoWrite(pulseWidth);
-  setTimeout(() => {
-    motor.servoWrite(0);
-  }, 2000);
+function sleep(ms) {
+  return new Promise(resolve => setTimeout(resolve, ms));
+}
+
+async function setOn() {
+  let pulseWidth = 1860
+  motor.servoWrite(pulseWidth)
+  await sleep(2000);
+  motor.servoWrite(0)
+  await sleep(2000);
+  motor.servoWrite(pulseWidth)
+  await sleep(2000);
+  motor.servoWrite(0)
   isOn = true
 };
 
