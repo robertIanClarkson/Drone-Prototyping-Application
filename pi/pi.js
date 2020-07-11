@@ -6,7 +6,7 @@ const motor = new Gpio(18, {mode: Gpio.OUTPUT});
 
 let isOn = false;
 let PWD_VALUE = 1130;
-let PWD_AMOUNT = 10;
+let PWD_AMOUNT = 20;
 
 function sleep(ms) {
   return new Promise(resolve => setTimeout(resolve, ms));
