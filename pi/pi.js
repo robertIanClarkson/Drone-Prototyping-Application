@@ -34,10 +34,12 @@ function setOff() {
 
 function setDown() {
   PWD_VALUE -= PWD_AMOUNT
+  motor.servoWrite(PWD_VALUE)
 };
 
 function setUp() {
   PWD_VALUE += PWD_AMOUNT
+  motor.servoWrite(PWD_VALUE)
 };
 
 function getStatus() {
