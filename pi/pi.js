@@ -19,6 +19,9 @@ function setOn() {
   setTimeout(function(){ 
     rpio.pwmSetData(pin, 1860); 
   }, 2000);
+  setTimeout(function(){ 
+    rpio.open(pin, rpio.INPUT);
+  }, 2000);
   isOn = true
 };
 
