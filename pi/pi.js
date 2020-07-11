@@ -9,20 +9,15 @@ let PWD_VALUE = 0;
 let PWD_AMOUNT = 100;
 
 function setOn() {
-  // let pulseWidth = 1860;
-  let pulseWidth = 1000;
-  let increment = 100;
-  
+  let pulseWidth = 1860;
+  motor.servoWrite(pulseWidth);
   setInterval(() => {
-    motor.servoWrite(pulseWidth);
-  
-    pulseWidth += increment;
-    if (pulseWidth >= 2000) {
-      increment = -100;
-    } else if (pulseWidth <= 1000) {
-      increment = 100;
-    }
-  }, 1000);
+    motor.servoWrite(0);
+  }, 2000);
+  motor.servoWrite(pulseWidth);
+  setInterval(() => {
+    motor.servoWrite(0);
+  }, 2000);
   isOn = true
 };
 
