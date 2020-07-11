@@ -34,7 +34,7 @@ document.querySelector('#refresh').addEventListener('click', event => {
 document.querySelector('#on').addEventListener('click', event => {
     $.post('http://10.0.0.5:3000/on', null, function(data, status) {
         console.log('Client: POST --> on')
-        refreshData()
+        // refreshData()
     })
 });
 
@@ -42,7 +42,7 @@ document.querySelector('#on').addEventListener('click', event => {
 document.querySelector('#off').addEventListener('click', event => {
     $.post('http://10.0.0.5:3000/off', null, function(data, status) {
         console.log('Client: POST --> off')
-        refreshData()
+        // refreshData()
     })
 });
 
@@ -50,7 +50,7 @@ document.querySelector('#off').addEventListener('click', event => {
 document.querySelector('#up').addEventListener('click', event => {
     $.post('http://10.0.0.5:3000/up', null, function(data, status) {
         console.log('Client: POST --> up')
-        refreshData()
+        // refreshData()
     })
 });
 
@@ -58,7 +58,7 @@ document.querySelector('#up').addEventListener('click', event => {
 document.querySelector('#down').addEventListener('click', event => {
     $.post('http://10.0.0.5:3000/down', null, function(data, status) {
         console.log('Client: POST --> down')
-        refreshData()
+        // refreshData()
     })
 });
 
