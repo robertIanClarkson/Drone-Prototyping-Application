@@ -14,13 +14,16 @@ function sleep(ms) {
 
 async function setOn() {
   let pulseWidth = 1860
-  motor.servoWrite(pulseWidth)
+  motor.servoWrite(1860)
   await sleep(2000);
+  
+  motor.servoWrite(1060)
+  await sleep(2000);
+  
   motor.servoWrite(0)
-  await sleep(2000);
-  motor.servoWrite(pulseWidth)
-  await sleep(2000);
-  motor.servoWrite(0)
+  await sleep(1000);
+  
+  motor.servoWrite(1130)
   isOn = true
 };
 
