@@ -13,7 +13,7 @@ function setValue(value) {
 }
 
 function refreshData() {
-    $.post('http://localhost:3000/refresh', null, function(data, status) {
+    $.post('http://10.0.0.5:3000/refresh', null, function(data, status) {
         setStatus(data.status)
         setValue(data.value)
         console.log('Client: POST --> refresh')
@@ -32,7 +32,7 @@ document.querySelector('#refresh').addEventListener('click', event => {
 
 // ON
 document.querySelector('#on').addEventListener('click', event => {
-    $.post('http://localhost:3000/on', null, function(data, status) {
+    $.post('http://10.0.0.5:3000/on', null, function(data, status) {
         console.log('Client: POST --> on')
         refreshData()
     })
@@ -40,7 +40,7 @@ document.querySelector('#on').addEventListener('click', event => {
 
 // OFF
 document.querySelector('#off').addEventListener('click', event => {
-    $.post('http://localhost:3000/off', null, function(data, status) {
+    $.post('http://10.0.0.5:3000/off', null, function(data, status) {
         console.log('Client: POST --> off')
         refreshData()
     })
@@ -48,7 +48,7 @@ document.querySelector('#off').addEventListener('click', event => {
 
 // UP
 document.querySelector('#up').addEventListener('click', event => {
-    $.post('http://localhost:3000/up', null, function(data, status) {
+    $.post('http://10.0.0.5:3000/up', null, function(data, status) {
         console.log('Client: POST --> up')
         refreshData()
     })
@@ -56,7 +56,7 @@ document.querySelector('#up').addEventListener('click', event => {
 
 // DOWN
 document.querySelector('#down').addEventListener('click', event => {
-    $.post('http://localhost:3000/down', null, function(data, status) {
+    $.post('http://10.0.0.5:3000/down', null, function(data, status) {
         console.log('Client: POST --> down')
         refreshData()
     })
@@ -64,7 +64,7 @@ document.querySelector('#down').addEventListener('click', event => {
 
 // TEST
 document.querySelector('#test').addEventListener('click', event => {
-    $.post('http://localhost:3000/test', null, function(data, status) {
+    $.post('http://10.0.0.5:3000/test', null, function(data, status) {
         console.log('Client: POST --> test')  
     })
 });

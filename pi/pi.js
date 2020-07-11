@@ -1,3 +1,5 @@
+/* THIS IS WHERE HARDWARE CODE BELONGS */
+
 let isOn = false;
 let PWD_VALUE = 0;
 let PWD_AMOUNT = 100;
