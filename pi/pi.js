@@ -17,10 +17,10 @@ async function setOn() {
   motor.servoWrite(pulseWidth)
   await sleep(2000);
   motor.servoWrite(0)
-  // await sleep(2000);
-  // motor.servoWrite(pulseWidth)
-  // await sleep(2000);
-  // motor.servoWrite(0)
+  await sleep(2000);
+  motor.servoWrite(pulseWidth)
+  await sleep(2000);
+  motor.servoWrite(0)
   isOn = true
 };
 
