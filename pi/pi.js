@@ -17,7 +17,13 @@ function setOn() {
   rpio.pwmSetRange(pin, range)
   rpio.pwmSetData(pin, 1860)
   setTimeout(function(){ 
-    rpio.pwmSetData(pin, 1860); 
+    rpio.open(pin, rpio.INPUT);
+  }, 2000);
+  setTimeout(function(){ 
+    pio.open(pin, rpio.PWM)
+    rpio.pwmSetClockDivider(clockdiv);
+    rpio.pwmSetRange(pin, range)
+    rpio.pwmSetData(pin, 1860)
   }, 2000);
   setTimeout(function(){ 
     rpio.open(pin, rpio.INPUT);
