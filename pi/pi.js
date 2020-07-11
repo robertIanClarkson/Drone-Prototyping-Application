@@ -6,7 +6,19 @@ let PWD_VALUE = 0;
 let PWD_AMOUNT = 100;
 
 function setOn() {
-
+  var pin = 12;           /* P12/GPIO18 */
+  var range = 1860;       /* LEDs can quickly hit max brightness, so only use */
+  var max = 128;          /*   the bottom 8th of a larger scale */
+  var clockdiv = 8;       /* Clock divider (PWM refresh rate), 8 == 2.4MHz */
+  var interval = 5;       /* setInterval timer, speed of pulses */
+  var times = 5; 
+  rpio.open(pin, rpio.PWM)
+  rpio.pwmSetClockDivider(clockdiv);
+  rpio.pwmSetRange(pin, range)
+  rpio.pwmSetData(pin, 1860)
+  setTimeout(function(){ 
+    rpio.pwmSetData(pin, 1860); 
+  }, 2000);
   isOn = true
 };
 
