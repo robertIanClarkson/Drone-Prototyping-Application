@@ -13,7 +13,8 @@ function sleep(ms) {
 }
 
 async function setOn() {
-  let pulseWidth = 1860
+  isOn = true
+  
   motor.servoWrite(1860)
   await sleep(2000);
   
@@ -24,12 +25,11 @@ async function setOn() {
   await sleep(1000);
   
   motor.servoWrite(1130)
-  isOn = true
 };
 
 function setOff() {
-  motor.servoWrite(0)
   isOn = false
+  motor.servoWrite(0)
 };
 
 function setDown() {
