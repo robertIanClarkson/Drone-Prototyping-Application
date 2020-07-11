@@ -5,8 +5,8 @@ const motor = new Gpio(18, {mode: Gpio.OUTPUT});
 
 
 let isOn = false;
-let PWD_VALUE = 0;
-let PWD_AMOUNT = 100;
+let PWD_VALUE = 1130;
+let PWD_AMOUNT = 10;
 
 function sleep(ms) {
   return new Promise(resolve => setTimeout(resolve, ms));
@@ -28,6 +28,7 @@ async function setOn() {
 };
 
 function setOff() {
+  motor.servoWrite(0)
   isOn = false
 };
 
