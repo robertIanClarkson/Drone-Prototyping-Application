@@ -50,7 +50,6 @@ router.post('/up', function(req, res, next) {
 
 /* POST up */
 router.post('/adjust-speed', function(req, res, next) {
-  console.log(req.params)
   console.log(req.body)
   res.sendStatus(200)
   console.log('Server: POST --> adjust-speed')

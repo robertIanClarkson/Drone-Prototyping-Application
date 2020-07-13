@@ -42,6 +42,17 @@ function setUp() {
   motor.servoWrite(PWD_VALUE)
 };
 
+function setSpeed(data) {
+  var pwm = 1130 + (data.speed * 7.3)
+  if(data.motor == 0) {
+    motor.servoWrite(pwm)
+  } else if(data.motor == 1) {
+
+  } else {
+    console.log('No Motor ID given')
+  }
+};
+
 function getStatus() {
   return isOn
 };
