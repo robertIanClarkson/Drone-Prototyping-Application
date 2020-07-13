@@ -1,3 +1,6 @@
+var timeThen = 0;
+var timeNow;
+
 function setStatus(isOn) {
     $('#status').empty()
     if(isOn) {
@@ -168,17 +171,23 @@ function parseMidiMessage(message) {
 }
 
 
+
+
 function adjustSlider(value) {
-    if(slider.value != value) {
-        slider.value = value;
-        output.innerHTML = value;
-        var data = {
-            motor: 0,
-            speed: value
+    timeNow = Date.now()
+    if((timeNow - timeThen) > 500) { // allow every half second
+        if(slider.value != value) { // dont post if value hasn't changed
+            slider.value = value;
+            output.innerHTML = value;
+            var data = {
+                motor: 0,
+                speed: value
+            }
+            $.post('http://10.0.0.5:3000/adjust-speed', data, function(data, status) {
+                console.log('Client: POST --> adjust speed')
+            })
+            timeThen = timeNow;
         }
-        $.post('http://10.0.0.5:3000/adjust-speed', data, function(data, status) {
-              console.log('Client: POST --> adjust speed')
-          })
-    }   
+    }
 }
 
