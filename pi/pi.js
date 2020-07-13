@@ -43,6 +43,7 @@ function setUp() {
 };
 
 function setSpeed(data) {
+  console.log(data)
   var pwm = 1130 + (data.speed * 7.3)
   if(data.motor == 0) {
     motor.servoWrite(pwm)
