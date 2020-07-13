@@ -142,10 +142,17 @@ function onMIDIFailure(e) {
 }
 
 function logger(container, label, data) {
-    messages = label + " [channel: " + (data[0] & 0xf) + ", cmd: " + (data[0] >> 4) + ", type: " + (data[0] & 0xf0) + " , note: " + data[1] + " , velocity: " + (data[2]/127) + "]";
-    // messages = label + " [type: " + data[0] + " , note: " + data[1] + " , velocity: " + data[2] + "]";
-    console.log(parseMidiMessage(data));
-    container.textContent = messages;
+    midiEvent = parseMidiMessage(data);
+    if (midiEvent.command === 11) { // slider
+        if (midiEvent.note === 19) { // volume 1 & 3
+            if(midiEvent.channel === 1) { // channel 1
+                container.textContent = `Value : ${midiEvent.velocity}`;
+            } else if(midiEvent.channel === 3) { // channel 2
+                // 2nd motor midi code
+                // container.textContent = `Value : ${midiEvent.velocity}`;
+            }
+        }
+    }
 }
 
 function parseMidiMessage(message) {
