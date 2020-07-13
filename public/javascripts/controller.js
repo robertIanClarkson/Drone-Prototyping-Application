@@ -62,6 +62,13 @@ document.querySelector('#down').addEventListener('click', event => {
     })
 });
 
+var slider = document.getElementById("motorSpeedSlider");
+var output = document.getElementById("speedValue");
+output.innerHTML = slider.value;
+slider.oninput = function() {
+  output.innerHTML = this.value;
+}
+
 // TEST
 document.querySelector('#test').addEventListener('click', event => {
     $.post('http://10.0.0.5:3000/test', null, function(data, status) {
