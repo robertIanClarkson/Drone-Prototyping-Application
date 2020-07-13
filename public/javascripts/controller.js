@@ -175,7 +175,7 @@ function parseMidiMessage(message) {
 
 function adjustSlider(value) {
     timeNow = Date.now()
-    if((timeNow - timeThen) > 500) { // allow every half second
+    if((timeNow - timeThen) > 250) { // allow every X millisecond
         if(slider.value != value) { // dont post if value hasn't changed
             slider.value = value;
             output.innerHTML = value;
