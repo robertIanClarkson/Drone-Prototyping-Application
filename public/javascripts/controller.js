@@ -67,7 +67,7 @@ var output = document.getElementById("speedValue");
 output.innerHTML = slider.value;
 slider.oninput = function() {
   output.innerHTML = this.value;
-  $.post('http://10.0.0.5:3000/adjust-speed', this.value, function(data, status) {
+  $.post('http://10.0.0.5:3000/adjust-speed', { speed: this.value }, function(data, status) {
         console.log('Client: POST --> adjust speed')
     })
 }
