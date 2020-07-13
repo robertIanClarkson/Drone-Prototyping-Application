@@ -62,6 +62,8 @@ document.querySelector('#down').addEventListener('click', event => {
     })
 });
 
+
+// SLIDER
 var slider = document.getElementById("motorSpeedSlider");
 var output = document.getElementById("speedValue");
 output.innerHTML = slider.value;
@@ -146,7 +148,8 @@ function logger(container, label, data) {
     if (midiEvent.command === 11) { // slider
         if (midiEvent.note === 19) { // volume 1 & 3
             if(midiEvent.channel === 1) { // channel 1
-                container.textContent = `Value : ${Math.floor(midiEvent.velocity * 135.0)}`;
+                container.textContent = `Value : ${midiEvent.value}`;
+                adjustSlider(midiEvent.value);
             } else if(midiEvent.channel === 3) { // channel 2
                 // 2nd motor midi code
                 // container.textContent = `Value : ${midiEvent.velocity}`;
@@ -157,9 +160,16 @@ function logger(container, label, data) {
 
 function parseMidiMessage(message) {
     return {
-      command: data[0] >> 4,
-      channel: data[0] & 0xf,
-      note: data[1],
-      velocity: data[2] / 127
+        command: data[0] >> 4,
+        channel: data[0] & 0xf,
+        note: data[1],
+        value: Math.floor((data[2] / 127) * 135.0)
     }
-  }
+}
+
+
+function adjustSlider(value) {
+    slider.value = value;
+    output.innerHTML = value;
+}
+
