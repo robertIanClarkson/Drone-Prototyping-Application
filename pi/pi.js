@@ -44,12 +44,13 @@ function setUp() {
 
 function setSpeed(data) {
   console.log(data)
-  var pwm = 1130 + (data.speed * 7.3)
+  PWD_VALUE = parseInt(Math.floor(1130 + (data.speed * 7.3)))
   if(data.motor == 0) {
-    motor.servoWrite(pwm)
-  } else if(data.motor == 1) {
-
-  } else {
+    motor.servoWrite(PWD_VALUE)
+  } 
+  // else if(data.motor == 1) {
+  // } 
+  else {
     console.log('No Motor ID given')
   }
 };
