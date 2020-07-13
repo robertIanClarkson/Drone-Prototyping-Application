@@ -87,6 +87,7 @@ document.querySelector('#test').addEventListener('click', event => {
 /******************************************************* */
 
 var log = console.log.bind(console);
+var keyData = document.getElementById('key_data');
 var midi;
 var data, cmd, channel, type, note, velocity;
 
