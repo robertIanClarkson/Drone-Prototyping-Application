@@ -104,5 +104,6 @@ module.exports = {
     setUp,
     getStatus,
     getValue,
+    setSpeed,
     test
 }
