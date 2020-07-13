@@ -49,21 +49,21 @@ document.querySelector('#off').addEventListener('click', event => {
     })
 });
 
-// UP
-document.querySelector('#up').addEventListener('click', event => {
-    $.post('http://10.0.0.5:3000/up', null, function(data, status) {
-        console.log('Client: POST --> up')
-        refreshData()
-    })
-});
+// // UP
+// document.querySelector('#up').addEventListener('click', event => {
+//     $.post('http://10.0.0.5:3000/up', null, function(data, status) {
+//         console.log('Client: POST --> up')
+//         refreshData()
+//     })
+// });
 
-// DOWN
-document.querySelector('#down').addEventListener('click', event => {
-    $.post('http://10.0.0.5:3000/down', null, function(data, status) {
-        console.log('Client: POST --> down')
-        refreshData()
-    })
-});
+// // DOWN
+// document.querySelector('#down').addEventListener('click', event => {
+//     $.post('http://10.0.0.5:3000/down', null, function(data, status) {
+//         console.log('Client: POST --> down')
+//         refreshData()
+//     })
+// });
 
 
 // SLIDER
@@ -82,12 +82,12 @@ slider.oninput = function() {
   refreshData()
 }
 
-// TEST
-document.querySelector('#test').addEventListener('click', event => {
-    $.post('http://10.0.0.5:3000/test', null, function(data, status) {
-        console.log('Client: POST --> test')  
-    })
-});
+// // TEST
+// document.querySelector('#test').addEventListener('click', event => {
+//     $.post('http://10.0.0.5:3000/test', null, function(data, status) {
+//         console.log('Client: POST --> test')  
+//     })
+// });
 
 
 /******************************************************* */
