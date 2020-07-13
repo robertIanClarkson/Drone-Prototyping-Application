@@ -78,7 +78,8 @@ slider.oninput = function() {
   }
   $.post('http://10.0.0.5:3000/adjust-speed', data, function(data, status) {
         console.log('Client: POST --> adjust speed')
-    })
+  })
+  refreshData()
 }
 
 // TEST
@@ -187,6 +188,7 @@ function adjustSlider(value) {
                 console.log('Client: POST --> adjust speed')
             })
             timeThen = timeNow;
+            refreshData();
         }
     }
 }
