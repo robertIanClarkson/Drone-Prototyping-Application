@@ -146,7 +146,7 @@ function logger(container, label, data) {
     if (midiEvent.command === 11) { // slider
         if (midiEvent.note === 19) { // volume 1 & 3
             if(midiEvent.channel === 1) { // channel 1
-                container.textContent = `Value : ${midiEvent.velocity}`;
+                container.textContent = `Value : ${Math.floor(midiEvent.velocity * 135.0)}`;
             } else if(midiEvent.channel === 3) { // channel 2
                 // 2nd motor midi code
                 // container.textContent = `Value : ${midiEvent.velocity}`;
