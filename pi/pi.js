@@ -44,7 +44,7 @@ function setUp() {
 
 function setSpeed(data) {
   console.log(data)
-  PWD_VALUE = parseInt(Math.floor(1130 + (data.speed * 7.3)))
+  PWD_VALUE = 1130 + (data.speed * 5)
   if(data.motor == 0) {
     motor.servoWrite(PWD_VALUE)
   } 
