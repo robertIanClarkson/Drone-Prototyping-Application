@@ -169,12 +169,12 @@ function parseMidiMessage(message) {
 
 
 function adjustSlider(value) {
-    if(slider.value !== value) {
+    if(slider.value != value) {
         slider.value = value;
         output.innerHTML = value;
         var data = {
             motor: 0,
-            speed: this.value
+            speed: value
         }
         $.post('http://10.0.0.5:3000/adjust-speed', data, function(data, status) {
               console.log('Client: POST --> adjust speed')
