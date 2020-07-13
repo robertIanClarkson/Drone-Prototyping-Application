@@ -117,9 +117,9 @@ function onMIDISuccess(midiAccess) {
 
 function onMIDIMessage(event) {
     data = event.data;
-    if(data[1] == 34 || data[1] == 36) {
+    // if(data[1] == 34 || data[1] == 36) {
         logger(keyData, 'key data', data);
-    }
+    // }
 }
 
 function onStateChange(event) {
@@ -142,9 +142,9 @@ function onMIDIFailure(e) {
 }
 
 function logger(container, label, data) {
-    // messages = label + " [channel: " + (data[0] & 0xf) + ", cmd: " + (data[0] >> 4) + ", type: " + (data[0] & 0xf0) + " , note: " + data[1] + " , velocity: " + data[2] + "]";
+    messages = label + " [channel: " + (data[0] & 0xf) + ", cmd: " + (data[0] >> 4) + ", type: " + (data[0] & 0xf0) + " , note: " + data[1] + " , velocity: " + data[2] + "]";
     // messages = label + " [type: " + data[0] + " , note: " + data[1] + " , velocity: " + data[2] + "]";
-    container.textContent = parseMidiMessage(data);
+    console.log(parseMidiMessage(data));
 }
 
 function parseMidiMessage(message) {
