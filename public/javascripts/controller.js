@@ -86,22 +86,10 @@ document.querySelector('#test').addEventListener('click', event => {
 
 /******************************************************* */
 
-var log = console.log.bind(console),
-    keyData = document.getElementById('key_data'),
-    midi;
-var AudioContext;
-var context;
-var btnBox = document.getElementById('content'),
-    btn = document.getElementsByClassName('button');
+var log = console.log.bind(console);
+var midi;
 var data, cmd, channel, type, note, velocity;
 
-try {
-	AudioContext = window.AudioContext || window.webkitAudioContext; // for ios/safari
-	context = new AudioContext();
-}
-catch(e) {
-  alert('Web Audio API is not supported in this browser');
-}
 // request MIDI access
 if (navigator.requestMIDIAccess) {
     navigator.requestMIDIAccess({
