@@ -117,11 +117,9 @@ function onMIDISuccess(midiAccess) {
 
 function onMIDIMessage(event) {
     data = event.data;
-    console.log('EVENT')
-    console.log(event)
-    console.log('DATA')
-    console.log(data)
-    logger(keyData, 'key data', data);
+    if(data[1] == 34 || data[1] == 36) {
+        logger(keyData, 'key data', data);
+    }
 }
 
 function onStateChange(event) {
