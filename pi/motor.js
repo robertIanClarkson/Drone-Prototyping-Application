@@ -1,7 +1,8 @@
 /* THIS IS WHERE HARDWARE CODE BELONGS */
 var rpio = require('rpio');
 const Gpio = require('pigpio').Gpio;
-const motor;
+
+let motor;
 
 
 let isOn = false;
