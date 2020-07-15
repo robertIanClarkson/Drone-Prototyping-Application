@@ -47,8 +47,8 @@ function setUp() {
   motor.servoWrite(PWD_VALUE)
 };
 
-function setSpeed(data) {
-  PWD_VALUE = 1130 + (data.speed * 5)
+function setSpeed(speed) {
+  PWD_VALUE = 1130 + (speed * 5)
   motor.servoWrite(PWD_VALUE)
 };
 
