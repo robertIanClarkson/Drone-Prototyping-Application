@@ -55,14 +55,14 @@ document.querySelector('#on-1').addEventListener('click', event => {
 // OFF-0
 document.querySelector('#off-0').addEventListener('click', event => {
     $.post('http://10.0.0.5:3000/off', {motor: 0}, function(data, status) {
-        console.log('Client: POST --> off-1')
+        console.log('Client: POST --> off-0')
     })
 });
 
 // OFF-1
 document.querySelector('#off-1').addEventListener('click', event => {
     $.post('http://10.0.0.5:3000/off', {motor: 1}, function(data, status) {
-        console.log('Client: POST --> off-2')
+        console.log('Client: POST --> off-1')
     })
 });
 
@@ -172,7 +172,7 @@ function parseMidiMessage(data) {
 
 function adjustSlider(motor, value) {
     timeNow = Date.now()
-    if((timeNow - timeThen) > 250) { // allow every X millisecond
+    if((timeNow - timeThen) > 500) { // allow every X millisecond
         if(motor == 0) {
             if(slider0.value != value) { // dont post if value hasn't changed
                 slider0.value = value;
