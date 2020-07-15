@@ -61,6 +61,7 @@ function getSpeed() {
 };
 
 module.exports = {
+    init,
     setOn,
     setOff,
     setDown,
