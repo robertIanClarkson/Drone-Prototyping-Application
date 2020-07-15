@@ -13,6 +13,7 @@ router.get('/', function(req, res, next) {
 router.post('/init', function(req, res, next) {
   motor_0.init(18)
   motor_1.init(22)
+  res.sendStatus(200);
   console.log('Server: POST --> init')
 });
 
