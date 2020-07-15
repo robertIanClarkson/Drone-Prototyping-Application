@@ -161,7 +161,7 @@ function onMIDIFailure(e) {
     log("No access to MIDI devices or your browser doesn't support WebMIDI API. Please use WebMIDIAPIShim " + e);
 }
 
-function parseMidiMessage(message) {
+function parseMidiMessage(data) {
     return {
         command: data[0] >> 4,
         channel: data[0] & 0xf,
