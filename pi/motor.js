@@ -1,7 +1,7 @@
 /* THIS IS WHERE HARDWARE CODE BELONGS */
 var rpio = require('rpio');
 const Gpio = require('pigpio').Gpio;
-const motor = new Gpio(18, {mode: Gpio.OUTPUT});
+const motor;
 
 
 let isOn = false;
@@ -10,6 +10,10 @@ let PWD_AMOUNT = 20;
 
 function sleep(ms) {
   return new Promise(resolve => setTimeout(resolve, ms));
+}
+
+function init(pin) {
+  motor = new Gpio(pin, {mode: Gpio.OUTPUT});
 }
 
 async function setOn() {
@@ -44,14 +48,7 @@ function setUp() {
 
 function setSpeed(data) {
   PWD_VALUE = 1130 + (data.speed * 5)
-  if(data.motor == 0) {
-    motor.servoWrite(PWD_VALUE)
-  } 
-  // else if(data.motor == 1) {
-  // } 
-  else {
-    console.log('No Motor ID given')
-  }
+  motor.servoWrite(PWD_VALUE)
 };
 
 function getOnStatus() {

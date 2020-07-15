@@ -9,6 +9,13 @@ router.get('/', function(req, res, next) {
   res.render('index', { title: 'Cube Interface' })
 });
 
+/* POST init */
+router.post('/init', function(req, res, next) {
+  motor_0.init(18)
+  // motor_1.init()
+  console.log('Server: POST --> init')
+});
+
 /* POST refresh */
 router.post('/refresh', function(req, res, next) {
   res.send({
