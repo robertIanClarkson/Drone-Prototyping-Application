@@ -12,7 +12,7 @@ router.get('/', function(req, res, next) {
 /* POST init */
 router.post('/init', function(req, res, next) {
   motor_0.init(18)
-  // motor_1.init()
+  motor_1.init(22)
   console.log('Server: POST --> init')
 });
 
