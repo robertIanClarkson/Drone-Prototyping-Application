@@ -1,24 +1,26 @@
 var timeThen = 0;
 var timeNow;
 
-function setStatus(isOn) {
-    $('#status').empty()
+function setStatus(motor, isOn) {
+    $(`#status-${motor}`).empty()
     if(isOn) {
-        $('#status').append('ON')
+        $(`#status-${motor}`).append('ON')
     } else {
-        $('#status').append('OFF')
+        $(`#status-${motor}`).append('OFF')
     }
 }
 
-function setValue(value) {
-    $('#speed').empty()
-    $('#speed').append(value)
+function setPWM(motor, value) {
+    $(`#pwm-${motor}`).empty()
+    $(`#pwm-${motor}`).append(value)
 }
 
 function refreshData() {
     $.post('http://10.0.0.5:3000/refresh', null, function(data, status) {
-        setStatus(data.status)
-        setValue(data.value)
+        setStatus(0, data.motor0.isOn)
+        setStatus(1, data.motor1.isOn)
+        setPWM(0, data.motor0.speed)
+        setPWM(1, data.motor1.speed)
         console.log('Client: POST --> refresh')
     })
 }
@@ -33,65 +35,68 @@ document.querySelector('#refresh').addEventListener('click', event => {
     refreshData()
 });
 
-// ON
-document.querySelector('#on').addEventListener('click', event => {
-    $.post('http://10.0.0.5:3000/on', null, function(data, status) {
-        console.log('Client: POST --> on')
-        // refreshData()
+// ON-0
+document.querySelector('#on-0').addEventListener('click', event => {
+    $.post('http://10.0.0.5:3000/on', {motor: 0}, function(data, status) {
+        console.log('Client: POST --> on-0')
     })
 });
 
-// OFF
-document.querySelector('#off').addEventListener('click', event => {
-    $.post('http://10.0.0.5:3000/off', null, function(data, status) {
-        console.log('Client: POST --> off')
-        refreshData()
+// ON-1
+document.querySelector('#on-1').addEventListener('click', event => {
+    $.post('http://10.0.0.5:3000/on', {motor: 1}, function(data, status) {
+        console.log('Client: POST --> on-1')
     })
 });
 
-// // UP
-// document.querySelector('#up').addEventListener('click', event => {
-//     $.post('http://10.0.0.5:3000/up', null, function(data, status) {
-//         console.log('Client: POST --> up')
-//         refreshData()
-//     })
-// });
+// OFF-0
+document.querySelector('#off-0').addEventListener('click', event => {
+    $.post('http://10.0.0.5:3000/off', {motor: 0}, function(data, status) {
+        console.log('Client: POST --> off-1')
+    })
+});
 
-// // DOWN
-// document.querySelector('#down').addEventListener('click', event => {
-//     $.post('http://10.0.0.5:3000/down', null, function(data, status) {
-//         console.log('Client: POST --> down')
-//         refreshData()
-//     })
-// });
+// OFF-1
+document.querySelector('#off-1').addEventListener('click', event => {
+    $.post('http://10.0.0.5:3000/off', {motor: 1}, function(data, status) {
+        console.log('Client: POST --> off-2')
+    })
+});
 
-
-// SLIDER
-var slider = document.getElementById("motorSpeedSlider");
-var output = document.getElementById("speedValue");
-output.innerHTML = slider.value;
-slider.oninput = function() {
-  output.innerHTML = this.value;
+// SLIDER-0
+var slider0 = document.getElementById("speed-0");
+var output0 = document.getElementById("speedValue-0");
+output0.innerHTML = slider0.value;
+slider0.oninput = function() {
+  output0.innerHTML = this.value;
   var data = {
       motor: 0,
       speed: this.value
   }
   $.post('http://10.0.0.5:3000/adjust-speed', data, function(data, status) {
-        console.log('Client: POST --> adjust speed')
+        console.log('Client: POST --> adjust speed-0')
   })
   refreshData()
 }
 
-// // TEST
-// document.querySelector('#test').addEventListener('click', event => {
-//     $.post('http://10.0.0.5:3000/test', null, function(data, status) {
-//         console.log('Client: POST --> test')  
-//     })
-// });
 
+// SLIDER-1
+var slider1 = document.getElementById("speed-1");
+var output1 = document.getElementById("speedValue-1");
+output1.innerHTML = slider1.value;
+slider1.oninput = function() {
+    output1.innerHTML = this.value;
+    var data = {
+        motor: 1,
+        speed: this.value
+    }
+    $.post('http://10.0.0.5:3000/adjust-speed', data, function(data, status) {
+          console.log('Client: POST --> adjust speed-1')
+    })
+    refreshData()
+  }
 
-/******************************************************* */
-
+/*************************MIDI****************************** */
 var log = console.log.bind(console);
 var keyData = document.getElementById('key_data');
 var midi;
@@ -122,10 +127,16 @@ function onMIDISuccess(midiAccess) {
 }
 
 function onMIDIMessage(event) {
-    data = event.data;
-    // if(data[1] == 34 || data[1] == 36) {
-        logger(keyData, 'key data', data);
-    // }
+    midiEvent = parseMidiMessage(event.data);
+    if (midiEvent.command === 11) { // slider
+        if (midiEvent.note === 19) { // volume 1 & 3
+            if(midiEvent.channel === 1) { // channel 1
+                adjustSlider(0, midiEvent.value);
+            } else if(midiEvent.channel === 3) { // channel 2
+                adjustSlider(1, midiEvent.value);
+            }
+        }
+    }
 }
 
 function onStateChange(event) {
@@ -147,20 +158,6 @@ function onMIDIFailure(e) {
     log("No access to MIDI devices or your browser doesn't support WebMIDI API. Please use WebMIDIAPIShim " + e);
 }
 
-function logger(container, label, data) {
-    midiEvent = parseMidiMessage(data);
-    if (midiEvent.command === 11) { // slider
-        if (midiEvent.note === 19) { // volume 1 & 3
-            if(midiEvent.channel === 1) { // channel 1
-                adjustSlider(midiEvent.value);
-            } else if(midiEvent.channel === 3) { // channel 2
-                // 2nd motor midi code
-                // container.textContent = `Value : ${midiEvent.velocity}`;
-            }
-        }
-    }
-}
-
 function parseMidiMessage(message) {
     return {
         command: data[0] >> 4,
@@ -170,24 +167,37 @@ function parseMidiMessage(message) {
     }
 }
 
-
-
-
-function adjustSlider(value) {
+function adjustSlider(motor, value) {
     timeNow = Date.now()
     if((timeNow - timeThen) > 250) { // allow every X millisecond
-        if(slider.value != value) { // dont post if value hasn't changed
-            slider.value = value;
-            output.innerHTML = value;
-            var data = {
-                motor: 0,
-                speed: value
+        if(motor == 0) {
+            if(slider0.value != value) { // dont post if value hasn't changed
+                slider0.value = value;
+                output0.innerHTML = value;
+                var data = {
+                    motor: 0,
+                    speed: value
+                }
+                $.post('http://10.0.0.5:3000/adjust-speed', data, function(data, status) {
+                    console.log('Client: POST --> adjust speed')
+                    timeThen = timeNow;
+                    refreshData();
+                })
             }
-            $.post('http://10.0.0.5:3000/adjust-speed', data, function(data, status) {
-                console.log('Client: POST --> adjust speed')
-            })
-            timeThen = timeNow;
-            refreshData();
+        } else if(motor == 1) {
+            if(slider1.value != value) { // dont post if value hasn't changed
+                slider1.value = value;
+                output1.innerHTML = value;
+                var data = {
+                    motor: 1,
+                    speed: value
+                }
+                $.post('http://10.0.0.5:3000/adjust-speed', data, function(data, status) {
+                    console.log('Client: POST --> adjust speed')
+                    timeThen = timeNow;
+                    refreshData();
+                })
+            }
         }
     }
 }

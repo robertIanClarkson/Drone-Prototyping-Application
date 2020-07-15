@@ -1,7 +1,8 @@
 var express = require('express');
 var router = express.Router();
 
-var myPi = require('../pi/pi');
+var motor_0 = require('../pi/motor');
+var motor_1 = require('../pi/motor');
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
@@ -11,55 +12,58 @@ router.get('/', function(req, res, next) {
 /* POST refresh */
 router.post('/refresh', function(req, res, next) {
   res.send({
-    status: myPi.getStatus(),
-    value: myPi.getValue()
+    motor0: {
+      isOn: motor_0.getOnStatus(),
+      speed: motor_0.getSpeed()
+    },
+    motor1: {
+      isOn: motor_1.getOnStatus(),
+      speed: motor_1.getSpeed()
+    }
   })
   console.log('Server: POST --> refresh')
 });
 
 /* POST on */
 router.post('/on', function(req, res, next) {
-  myPi.setOn()
-  res.sendStatus(200)
+  if(req.body.motor == 0) {
+    motor_0.setOn();
+    res.sendStatus(200)
+  } else if(req.body.motor == 1) {
+    motor_1.setOn();
+    res.sendStatus(200)
+  } else {
+    res.sendStatus(404)
+  }
   console.log('Server: POST --> on')
-
 });
 
 /* POST off */
 router.post('/off', function(req, res, next) {
-  myPi.setOff()
-  res.sendStatus(200)
-  console.log('Server: POST --> off')
-
+  if(req.body.motor == 0) {
+    motor_0.setOff();
+    res.sendStatus(200)
+  } else if(req.body.motor == 1) {
+    motor_1.setOff();
+    res.sendStatus(200)
+  } else {
+    res.sendStatus(404)
+  }
+  console.log('Server: POST --> on')
 });
 
-/* POST down */
-router.post('/down', function(req, res, next) {
-  myPi.setDown()
-  res.sendStatus(200)
-  console.log('Server: POST --> down')
-
-});
-
-/* POST up */
-router.post('/up', function(req, res, next) {
-  myPi.setUp()
-  res.sendStatus(200)
-  console.log('Server: POST --> up')
-});
-
-/* POST up */
+/* POST adjust-speed */
 router.post('/adjust-speed', function(req, res, next) {
-  myPi.setSpeed(req.body)
-  res.sendStatus(200)
+  if(req.body.motor == 0) {
+    motor_0.setSpeed(req.body.speed)
+    res.sendStatus(200)
+  } else if(req.body.motor == 1) {
+    motor_1.setSpeed(req.body.speed)
+    res.sendStatus(200)
+  } else {
+    res.sendStatus(404)
+  }
   console.log('Server: POST --> adjust-speed')
-});
-
-/* POST test */
-router.post('/test', function(req, res, next) {
-  console.log('Server: POST --> test')
-  myPi.test()
-  res.sendStatus(200)
 });
 
 module.exports = router;

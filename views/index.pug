@@ -7,58 +7,62 @@ block content
   - var btnSize = 'lg'
   
   body.background
-
     div.row
+      div.row
+        div.col
+          button#refresh(type='button' class='btn btn-' + btnType + ' btn-' + btnSize) refresh
+      br
+      br
+      
       div.col.s6
         div.slidecontainer
-          h5 Motor 1:
-          input#motorSpeedSlider(type="range" min="0" max="135" value="0")
-          h6#speedValue
-        br
-        br
-        div
+          h5 Motor 0
+          input#speed-0(type="range" min="0" max="135" value="0")
           div.row
-            div.col
-              button#refresh(type='button' class='btn btn-' + btnType + ' btn-' + btnSize) refresh
+            div.col.s3
+              h6 Value: 
+              h7#speedValue-0
+            div.col.s3
+              h6 PWM:
+              h7#pwm-0
         br
         br
         div
-          h5 ON / OFF
           div.row
             div.col
               h6 Status : 
             div.col
-              h6#status
+              h6#status-0
           div.row
             div.col
-              button#on(type='button' class='btn btn-' + btnType + ' btn-' + btnSize) on
+              button#on-0(type='button' class='btn btn-' + btnType + ' btn-' + btnSize) on
             div.col
-              button#off(type='button' class='btn btn-' + btnType + ' btn-' + btnSize) off
+              button#off-0(type='button' class='btn btn-' + btnType + ' btn-' + btnSize) off
+      
       div.col.s6
         div.slidecontainer
-          h5 Motor 2:
-          input#motorSpeedSlider2(type="range" min="0" max="135" value="0")
-          h6#speedValue2
-        br
-        br
-        div
+          h5 Motor 1
+          input#speed-1(type="range" min="0" max="135" value="0")
           div.row
-            div.col
-              button#refresh2(type='button' class='btn btn-' + btnType + ' btn-' + btnSize) refresh 
+            div.col.s3
+              h6 Value: 
+              h7#speedValue-1
+            div.col.s3
+              h6 PWM:
+              h7#pwm-1
         br
         br
         div
-          h5 ON / OFF
           div.row
             div.col
               h6 Status : 
             div.col
-              h6#status2
+              h6#status-1
           div.row
             div.col
-              button#on2(type='button' class='btn btn-' + btnType + ' btn-' + btnSize) on
+              button#on-1(type='button' class='btn btn-' + btnType + ' btn-' + btnSize) on
             div.col
-              button#off2(type='button' class='btn btn-' + btnType + ' btn-' + btnSize) off
+              button#off-1(type='button' class='btn btn-' + btnType + ' btn-' + btnSize) off
   
 
   script(src='/javascripts/controller.js')
