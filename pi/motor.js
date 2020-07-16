@@ -1,6 +1,6 @@
 /* THIS IS WHERE HARDWARE CODE BELONGS */
-rpio = require('rpio');
-Gpio = require('pigpio').Gpio;
+const rpio = require('rpio');
+const Gpio = require('pigpio').Gpio;
 class Motor {
   constructor(pin) {
     this.motor;
