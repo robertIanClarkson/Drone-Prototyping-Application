@@ -7,13 +7,24 @@ block content
   - var btnSize = 'lg'
   
   body.background
+    br
     div.row
       div.row
         div.col
           button#refresh(type='button' class='btn btn-' + btnType + ' btn-' + btnSize) refresh
       br
       br
-      
+      .row
+        div.slidecontainer
+          h5 Crossfade
+          input#crossfade(type="range" min="0" max="135" value="0")
+          div.row
+            div.col.s3
+              h6 Value: 
+              h7#crossfade-value
+            div.col.s3
+              h6 PWM:
+              h7#pwm-crossfade
       div.col.s6
         div.slidecontainer
           h5 Motor 0

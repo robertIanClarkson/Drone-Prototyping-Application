@@ -80,8 +80,8 @@ slider0.onchange = function() {
   }
   $.post('http://10.0.0.5:3000/adjust-speed', data, function(data, status) {
         console.log('Client: POST --> adjust speed-0')
+        refreshData()
   })
-  refreshData()
 }
 
 
@@ -97,8 +97,23 @@ slider1.onchange = function() {
     }
     $.post('http://10.0.0.5:3000/adjust-speed', data, function(data, status) {
           console.log('Client: POST --> adjust speed-1')
+          refreshData()
     })
-    refreshData()
+  }
+
+// SLIDER-Crossfade
+var crossfade = document.getElementById("crossfade");
+var output_crossfade = document.getElementById("crossfade-value");
+output_crossfade.innerHTML = crossfade.value;
+crossfade.onchange = function() {
+    output_crossfade.innerHTML = this.value;
+    var data = {
+        speed: this.value
+    }
+    $.post('http://10.0.0.5:3000/tune', data, function(data, status) {
+          console.log('Client: POST --> tune')
+          refreshData()
+    })
   }
 
 /*************************MIDI****************************** */
