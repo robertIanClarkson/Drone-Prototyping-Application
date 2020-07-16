@@ -10,8 +10,6 @@ class Motor {
     this.motor = new Gpio(pin, {mode: Gpio.OUTPUT});
   }
   
-  
-
   sleep(ms) {
     return new Promise(resolve => setTimeout(resolve, ms));
   }

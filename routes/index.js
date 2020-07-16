@@ -77,4 +77,18 @@ router.post('/adjust-speed', function(req, res, next) {
   console.log('Server: POST --> adjust-speed')
 });
 
+/* POST tune */
+router.post('/tune', function(req, res, next) {
+  if(req.body.offset < 0) { // motor_0 dominant
+    motor_0.setSpeed(((motor_0.getSpeed / 5) - 1130) + (68 - req.body.offset)) // fast
+    motor_1.setSpeed(((motor_0.getSpeed / 5) - 1130) + (68 - req.body.offset)) // slow
+  } else if(req.body.offset > 0) { // motor_1 dominant
+    motor_0.setSpeed(((motor_0.getSpeed / 5) - 1130) - (68 - req.body.offset)) // slow
+    motor_1.setSpeed(((motor_0.getSpeed / 5) - 1130) - (68 - req.body.offset)) // fast
+  } else { // even
+    // do nothing?
+  }
+  console.log('Server: POST --> tune')
+});
+
 module.exports = router;

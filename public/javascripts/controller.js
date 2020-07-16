@@ -108,7 +108,7 @@ output_crossfade.innerHTML = crossfade.value;
 crossfade.onchange = function() {
     output_crossfade.innerHTML = this.value;
     var data = {
-        speed: this.value
+        offset: this.value
     }
     $.post('http://10.0.0.5:3000/tune', data, function(data, status) {
           console.log('Client: POST --> tune')
