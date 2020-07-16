@@ -146,10 +146,12 @@ function onMIDIMessage(event) {
         if(midiEvent.note ==  6) { // motor_0 OFF
             $.post('http://10.0.0.5:3000/off', {motor: 0}, function(data, status) {
                 console.log('Client: POST --> off-0')
+                refreshData()
             })
         } else if(midiEvent.note == 7) { // motor_1 OFF
             $.post('http://10.0.0.5:3000/off', {motor: 1}, function(data, status) {
                 console.log('Client: POST --> off-1')
+                refreshData()
             })
         } else if(midiEvent.note == 2) { // motor_0 ON
             $.post('http://10.0.0.5:3000/on', {motor: 0}, function(data, status) {
