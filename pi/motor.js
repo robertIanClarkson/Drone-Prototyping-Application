@@ -62,6 +62,11 @@ class Motor {
   getSpeed() {
     return this.PWD_VALUE
   };
+
+  tune(offset) {
+    this.PWD_VALUE += (offset * 5)
+    this.motor.servoWrite(this.PWD_VALUE)
+  };
 }
 
 module.exports = Motor;
