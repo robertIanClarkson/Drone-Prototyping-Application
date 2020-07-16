@@ -54,7 +54,7 @@ class Motor {
 
   setSpeed(speed) {
     this.PWD_VALUE = 1130 + (speed * 5)
-    motor.servoWrite(this.PWD_VALUE)
+    this.motor.servoWrite(this.PWD_VALUE)
   };
 
   getOnStatus() {
