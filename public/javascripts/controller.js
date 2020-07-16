@@ -133,6 +133,7 @@ function onMIDISuccess(midiAccess) {
 
 function onMIDIMessage(event) {
     midiEvent = parseMidiMessage(event.data);
+    console.log(midiEvent)
     if (midiEvent.command === 11) { // slider
         if (midiEvent.note === 19) { // volume 1 & 3
             if(midiEvent.channel === 1) { // channel 1
