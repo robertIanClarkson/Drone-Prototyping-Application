@@ -134,13 +134,33 @@ function onMIDISuccess(midiAccess) {
 function onMIDIMessage(event) {
     midiEvent = parseMidiMessage(event.data);
     console.log(midiEvent)
-    if (midiEvent.command === 11) { // slider
-        if (midiEvent.note === 19) { // volume 1 & 3
+    if(midiEvent.command === 11) { // slider
+        if(midiEvent.note === 19) { // volume 1 & 3
             if(midiEvent.channel === 1) { // channel 1
                 adjustSlider(0, midiEvent.value);
             } else if(midiEvent.channel === 3) { // channel 2
                 adjustSlider(1, midiEvent.value);
             }
+        }
+    } else if(midiEvent.command == 9 && midiEvent.channel == 8 && midiEvent.value > 0) { // button
+        if(midiEvent.note ==  6) { // motor_0 OFF
+            $.post('http://10.0.0.5:3000/off', {motor: 0}, function(data, status) {
+                console.log('Client: POST --> off-0')
+            })
+        } else if(midiEvent.note == 7) { // motor_1 OFF
+            $.post('http://10.0.0.5:3000/off', {motor: 1}, function(data, status) {
+                console.log('Client: POST --> off-1')
+            })
+        } else if(midiEvent.note == 2) { // motor_0 ON
+            $.post('http://10.0.0.5:3000/on', {motor: 0}, function(data, status) {
+                console.log('Client: POST --> on-0')
+                refreshData()
+            })
+        } else if(midiEvent.note == 3) { // motor_1 ON
+            $.post('http://10.0.0.5:3000/on', {motor: 1}, function(data, status) {
+                console.log('Client: POST --> on-1')
+                refreshData()
+            })
         }
     }
 }
