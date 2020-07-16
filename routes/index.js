@@ -1,8 +1,9 @@
 var express = require('express');
 var router = express.Router();
+const Motor = require('../pi/motor');
 
-var motor_0 = require('../pi/motor');
-var motor_1 = require('../pi/motor');
+let motor_0;
+let motor_1; 
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
@@ -11,8 +12,8 @@ router.get('/', function(req, res, next) {
 
 /* POST init */
 router.post('/init', function(req, res, next) {
-  motor_0.init(18)
-  motor_1.init(22)
+  motor_0 = new Motor(18)
+  motor_1 = new Motor(22)
   res.sendStatus(200);
   console.log('Server: POST --> init')
 });
