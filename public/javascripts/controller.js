@@ -72,7 +72,7 @@ document.querySelector('#off-1').addEventListener('click', event => {
 var slider0 = document.getElementById("speed-0");
 var output0 = document.getElementById("speedValue-0");
 output0.innerHTML = slider0.value;
-slider0.oninput = function() {
+slider0.onchange = function() {
   output0.innerHTML = this.value;
   var data = {
       motor: 0,
@@ -89,7 +89,7 @@ slider0.oninput = function() {
 var slider1 = document.getElementById("speed-1");
 var output1 = document.getElementById("speedValue-1");
 output1.innerHTML = slider1.value;
-slider1.oninput = function() {
+slider1.onchange = function() {
     output1.innerHTML = this.value;
     var data = {
         motor: 1,
