@@ -18,17 +18,16 @@ class Motor {
 
   setOn() {
     this.isOn = true
-    
     this.motor.servoWrite(1860)
-    await sleep(2000);
-    
-    this.motor.servoWrite(1060)
-    await sleep(2000);
-    
-    this.motor.servoWrite(0)
-    await sleep(1000);
-    
-    this.motor.servoWrite(1130)
+    sleep(2000).then(() => {
+      this.motor.servoWrite(1060)
+      sleep(2000).then(() => {
+        this.motor.servoWrite(0)
+        sleep(1000).then(() => {
+          this.motor.servoWrite(1130)
+        })
+      })
+    });    
   };
 
   setOff() {
