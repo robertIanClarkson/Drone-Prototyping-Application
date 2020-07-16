@@ -42,6 +42,7 @@ document.querySelector('#refresh').addEventListener('click', event => {
 document.querySelector('#on-0').addEventListener('click', event => {
     $.post('http://10.0.0.5:3000/on', {motor: 0}, function(data, status) {
         console.log('Client: POST --> on-0')
+        refreshData()
     })
 });
 
@@ -49,6 +50,7 @@ document.querySelector('#on-0').addEventListener('click', event => {
 document.querySelector('#on-1').addEventListener('click', event => {
     $.post('http://10.0.0.5:3000/on', {motor: 1}, function(data, status) {
         console.log('Client: POST --> on-1')
+        refreshData()
     })
 });
 
