@@ -1,8 +1,7 @@
 /* THIS IS WHERE HARDWARE CODE BELONGS */
-
+rpio = require('rpio');
+Gpio = require('pigpio').Gpio;
 class Motor {
-  // rpio = require('rpio');
-  Gpio = require('pigpio').Gpio;
   motor;
   isOn = false;
   PWD_VALUE = 1130;
