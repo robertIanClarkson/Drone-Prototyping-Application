@@ -154,12 +154,12 @@ function onMIDIMessage(event) {
     midiEvent = parseMidiMessage(event.data);
     console.log(midiEvent)
     if(midiEvent.command === 11) { // slider
-        if(midiEvent.note === 19) { // volume 1 & 3
-            if(midiEvent.channel === 1) { // channel 1
-                adjustSlider(0, midiEvent.value);
-            } else if(midiEvent.channel === 3) { // channel 2
-                adjustSlider(1, midiEvent.value);
-            }
+        if(midiEvent.channel === 1 && midiEvent.note === 19) { // channel 1
+            adjustSlider(0, midiEvent.value);
+        } else if(midiEvent.channel === 3 && midiEvent.note === 19) { // channel 2
+            adjustSlider(1, midiEvent.value);
+        } else if(midiEvent.channel === 1 && midiEvent.note === 0) { // tune
+            tuneSlider(midiEvent.value);
         }
     } else if(midiEvent.command == 9 && midiEvent.channel == 8 && midiEvent.value > 0) { // button
         if(midiEvent.note ==  6) { // motor_0 OFF
@@ -247,5 +247,9 @@ function adjustSlider(motor, value) {
             }
         }
     }
+}
+
+function tuneSlider(value) {
+    // midi tune slider logic
 }
 
