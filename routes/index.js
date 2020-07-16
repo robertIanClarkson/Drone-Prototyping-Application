@@ -36,11 +36,13 @@ router.post('/refresh', function(req, res, next) {
 /* POST on */
 router.post('/on', function(req, res, next) {
   if(req.body.motor == 0) {
-    motor_0.setOn();
-    res.sendStatus(200)
+    motor_0.setOn().then(() => {
+      res.sendStatus(200)
+    });
   } else if(req.body.motor == 1) {
-    motor_1.setOn();
-    res.sendStatus(200)
+    motor_1.setOn().then(() => {
+      res.sendStatus(200)
+    });
   } else {
     res.sendStatus(404)
   }
