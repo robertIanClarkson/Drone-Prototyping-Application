@@ -2,11 +2,11 @@
 rpio = require('rpio');
 Gpio = require('pigpio').Gpio;
 class Motor {
-  motor;
-  isOn = false;
-  PWD_VALUE = 1130;
-  PWD_AMOUNT = 20;
   constructor(pin) {
+    this.motor;
+    this.isOn = false;
+    this.PWD_VALUE = 1130;
+    this.PWD_AMOUNT = 20;
     this.motor = new Gpio(pin, {mode: Gpio.OUTPUT});
   }
   
@@ -17,46 +17,46 @@ class Motor {
   }
 
   setOn() {
-    isOn = true
+    this.isOn = true
     
-    motor.servoWrite(1860)
+    this.motor.servoWrite(1860)
     await sleep(2000);
     
-    motor.servoWrite(1060)
+    this.motor.servoWrite(1060)
     await sleep(2000);
     
-    motor.servoWrite(0)
+    this.motor.servoWrite(0)
     await sleep(1000);
     
-    motor.servoWrite(1130)
+    this.motor.servoWrite(1130)
   };
 
   setOff() {
-    isOn = false
-    motor.servoWrite(0)
+    this.isOn = false
+    this.motor.servoWrite(0)
   };
 
   setDown() {
-    PWD_VALUE -= PWD_AMOUNT
-    motor.servoWrite(PWD_VALUE)
+    this.PWD_VALUE -= this.PWD_AMOUNT
+    this.motor.servoWrite(this.PWD_VALUE)
   };
 
   setUp() {
-    PWD_VALUE += PWD_AMOUNT
-    motor.servoWrite(PWD_VALUE)
+    this.PWD_VALUE += this.PWD_AMOUNT
+    this.motor.servoWrite(this.PWD_VALUE)
   };
 
   setSpeed(speed) {
-    PWD_VALUE = 1130 + (speed * 5)
-    motor.servoWrite(PWD_VALUE)
+    this.PWD_VALUE = 1130 + (speed * 5)
+    motor.servoWrite(this.PWD_VALUE)
   };
 
   getOnStatus() {
-    return isOn
+    return this.isOn
   };
 
   getSpeed() {
-    return PWD_VALUE
+    return this.PWD_VALUE
   };
 }
 
