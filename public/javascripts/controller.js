@@ -106,7 +106,11 @@ var crossfade = document.getElementById("crossfade");
 var output_crossfade = document.getElementById("crossfade-value");
 output_crossfade.innerHTML = crossfade.value;
 crossfade.onchange = function() {
-    output_crossfade.innerHTML = this.value;
+    if(this.value <= 68) {
+        output_crossfade.innerHTML = this.value - 68;
+    } else {
+        output_crossfade.innerHTML = `+${this.value - 68}`;
+    }
     var data = {
         offset: this.value
     }
