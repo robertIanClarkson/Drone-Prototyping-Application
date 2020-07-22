@@ -1,13 +1,13 @@
 /* THIS IS WHERE HARDWARE CODE BELONGS */
-const rpio = require('rpio');
-const Gpio = require('pigpio').Gpio;
+// const rpio = require('rpio');
+// const Gpio = require('pigpio').Gpio;
 class Motor {
   constructor(pin) {
     this.motor;
     this.isOn = false;
     this.PWD_VALUE = 1130;
     this.PWD_AMOUNT = 20;
-    this.motor = new Gpio(pin, {mode: Gpio.OUTPUT});
+    // this.motor = new Gpio(pin, {mode: Gpio.OUTPUT});
   }
   
   sleep(ms) {

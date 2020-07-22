@@ -1,77 +1,123 @@
 extends layout
 
 block content
-  h1= title
 
   - var btnType = 'info'
   - var btnSize = 'lg'
   
   body.background
-    br
-    div.row
-      div.row
-        div.col
-          button#refresh(type='button' class='btn btn-' + btnType + ' btn-' + btnSize) refresh
-      br
-      br
+    .row
       .row
-        div.slidecontainer
-          h5 Crossfade
-          input#crossfade(type="range" min="0" max="136" value="68")
-          div.row
-            div.col.s3
-              h6 Value: 
-              h7#crossfade-value
+        //- Sensor
+        .col.s6
+          //- Compass
+          h5 Compass
+          .row
+            .col.s6 
+              h6 
+                u Value
+              h7#compass-raw.sensor-data NULL
+            .col.s6.vl-left
+              h6
+                u Direction
+              h7#compass-direction.sensor-data NULL
+          .divider
+          //- Gyro
+          h5 Gyroscope
+          .row
+            .col.s4
+              h6
+                u X-Axis
+              h7#gyro-x.sensor-data NULL
+            .col.s4.vl-left
+              h6
+                u Y-Axis
+              h7#gyro-y.sensor-data NULL
+            .col.s4.vl-left
+              h6
+                u Z-Axis
+              h7#gyro-z.sensor-data NULL              
+          .divider
+          //- Accel
+          h5 Accelerometer
+          .row
+            .col.s4
+              h6
+                u X-Axis
+              h7#accel-x.sensor-data NULL
+            .col.s4.vl-left
+              h6
+                u Y-Axis
+              h7#accel-y.sensor-data NULL
+            .col.s4.vl-left
+              h6
+                u Z-Axis
+              h7#accel-z.sensor-data NULL
 
-      div.col.s6
-        div.slidecontainer
-          h5 Motor 0
-          input#speed-0(type="range" min="0" max="135" value="0")
-          div.row
-            div.col.s3
-              h6 Value: 
-              h7#speedValue-0
-            div.col.s3
-              h6 PWM:
-              h7#pwm-0
-        br
-        br
-        div
-          div.row
-            div.col
-              h6 Status : 
-            div.col
-              h6#status-0
-          div.row
-            div.col
-              button#on-0(type='button' class='btn btn-' + btnType + ' btn-' + btnSize) on
-            div.col
-              button#off-0(type='button' class='btn btn-' + btnType + ' btn-' + btnSize) off
-      
-      div.col.s6
-        div.slidecontainer
-          h5 Motor 1
-          input#speed-1(type="range" min="0" max="135" value="0")
-          div.row
-            div.col.s3
-              h6 Value: 
-              h7#speedValue-1
-            div.col.s3
-              h6 PWM:
-              h7#pwm-1
-        br
-        br
-        div
-          div.row
-            div.col
-              h6 Status : 
-            div.col
-              h6#status-1
-          div.row
-            div.col
-              button#on-1(type='button' class='btn btn-' + btnType + ' btn-' + btnSize) on
-            div.col
-              button#off-1(type='button' class='btn btn-' + btnType + ' btn-' + btnSize) off
-  
+        //- Motors
+        .col.s6.vl-left-thick
+          //- Crossfade
+          .slidecontainer
+            h5 Tune
+            input#crossfade(type="range" min="0" max="136" value="68")
+            .row
+              .col.s3
+                h6
+                  u Value 
+                h7#crossfade-value.motor-data NULL
+          .divider
+          //- Motor 0
+          .col.s6.vl-right
+            .slidecontainer
+              h5 Motor 0
+              input#speed-0(type="range" min="0" max="135" value="0")
+              .row
+                .col.s6.vl-right
+                  h6 
+                    u Value 
+                  h7#speedValue-0.motor-data NULL
+                .col.s6
+                  h6 
+                    u PWM
+                  h7#pwm-0.motor-data NULL
+              .divider
+              .row
+                .col
+                  h6 
+                    u Status  
+                .col
+                  h6#status-0.motor-data NULL
+              .row
+                .col
+                  button#on-0(type='button' class='btn btn-' + btnType + ' btn-' + btnSize) on
+                .col
+                  button#off-0(type='button' class='btn btn-' + btnType + ' btn-' + btnSize) off
+          //- Motor 1
+          .col.s6
+            .slidecontainer
+              h5 Motor 1
+              input#speed-1(type="range" min="0" max="135" value="0")
+              .row
+                .col.s6.vl-right
+                  h6 
+                    u Value 
+                  h7#speedValue-1.motor-data NULL
+                .col.s6
+                  h6 
+                    u PWM
+                  h7#pwm-1.motor-data NULL
+              .divider
+              .row
+                .col
+                  h6 
+                    u Status  
+                .col
+                  h6#status-1.motor-data NULL
+              .row
+                .col
+                  button#on-1(type='button' class='btn btn-' + btnType + ' btn-' + btnSize) on
+                .col
+                  button#off-1(type='button' class='btn btn-' + btnType + ' btn-' + btnSize) off
+    .divider
 
-  script(src='/javascripts/controller.js')
+    include scripts.pug

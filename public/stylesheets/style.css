@@ -34,3 +34,31 @@ a {
   background: #4CAF50;
   cursor: pointer;
 }
+
+.vl-right {
+  border-right: 1px solid lightgrey;
+}
+
+.vl-right-thick {
+  border-right: 2px solid grey;
+}
+
+.vl-left {
+  border-left: 1px solid lightgrey;
+}
+
+.vl-left-thick {
+  border-left: 2px solid grey;
+}
+
+.motor-data {
+  font-family: 'Roboto';
+  font-size: 18px;
+  color: red;
+}
+
+.sensor-data {
+  font-family: 'Roboto';
+  font-size: 18px;
+  color: blue
+}
