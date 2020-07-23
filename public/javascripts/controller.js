@@ -1,26 +1,23 @@
 var socket = io();
 
-$( document ).ready( () => {
-    socket.emit('transmit-data', {})
-    // $( '#initial-form button' ).click( event => {
+function updateMotorFields(motor_0, motor_1) {
+    // on/off
+    $('#status-0').val(motor_0.isOn)
+    $('#status-1').val(motor_1.isOn)
 
-    // })
+    // speed
+    $('#pwm-0').val(motor_0.speed)
+    $('#pwm-1').val(motor_0.speed)
+}
+
+$( document ).ready( () => {
+    socket.emit('init-motors', {})
+    // socket.emit('init-sensors', {})
+    socket.emit('ready-for-data', {})
     socket.on('new-data', (data) => {
-        console.log(data)
+        updateMotorFields(data.motor_0, data.motor_1)
     })
 });
-
-var timeThen = 0;
-var timeNow;
-
-function setStatus(motor, isOn) {
-    $(`#status-${motor}`).empty()
-    if(isOn) {
-        $(`#status-${motor}`).append('ON')
-    } else {
-        $(`#status-${motor}`).append('OFF')
-    }
-}
 
 function setPWM(motor, value) {
     $(`#pwm-${motor}`).empty()
@@ -45,11 +42,6 @@ $(window).on('load', () => {
         // refreshData()
     })
 });
-
-// REFRESH
-// document.querySelector('#refresh').addEventListener('click', event => {
-//     refreshData()
-// });
 
 // ON-0
 document.querySelector('#on-0').addEventListener('click', event => {
@@ -135,6 +127,9 @@ crossfade.onchange = function() {
 
 /*************************MIDI****************************** */
 /*
+var timeThen = 0;
+var timeNow;
+
 var log = console.log.bind(console);
 var keyData = document.getElementById('key_data');
 var midi;
