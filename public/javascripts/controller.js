@@ -1,5 +1,15 @@
 var socket = io();
 
+$( document ).ready( () => {
+    socket.emit('transmit-data', {})
+    // $( '#initial-form button' ).click( event => {
+
+    // })
+    socket.on('new-data', (data) => {
+        console.log(data)
+    })
+});
+
 var timeThen = 0;
 var timeNow;
 
