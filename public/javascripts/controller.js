@@ -17,6 +17,8 @@ $( document ).ready( () => {
     socket.on('new-data', (data) => {
         updateMotorFields(data.motor_0, data.motor_1)
     })
+
+    // NEED TO ADD ON CLICK LOGIC OR NEED TO PASS MOTOR_0 and MOTOR_1 from routes/ to socket/
 });
 
 function setPWM(motor, value) {
@@ -33,15 +35,6 @@ function refreshData() {
         console.log('Client: POST --> refresh')
     })
 }
-
-// Refresh on load
-$(window).on('load', () => {
-    // $.post('http://10.0.0.5:3000/init', null, function(data, status) {
-    $.post('http://localhost:3000/init', null, function(data, status) {
-        console.log('Client: POST --> init')
-        // refreshData()
-    })
-});
 
 // ON-0
 document.querySelector('#on-0').addEventListener('click', event => {
