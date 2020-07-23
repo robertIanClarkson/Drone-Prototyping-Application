@@ -10,113 +10,86 @@ function updateMotorFields(motor_0, motor_1) {
     $('#pwm-1').val(motor_0.speed)
 }
 
+function motorOn() {
+    $( '#on-0' ).click( event => {
+        socket.emit('motor-on', { motor: 0 })
+    })
+
+    $( '#on-1' ).click( event => {
+        socket.emit('motor-on', { motor: 1 })
+    })
+}
+
+function motorOff() {
+    $( '#off-0' ).click( event => {
+        socket.emit('motor-off', { motor: 0 })
+    })
+    $( '#off-1' ).click( event => {
+        socket.emit('motor-off', { motor: 1 })
+    })
+}
+
+function adjustSpeed() {
+    // SLIDER-0
+    var slider0 = document.getElementById("speed-0");
+    var output0 = document.getElementById("speedValue-0");
+    output0.innerHTML = slider0.value;
+    slider0.onchange = function() {
+        output0.innerHTML = this.value;
+        var data_0 = {
+            motor: 0,
+            speed: this.value
+        }
+        socket.emit( 'adjust-speed' , data_0)
+    }
+    
+    // SLIDER-1
+    var slider1 = document.getElementById("speed-1");
+    var output1 = document.getElementById("speedValue-1");
+    output1.innerHTML = slider1.value;
+    slider1.onchange = function() {
+        output1.innerHTML = this.value;
+        var data_1 = {
+            motor: 1,
+            speed: this.value
+        }
+        socket.emit( 'adjust-speed' , data_1)
+    }
+}
+
+function tune() {
+    // SLIDER-Crossfade
+    var crossfade = document.getElementById("crossfade");
+    var output_crossfade = document.getElementById("crossfade-value");
+    output_crossfade.innerHTML = crossfade.value;
+    crossfade.onchange = function() {
+        if(this.value <= 68) {
+            output_crossfade.innerHTML = this.value - 68;
+        } else {
+            output_crossfade.innerHTML = `+${this.value - 68}`;
+        }
+        var data = {
+            offset: this.value
+        }
+        socket.emit( 'tune' , data)
+    }
+}
+
+
 $( document ).ready( () => {
-    socket.emit('init-motors', {})
+    socket.emit( 'init-motors' , {})
     // socket.emit('init-sensors', {})
-    socket.emit('ready-for-data', {})
-    socket.on('new-data', (data) => {
+    socket.emit( 'ready-for-data' , {})
+    socket.on( 'new-data' , (data) => {
         updateMotorFields(data.motor_0, data.motor_1)
     })
 
-    // NEED TO ADD ON CLICK LOGIC OR NEED TO PASS MOTOR_0 and MOTOR_1 from routes/ to socket/
+    // INPUTS
+    motorOn()
+    motorOff()
+    adjustSpeed()
+    tune()
 });
-
-function setPWM(motor, value) {
-    $(`#pwm-${motor}`).empty()
-    $(`#pwm-${motor}`).append(value)
-}
-
-function refreshData() {
-    $.post('http://10.0.0.5:3000/refresh', null, function(data, status) {
-        setStatus(0, data.motor0.isOn)
-        setStatus(1, data.motor1.isOn)
-        setPWM(0, data.motor0.speed)
-        setPWM(1, data.motor1.speed)
-        console.log('Client: POST --> refresh')
-    })
-}
-
-// ON-0
-document.querySelector('#on-0').addEventListener('click', event => {
-    $.post('http://10.0.0.5:3000/on', {motor: 0}, function(data, status) {
-        console.log('Client: POST --> on-0')
-        refreshData()
-    })
-});
-
-// ON-1
-document.querySelector('#on-1').addEventListener('click', event => {
-    $.post('http://10.0.0.5:3000/on', {motor: 1}, function(data, status) {
-        console.log('Client: POST --> on-1')
-        refreshData()
-    })
-});
-
-// OFF-0
-document.querySelector('#off-0').addEventListener('click', event => {
-    $.post('http://10.0.0.5:3000/off', {motor: 0}, function(data, status) {
-        console.log('Client: POST --> off-0')
-    })
-});
-
-// OFF-1
-document.querySelector('#off-1').addEventListener('click', event => {
-    $.post('http://10.0.0.5:3000/off', {motor: 1}, function(data, status) {
-        console.log('Client: POST --> off-1')
-    })
-});
-
-// SLIDER-0
-var slider0 = document.getElementById("speed-0");
-var output0 = document.getElementById("speedValue-0");
-output0.innerHTML = slider0.value;
-slider0.onchange = function() {
-  output0.innerHTML = this.value;
-  var data = {
-      motor: 0,
-      speed: this.value
-  }
-  $.post('http://10.0.0.5:3000/adjust-speed', data, function(data, status) {
-        console.log('Client: POST --> adjust speed-0')
-        refreshData()
-  })
-}
-
-
-// SLIDER-1
-var slider1 = document.getElementById("speed-1");
-var output1 = document.getElementById("speedValue-1");
-output1.innerHTML = slider1.value;
-slider1.onchange = function() {
-    output1.innerHTML = this.value;
-    var data = {
-        motor: 1,
-        speed: this.value
-    }
-    $.post('http://10.0.0.5:3000/adjust-speed', data, function(data, status) {
-          console.log('Client: POST --> adjust speed-1')
-          refreshData()
-    })
-  }
-
-// SLIDER-Crossfade
-var crossfade = document.getElementById("crossfade");
-var output_crossfade = document.getElementById("crossfade-value");
-output_crossfade.innerHTML = crossfade.value;
-crossfade.onchange = function() {
-    if(this.value <= 68) {
-        output_crossfade.innerHTML = this.value - 68;
-    } else {
-        output_crossfade.innerHTML = `+${this.value - 68}`;
-    }
-    var data = {
-        offset: this.value
-    }
-    $.post('http://10.0.0.5:3000/tune', data, function(data, status) {
-          console.log('Client: POST --> tune')
-          refreshData()
-    })
-  }
 
 /*************************MIDI****************************** */
 /*
