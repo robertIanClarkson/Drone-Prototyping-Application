@@ -1,3 +1,5 @@
+var socket = io();
+
 var timeThen = 0;
 var timeNow;
 
@@ -27,16 +29,17 @@ function refreshData() {
 
 // Refresh on load
 $(window).on('load', () => {
-    $.post('http://10.0.0.5:3000/init', null, function(data, status) {
+    // $.post('http://10.0.0.5:3000/init', null, function(data, status) {
+    $.post('http://localhost:3000/init', null, function(data, status) {
         console.log('Client: POST --> init')
-        refreshData()
+        // refreshData()
     })
 });
 
 // REFRESH
-document.querySelector('#refresh').addEventListener('click', event => {
-    refreshData()
-});
+// document.querySelector('#refresh').addEventListener('click', event => {
+//     refreshData()
+// });
 
 // ON-0
 document.querySelector('#on-0').addEventListener('click', event => {
@@ -121,6 +124,7 @@ crossfade.onchange = function() {
   }
 
 /*************************MIDI****************************** */
+/*
 var log = console.log.bind(console);
 var keyData = document.getElementById('key_data');
 var midi;
@@ -253,3 +257,4 @@ function tuneSlider(value) {
     // midi tune slider logic
 }
 
+*/

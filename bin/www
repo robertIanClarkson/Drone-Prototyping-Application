@@ -4,9 +4,10 @@
  * Module dependencies.
  */
 
-var app = require('../app').app;
+var app = require('../app');
 var debug = require('debug')('cube-interface:server');
 var http = require('http');
+var socket = require( '../socket/' )
 
 /**
  * Get port from environment and store in Express.
@@ -19,7 +20,8 @@ app.set('port', port);
  * Create HTTP server.
  */
 
-var server = require('../app').server;
+var server = http.createServer(app)
+socket.init( app, server )
 
 /**
  * Listen on provided port, on all network interfaces.

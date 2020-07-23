@@ -120,8 +120,4 @@ block content
                   button#off-1(type='button' class='btn btn-' + btnType + ' btn-' + btnSize) off
     .divider
     script(src="/socket.io/socket.io.js")
-    script.
-      var socket = io('http://localhost:3000');
-      socket.on('socketToMe', function (data) {
-        console.log(data);
-      });
+    script(src="/javascripts/controller.js")
