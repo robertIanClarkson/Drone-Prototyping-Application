@@ -1,12 +1,12 @@
 /* THIS IS WHERE HARDWARE CODE BELONGS */
+// const rpio = require('rpio');
 const Gpio = require('pigpio').Gpio;
-
 class Motor {
   constructor(pin) {
     this.motor;
     this.isOn = false;
-    this.PWD_VALUE = 1130;
-    this.PWD_AMOUNT = 20;
+    this.PWM_VALUE = 1130;
+    this.PWM_AMOUNT = 20;
     this.motor = new Gpio(pin, {mode: Gpio.OUTPUT});
   }
   
@@ -30,7 +30,7 @@ class Motor {
           })
         })
       } catch(error) {
-	reject();
+	      reject();
       }
     });    
   };
@@ -41,18 +41,18 @@ class Motor {
   };
 
   setDown() {
-    this.PWD_VALUE -= this.PWD_AMOUNT
-    this.motor.servoWrite(this.PWD_VALUE)
+    this.PWM_VALUE -= this.PWM_AMOUNT
+    this.motor.servoWrite(this.PWM_VALUE)
   };
 
   setUp() {
-    this.PWD_VALUE += this.PWD_AMOUNT
-    this.motor.servoWrite(this.PWD_VALUE)
+    this.PWM_VALUE += this.PWM_AMOUNT
+    this.motor.servoWrite(this.PWM_VALUE)
   };
 
   setSpeed(speed) {
-    this.PWD_VALUE = 1130 + (speed * 5)
-    this.motor.servoWrite(this.PWD_VALUE)
+    this.PWM_VALUE = 1130 + (speed * 5)
+    this.motor.servoWrite(this.PWM_VALUE)
   };
 
   getOnStatus() {
@@ -60,11 +60,11 @@ class Motor {
   };
 
   getSpeed() {
-    return this.PWD_VALUE
+    return this.PWM_VALUE
   };
 
   tune(offset) {
-    this.motor.servoWrite(this.PWD_VALUE + (offset * 5))
+    this.motor.servoWrite(this.PWM_VALUE + (offset * 5))
   };
 }
 
