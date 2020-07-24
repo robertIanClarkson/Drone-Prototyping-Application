@@ -1,8 +1,8 @@
 const socketIo = require( 'socket.io' )
 const Motor = require('../pi/motor')
 
-var motor_0
-var motor_1
+let motor_0
+let motor_1
 
 const init = ( app, server ) => {
   const io = socketIo( server )
