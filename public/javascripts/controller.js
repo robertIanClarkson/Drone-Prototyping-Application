@@ -2,12 +2,12 @@ var socket = io();
 
 function updateMotorFields(motor_0, motor_1) {
     // on/off
-    $('#status-0').val(motor_0.isOn)
-    $('#status-1').val(motor_1.isOn)
+    $('#status-0').text(motor_0.isOn)
+    $('#status-1').text(motor_1.isOn)
 
     // speed
-    $('#pwm-0').val(motor_0.speed)
-    $('#pwm-1').val(motor_0.speed)
+    $('#pwm-0').text(motor_0.speed)
+    $('#pwm-1').text(motor_0.speed)
 }
 
 function motorOn() {

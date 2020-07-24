@@ -1,6 +1,7 @@
 /* THIS IS WHERE HARDWARE CODE BELONGS */
 // const rpio = require('rpio');
 const Gpio = require('pigpio').Gpio;
+
 class Motor {
   constructor(pin) {
     this.motor;
@@ -17,7 +18,6 @@ class Motor {
   setOn() {
     return new Promise((resolve, reject) => {
       try {
-        this.isOn = true
         this.motor.servoWrite(1860)
         this.sleep(2000).then(() => {
           this.motor.servoWrite(1060)
@@ -25,7 +25,8 @@ class Motor {
             this.motor.servoWrite(0)
             this.sleep(1000).then(() => {
               this.motor.servoWrite(1130)
-              resolve();
+              this.isOn = true
+              resolve()
             })
           })
         })
