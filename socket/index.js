@@ -17,10 +17,14 @@ const init = ( app, server ) => {
     })
 
     socket.on('init-motors', data => {
-      this.motor_0 = new Motor(18)
-      this.motor_1 = new Motor(23)
+      this.motor_0 = new Motor(data.motor_0_pin)
+      this.motor_1 = new Motor(data.motor_1_pin)
       console.log('*** Motors initialized')
     })
+
+    // socket.on('init-sensors', data => {
+
+    // })
 
     socket.on('motor-on', data => {
       if(data.motor == 0) {
@@ -60,10 +64,6 @@ const init = ( app, server ) => {
       this.motor_1.tune(data.offset - mid);
       console.log(`*** tune ${data.offset}`);
     })
-
-    // socket.on('init-sensors', data => {
-
-    // })
 
     socket.on('ready-for-data', data => {
       var transmit = setInterval(() => {

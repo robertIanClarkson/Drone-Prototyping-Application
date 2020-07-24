@@ -77,8 +77,22 @@ function tune() {
 
 
 $( document ).ready( () => {
-    socket.emit( 'init-motors' , {})
-    // socket.emit('init-sensors', {})
+    socket.emit( 'init-motors' , {
+        motor_0_pin: 18,
+        motor_1_pin: 23
+    })
+    // socket.emit('init-sensors', {
+    //     sda_pin: 0,
+    //     compass: {
+    //         slave_address: 0
+    //     },
+    //     gyro: {
+    //         slave_address: 0
+    //     },
+    //     accel: {
+    //         slave_address: 0
+    //     }
+    // })
     socket.emit( 'ready-for-data' , {})
     socket.on( 'new-data' , (data) => {
         updateMotorFields(data.motor_0, data.motor_1)
