@@ -17,9 +17,6 @@ class Compass {
         this.READ_0 = 0x08;
         this.READ_1 = 0x0A;
         this.READ_2 = 0x0C;
-        this.data_0;
-        this.data_1;
-        this.data_2;
     }
 
     start() {
@@ -48,7 +45,7 @@ class Compass {
                 ])
                 .then(([a, b, c]) => {
                     sensor.close()
-                    resolve(a)
+                    resolve(convert(a, b, c))
                 })
                 .catch(err => {
                     sensor.close()
@@ -64,7 +61,14 @@ class Compass {
     }
 
     convert(x, y, z) {
-
+        if(x > 32767) x -= 65536;
+        if(y > 32767) y -= 65536;
+        if(z > 32767) z -= 65536;
+        return {
+            x_axis: x,
+            y_axis: y,
+            z_axis: z 
+        }
     }
 
 }
