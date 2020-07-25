@@ -38,17 +38,21 @@ class Compass {
     }
 
     read() {
-        i2c.openPromisified(1)
-        .then(sensor => {
-            Promise.all([
-                sensor.readWord(this.SLAVE_ADDRESS, this.READ_0),
-                sensor.readWord(this.SLAVE_ADDRESS, this.READ_1),
-                sensor.readWord(this.SLAVE_ADDRESS, this.READ_2)
-            ])
-            .then(results => {
-                sensor.close()
-                return results
-            })     
+        return new Promise((resolve, reject) => {
+            i2c.openPromisified(1)
+            .then(sensor => {
+                Promise.all([
+                    sensor.readWord(this.SLAVE_ADDRESS, this.READ_0),
+                    sensor.readWord(this.SLAVE_ADDRESS, this.READ_1),
+                    sensor.readWord(this.SLAVE_ADDRESS, this.READ_2)
+                ])
+	        .then(results => {
+                    resolve(results)
+                })
+            })
+        })
+        .catch(err => {
+          reject(-1)
         })
     }
 }

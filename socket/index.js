@@ -71,18 +71,21 @@ const init = ( app, server ) => {
 
     socket.on('ready-for-data', data => {
       var transmit = setInterval(() => {
-        io.emit('new-data', {
-          motor_0: {
-            isOn: this.motor_0.getOnStatus(),
-            speed: this.motor_0.getSpeed()
-          },
-          motor_1: {
-            isOn: this.motor_1.getOnStatus(),
-            speed: this.motor_1.getSpeed()
-          },
-          compass: {
-            value: this.compass.read()
-          }
+      this.compass.read()
+      .then( result => {  
+          io.emit('new-data', {
+              motor_0: {
+                isOn: this.motor_0.getOnStatus(),
+                speed: this.motor_0.getSpeed()
+              },
+              motor_1: {
+                isOn: this.motor_1.getOnStatus(),
+                speed: this.motor_1.getSpeed()
+              },
+              compass: {
+                value: result
+              }
+          })
         })
       }, 100);
     })
