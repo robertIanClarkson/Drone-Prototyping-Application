@@ -81,18 +81,17 @@ $( document ).ready( () => {
         motor_0_pin: 18,
         motor_1_pin: 23
     })
-    // socket.emit('init-sensors', {
-    //     sda_pin: 0,
-    //     compass: {
-    //         slave_address: 0
-    //     },
-    //     gyro: {
-    //         slave_address: 0
-    //     },
-    //     accel: {
-    //         slave_address: 0
-    //     }
-    // })
+    socket.emit('init-sensors', {
+        compass: {
+            slave_address: 0x1D
+        },
+        accel: {
+            slave_address: 0x1D
+        },
+        gyro: {
+            slave_address: 0x6B
+        }
+    })
     socket.emit( 'ready-for-data' , {})
     socket.on( 'new-data' , (data) => {
         updateMotorFields(data.motor_0, data.motor_1)
