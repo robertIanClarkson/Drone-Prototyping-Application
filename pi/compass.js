@@ -46,15 +46,27 @@ class Compass {
                     sensor.readWord(this.SLAVE_ADDRESS, this.READ_1),
                     sensor.readWord(this.SLAVE_ADDRESS, this.READ_2)
                 ])
-	        .then(results => {
-                    resolve(results)
+                .then(([a, b, c]) => {
+                    sensor.close()
+                    resolve(a)
+                })
+                .catch(err => {
+                    sensor.close()
+                    reject("*** Error reading compass data")
                 })
             })
+            .catch(err => {
+                sensor.close()
+                reject("*** Error opening i2c bus")
+            })
         })
-        .catch(err => {
-          reject(-1)
-        })
+        
     }
+
+    convert(x, y, z) {
+
+    }
+
 }
 
 module.exports = Compass;
