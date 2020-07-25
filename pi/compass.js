@@ -8,15 +8,15 @@ class Compass {
         /* write */
         this.OPTION_0 = 0x24; // Magnetic high resolution, o/p data rate 50 Hz
         this.OPTION_1 = 0x25; // Magnetic full scale selection, +/- 12 gauss
-        this.OPTION_2 = 0X26; // Normal mode, magnetic continuous conversion mode
-        // this.VALUE_0 = 0x70;
-        // this.VALUE_1 = 0x60;
-        // this.VALUE_2 = 0X00;
+        this.OPTION_2 = 0x26; // Normal mode, magnetic continuous conversion mode
+        this.VALUE_0 = 0x70;
+        this.VALUE_1 = 0x00;
+        this.VALUE_2 = 0X00;
         
         //Default
-        this.VALUE_0 = 0x18;
-        this.VALUE_1 = 0x20;
-        this.VALUE_2 = 0X02;
+        // this.VALUE_0 = 0x18;
+        // this.VALUE_1 = 0x20;
+        // this.VALUE_2 = 0X02;
 
         /* read */
         this.READ_0 = 0x08;
@@ -76,12 +76,12 @@ class Compass {
                     sensor.readByte(this.SLAVE_ADDRESS, this.READ_5)
                 ])
                 .then(([a, b, c, d, e, f]) => {
-                    console.log(`X_l --> ${a}`)
-                    console.log(`X_h --> ${b}`)
-                    console.log(`Y_l --> ${c}`)
-                    console.log(`Y_h --> ${d}`)
-                    console.log(`Z_l --> ${e}`)
-                    console.log(`Z_h --> ${f}`)
+                    // console.log(`X_l --> ${a}`)
+                    // console.log(`X_h --> ${b}`)
+                    // console.log(`Y_l --> ${c}`)
+                    // console.log(`Y_h --> ${d}`)
+                    // console.log(`Z_l --> ${e}`)
+                    // console.log(`Z_h --> ${f}`)
                     sensor.close()
                     this.x_axis = this.convert(a, b)
                     this.y_axis = this.convert(c, d)
