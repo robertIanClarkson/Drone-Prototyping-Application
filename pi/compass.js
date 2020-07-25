@@ -1,8 +1,8 @@
 const i2c = require('i2c-bus');
 
 class Compass {
-    constructor(slave_address) {
-        this.SLAVE_ADDRESS = slave_address;
+    constructor(data) {
+        this.SLAVE_ADDRESS = data.slave_address;
         this.OPTION_0 = 0x24; // Magnetic high resolution, o/p data rate 50 Hz
         this.OPTION_1 = 0x25; // Magnetic full scale selection, +/- 12 gauss
         this.OPTION_2 = 0X26; // Normal mode, magnetic continuous conversion mode
