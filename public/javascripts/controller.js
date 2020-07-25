@@ -102,7 +102,7 @@ $( document ).ready( () => {
     socket.on( 'new-data' , (data) => {
         updateMotorFields(data.motor_0, data.motor_1)
         updateCompassFields(data.compass.value)
-        console.log(data)
+        // console.log(data)
     })
 
     // INPUTS

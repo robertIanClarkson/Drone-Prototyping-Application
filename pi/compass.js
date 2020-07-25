@@ -15,13 +15,16 @@ class Compass {
         
         /* read */
         this.READ_0 = 0x08;
-        this.READ_1 = 0x0A;
-        this.READ_2 = 0x0C;
+        this.READ_1 = 0x09;
+        this.READ_2 = 0x0A;
+        this.READ_3 = 0x0B;
+        this.READ_4 = 0x0C;
+        this.READ_5 = 0x0D;
 
         /* results */
-	this.x_axis;
-	this.y_axis;
-	this.z_axis;
+        this.x_axis;
+        this.y_axis;
+        this.z_axis;
     }
 
     start() {
@@ -47,8 +50,12 @@ class Compass {
          });
     }
 
-    convert(val) {
-	return ( (val > 32757) ? val - 65636 : val )
+    convert(lsb, msb) {
+        var result = ((msb & 0xFF) * 256 + (lsb & 0xFF))
+		if(result > 32767) {
+			result -= 65536
+		}
+		return result
     }
 
     read() {
@@ -56,13 +63,19 @@ class Compass {
             i2c.openPromisified(1)
             .then(sensor => {
                 Promise.all([
-                    sensor.readWord(this.SLAVE_ADDRESS, this.READ_0),
-                    sensor.readWord(this.SLAVE_ADDRESS, this.READ_1),
-                    sensor.readWord(this.SLAVE_ADDRESS, this.READ_2)
+                    sensor.readByte(this.SLAVE_ADDRESS, this.READ_0),
+                    sensor.readByte(this.SLAVE_ADDRESS, this.READ_1),
+                    sensor.readByte(this.SLAVE_ADDRESS, this.READ_2),
+                    sensor.readByte(this.SLAVE_ADDRESS, this.READ_3),
+                    sensor.readByte(this.SLAVE_ADDRESS, this.READ_4),
+                    sensor.readByte(this.SLAVE_ADDRESS, this.READ_5)
                 ])
-                .then(([x, y, z]) => {
+                .then(([a, b, c, d, e, f]) => {
                     sensor.close()
-		    resolve([this.convert(x), this.convert(y), this.convert(z)])
+                    this.x_axis = this.convert(a, b)
+                    this.y_axis = this.convert(c, d)
+                    this.y_axis = this.convert(e, f)
+		            resolve([this.x_axis, this.y_axis, this.z_axis])
                 })
                 .catch(err => {
                     sensor.close()
