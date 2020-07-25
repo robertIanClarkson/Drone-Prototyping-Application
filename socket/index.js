@@ -26,8 +26,8 @@ const init = ( app, server ) => {
     })
 
     socket.on('init-sensors', data => {
-      compass = new Compass(data.compass)
-      compass.start()
+      this.compass = new Compass(data.compass)
+      this.compass.start()
     })
 
     socket.on('motor-on', data => {
@@ -79,6 +79,9 @@ const init = ( app, server ) => {
           motor_1: {
             isOn: this.motor_1.getOnStatus(),
             speed: this.motor_1.getSpeed()
+          },
+          compass: {
+            value: this.compass.read()
           }
         })
       }, 100);
