@@ -95,6 +95,7 @@ $( document ).ready( () => {
     socket.emit( 'ready-for-data' , {})
     socket.on( 'new-data' , (data) => {
         updateMotorFields(data.motor_0, data.motor_1)
+        console.log(data.compass.value)
     })
 
     // INPUTS

@@ -45,9 +45,9 @@ class Compass {
                 sensor.readWord(this.SLAVE_ADDRESS, this.READ_1),
                 sensor.readWord(this.SLAVE_ADDRESS, this.READ_2)
             ])
-            .then(result => {
-                console.log(result)
+            .then(results => {
                 sensor.close()
+                return results
             })     
         })
     }
