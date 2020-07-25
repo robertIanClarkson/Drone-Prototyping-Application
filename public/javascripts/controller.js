@@ -10,6 +10,12 @@ function updateMotorFields(motor_0, motor_1) {
     $('#pwm-1').text(motor_0.speed)
 }
 
+function updateCompassFields(values) {
+    $('#compass-x').text(values[0])
+    $('#compass-y').text(values[1])
+    $('#compass-z').text(values[2])
+}
+
 function motorOn() {
     $( '#on-0' ).click( event => {
         socket.emit('motor-on', { motor: 0 })
@@ -95,6 +101,7 @@ $( document ).ready( () => {
     socket.emit( 'ready-for-data' , {})
     socket.on( 'new-data' , (data) => {
         updateMotorFields(data.motor_0, data.motor_1)
+        updateCompassFields(data.compass.value)
         console.log(data)
     })
 
