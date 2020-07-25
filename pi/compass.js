@@ -30,3 +30,5 @@ class Compass {
         rpio.i2cEnd();
     }
 }
+
+module.exports = Compass;

@@ -1,5 +1,6 @@
 const socketIo = require( 'socket.io' )
 const Motor = require('../pi/motor')
+const Compass = require('../pi/compass')
 
 const init = ( app, server ) => {
   const io = socketIo( server )
@@ -8,6 +9,8 @@ const init = ( app, server ) => {
 
   var motor_0;
   var motor_1;
+
+  var compass;
 
   io.on( 'connection', socket => {
     console.log( 'client connected' )
@@ -22,9 +25,10 @@ const init = ( app, server ) => {
       console.log('*** Motors initialized')
     })
 
-    // socket.on('init-sensors', data => {
-
-    // })
+    socket.on('init-sensors', data => {
+      compass = new Compass(data.compass)
+      compass.start()
+    })
 
     socket.on('motor-on', data => {
       if(data.motor == 0) {
