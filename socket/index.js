@@ -22,12 +22,14 @@ const init = ( app, server ) => {
     socket.on('init-motors', data => {
       this.motor_0 = new Motor(data.motor_0_pin)
       this.motor_1 = new Motor(data.motor_1_pin)
-      console.log('*** Motors initialized')
+      console.log('*** Motors Ready')
     })
 
     socket.on('init-sensors', data => {
       this.compass = new Compass(data.compass)
-      this.compass.start()
+      this.compass.start().then(() => {
+        console.log('*** Compass Ready')
+      })
     })
 
     socket.on('motor-on', data => {
@@ -87,7 +89,7 @@ const init = ( app, server ) => {
               }
           })
         })
-      }, 100);
+      }, 500);
     })
   })
 }

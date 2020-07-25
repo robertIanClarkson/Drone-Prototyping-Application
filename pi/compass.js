@@ -17,10 +17,16 @@ class Compass {
         this.READ_0 = 0x08;
         this.READ_1 = 0x0A;
         this.READ_2 = 0x0C;
+
+        /* results */
+	this.x_axis;
+	this.y_axis;
+	this.z_axis;
     }
 
     start() {
-        i2c.openPromisified(1)
+        return new Promise( (resolve, reject) => {
+            i2c.openPromisified(1)
             .then(sensor => {
                 Promise.all([
                     sensor.writeByte(this.SLAVE_ADDRESS, this.OPTION_0, this.VALUE_0),
@@ -29,9 +35,20 @@ class Compass {
                 ])
                 .then( () => {
                     sensor.close()
-                    console.log("Compass Ready")
+                    resolve()
+                })
+	        .catch((err) => {
+		    reject(err)
                 })
             })
+	    .catch((err) => {
+	        reject(err)
+            }) 
+         });
+    }
+
+    convert(val) {
+	return ( (val > 32757) ? val - 65636 : val )
     }
 
     read() {
@@ -43,9 +60,9 @@ class Compass {
                     sensor.readWord(this.SLAVE_ADDRESS, this.READ_1),
                     sensor.readWord(this.SLAVE_ADDRESS, this.READ_2)
                 ])
-                .then(([a, b, c]) => {
+                .then(([x, y, z]) => {
                     sensor.close()
-                    resolve(convert(a, b, c))
+		    resolve([this.convert(x), this.convert(y), this.convert(z)])
                 })
                 .catch(err => {
                     sensor.close()
@@ -57,20 +74,7 @@ class Compass {
                 reject("*** Error opening i2c bus")
             })
         })
-        
     }
-
-    convert(x, y, z) {
-        if(x > 32767) x -= 65536;
-        if(y > 32767) y -= 65536;
-        if(z > 32767) z -= 65536;
-        return {
-            x_axis: x,
-            y_axis: y,
-            z_axis: z 
-        }
-    }
-
 }
 
 module.exports = Compass;
