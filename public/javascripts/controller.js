@@ -11,9 +11,15 @@ function updateMotorFields(motor_0, motor_1) {
 }
 
 function updateCompassFields(values) {
-    $('#compass-x').text(values[0])
-    $('#compass-y').text(values[1])
-    $('#compass-z').text(values[2])
+    $('#compass-x').text(values.x_axis)
+    $('#compass-y').text(values.y_axis)
+    $('#compass-z').text(values.z_axis)
+}
+
+function updateGyroFields(values) {
+    $('#gyro-x').text(values.x_axis)
+    $('#gyro-y').text(values.y_axis)
+    $('#gyro-z').text(values.z_axis)
 }
 
 function motorOn() {
@@ -101,8 +107,9 @@ $( document ).ready( () => {
     socket.emit( 'ready-for-data' , {})
     socket.on( 'new-data' , (data) => {
         updateMotorFields(data.motor_0, data.motor_1)
-        updateCompassFields(data.compass.value)
-        // console.log(data)
+        updateCompassFields(data.compass)
+        updateGyroFields(data.gyro)
+        console.log(data)
     })
 
     // INPUTS
