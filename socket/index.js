@@ -2,6 +2,7 @@ const socketIo = require( 'socket.io' )
 const Motor = require('../pi/motor')
 const Compass = require('../pi/compass')
 const Gyro = require('../pi/gyro')
+const Accel = require('../pi/accel')
 
 const init = ( app, server ) => {
   const io = socketIo( server )
@@ -12,6 +13,7 @@ const init = ( app, server ) => {
   var motor_1;
   var compass;
   var gyro;
+  var accel;
 
   io.on( 'connection', socket => {
     console.log( 'client connected' )
@@ -29,11 +31,15 @@ const init = ( app, server ) => {
     socket.on('init-sensors', data => {
       this.compass = new Compass(data.compass)
       this.gyro = new Gyro(data.gyro)
+      this.accel = new Accel(data.accel)
 
       this.compass.start().then(() => {
         console.log('*** Compass Ready')
         this.gyro.start().then(() => {
           console.log('*** Gyro Ready')
+          this.accel.start().then(() => {
+            console.log('*** Accel Ready')
+          }) 
         })
       })
     })
@@ -79,33 +85,39 @@ const init = ( app, server ) => {
 
     socket.on('ready-for-data', data => {
       var transmit = setInterval(() => {
-        this.compass.read()
-        .then( compass_result => {
-          this.gyro.read()
-          .then( gyro_result => {
-            io.emit('new-data', {
-              motor_0: {
-                isOn: this.motor_0.getOnStatus(),
-                speed: this.motor_0.getSpeed()
-              },
-              motor_1: {
-                isOn: this.motor_1.getOnStatus(),
-                speed: this.motor_1.getSpeed()
-              },
-              compass: {
-                x_axis: compass_result[0],
-                y_axis: compass_result[1],
-                z_axis: compass_result[2]
-              },
-              gyro: {
-                x_axis: gyro_result[0],
-                y_axis: gyro_result[1],
-                z_axis: gyro_result[2]
-              }
-            })
-          })     
-        })
-      }, 250);
+        Promise.all([
+          this.compass.read(),
+          this.gyro.read(),
+          this.accel.read()
+        ])
+        .then( ([compass_result, gyro_result, accel_result]) => {
+          io.emit('new-data', {
+            motor_0: {
+              isOn: this.motor_0.getOnStatus(),
+              speed: this.motor_0.getSpeed()
+            },
+            motor_1: {
+              isOn: this.motor_1.getOnStatus(),
+              speed: this.motor_1.getSpeed()
+            },
+            compass: {
+              x_axis: compass_result[0],
+              y_axis: compass_result[1],
+              z_axis: compass_result[2]
+            },
+            gyro: {
+              x_axis: gyro_result[0],
+              y_axis: gyro_result[1],
+              z_axis: gyro_result[2]
+            },
+            accel: {
+              x_axis: accel_result[0],
+              y_axis: accel_result[1],
+              z_axis: accel_result[2]
+            }
+          })
+        })     
+      }, 500);
     })
   })
 }

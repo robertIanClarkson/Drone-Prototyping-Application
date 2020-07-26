@@ -11,7 +11,7 @@ class Compass {
         this.OPTION_2 = 0x26; // Normal mode, magnetic continuous conversion mode
         this.VALUE_0 = 0x70;
         this.VALUE_1 = 0x00;
-        this.VALUE_2 = 0X00;
+        this.VALUE_2 = 0x00;
 
         /* read */
         this.READ_0 = 0x08;
@@ -79,12 +79,12 @@ class Compass {
                 })
                 .catch(err => {
                     sensor.close()
-                    reject("*** Error reading compass data")
+                    reject("*** COMPASS: Error reading data")
                 })
             })
             .catch(err => {
                 sensor.close()
-                reject("*** Error opening i2c bus")
+                reject("*** COMPASS: Error opening i2c bus")
             })
         })
     }

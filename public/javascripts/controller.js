@@ -22,6 +22,12 @@ function updateGyroFields(values) {
     $('#gyro-z').text(values.z_axis)
 }
 
+function updateAccelFields(values) {
+    $('#accel-x').text(values.x_axis)
+    $('#accel-y').text(values.y_axis)
+    $('#accel-z').text(values.z_axis)
+}
+
 function motorOn() {
     $( '#on-0' ).click( event => {
         socket.emit('motor-on', { motor: 0 })
@@ -109,6 +115,7 @@ $( document ).ready( () => {
         updateMotorFields(data.motor_0, data.motor_1)
         updateCompassFields(data.compass)
         updateGyroFields(data.gyro)
+        updateAccelFields(data.accel)
         // console.log(data)
     })
 

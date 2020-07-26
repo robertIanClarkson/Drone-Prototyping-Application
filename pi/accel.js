@@ -1,6 +1,6 @@
 const i2c = require('i2c-bus');
 
-class Gyro {
+class Accel {
     constructor(data) {
         /* address of sensor */
         this.SLAVE_ADDRESS = data.slave_address;
@@ -8,14 +8,8 @@ class Gyro {
         /* write */
         this.OPTION_0 = 0x20;
         this.OPTION_1 = 0x21;
-        this.OPTION_2 = 0x22;
-        this.OPTION_3 = 0x23;
-        this.OPTION_4 = 0x24;
-        this.VALUE_0 = 0x0F;
-        this.VALUE_1 = 0x00;
-        this.VALUE_2 = 0x00;
-        this.VALUE_3 = 0x30;
-        this.VALUE_4 = 0x00;
+        this.VALUE_0 = 0x67;
+        this.VALUE_1 = 0x20;
 
         /* read */
         this.READ_0 = 0x28;
@@ -37,10 +31,7 @@ class Gyro {
             .then(sensor => {
                 Promise.all([
                     sensor.writeByte(this.SLAVE_ADDRESS, this.OPTION_0, this.VALUE_0),
-                    sensor.writeByte(this.SLAVE_ADDRESS, this.OPTION_1, this.VALUE_1),
-                    sensor.writeByte(this.SLAVE_ADDRESS, this.OPTION_2, this.VALUE_2),
-                    sensor.writeByte(this.SLAVE_ADDRESS, this.OPTION_3, this.VALUE_3),
-                    sensor.writeByte(this.SLAVE_ADDRESS, this.OPTION_4, this.VALUE_4)
+                    sensor.writeByte(this.SLAVE_ADDRESS, this.OPTION_1, this.VALUE_1)
                 ])
                 .then( () => {
                     sensor.close()
@@ -85,15 +76,15 @@ class Gyro {
                 })
                 .catch(err => {
                     sensor.close()
-                    reject("*** GYRO: Error reading data")
+                    reject("*** ACCEL: Error reading data")
                 })
             })
             .catch(err => {
                 sensor.close()
-                reject("*** GYRO: Error opening i2c bus")
+                reject("*** ACCEL: Error opening i2c bus")
             })
         })
     }
 }
 
-module.exports = Gyro;
+module.exports = Accel;
