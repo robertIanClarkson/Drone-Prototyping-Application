@@ -95,12 +95,12 @@ const init = ( app, server ) => {
               compass: {
                 x_axis: compass_result[0],
                 y_axis: compass_result[1],
-                Z_axis: compass_result[2]
+                z_axis: compass_result[2]
               },
               gyro: {
                 x_axis: gyro_result[0],
                 y_axis: gyro_result[1],
-                Z_axis: gyro_result[2]
+                z_axis: gyro_result[2]
               }
             })
           })     
