@@ -9,8 +9,8 @@ class Compass {
         this.OPTION_0 = 0x24; // Magnetic high resolution, o/p data rate 50 Hz
         this.OPTION_1 = 0x25; // Magnetic full scale selection, +/- 12 gauss
         this.OPTION_2 = 0x26; // Normal mode, magnetic continuous conversion mode
-        this.VALUE_0 = 0x70;
-        this.VALUE_1 = 0x00;
+        this.VALUE_0 = 0xF0;
+        this.VALUE_1 = 0x60;
         this.VALUE_2 = 0X00;
         
         //Default
@@ -68,25 +68,20 @@ class Compass {
             i2c.openPromisified(1)
             .then(sensor => {
                 Promise.all([
-                    sensor.readByte(this.SLAVE_ADDRESS, this.READ_0),
-                    sensor.readByte(this.SLAVE_ADDRESS, this.READ_1),
-                    sensor.readByte(this.SLAVE_ADDRESS, this.READ_2),
-                    sensor.readByte(this.SLAVE_ADDRESS, this.READ_3),
-                    sensor.readByte(this.SLAVE_ADDRESS, this.READ_4),
-                    sensor.readByte(this.SLAVE_ADDRESS, this.READ_5)
+                    sensor.readWord(this.SLAVE_ADDRESS, this.READ_0),
+                    sensor.readWord(this.SLAVE_ADDRESS, this.READ_2),
+                    sensor.readWord(this.SLAVE_ADDRESS, this.READ_4),
                 ])
-                .then(([a, b, c, d, e, f]) => {
-                    // console.log(`X_l --> ${a}`)
-                    // console.log(`X_h --> ${b}`)
-                    // console.log(`Y_l --> ${c}`)
-                    // console.log(`Y_h --> ${d}`)
-                    // console.log(`Z_l --> ${e}`)
-                    // console.log(`Z_h --> ${f}`)
+                .then(([a, b, c]) => {
+                    console.log(`X --> ${a}`)
+                    console.log(`Y --> ${b}`)
+                    console.log(`Z --> ${c}`)
                     sensor.close()
-                    this.x_axis = this.convert(a, b)
-                    this.y_axis = this.convert(c, d)
-                    this.z_axis = this.convert(e, f)
-		            resolve([this.x_axis, this.y_axis, this.z_axis])
+                    // this.x_axis = this.convert(a, b)
+                    // this.y_axis = this.convert(c, d)
+                    // this.z_axis = this.convert(e, f)
+                    // resolve([this.x_axis, this.y_axis, this.z_axis])
+                    resolve([x, y, z])
                 })
                 .catch(err => {
                     sensor.close()
