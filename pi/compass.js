@@ -67,25 +67,29 @@ class Compass {
         return new Promise((resolve, reject) => {
             i2c.openPromisified(1)
             .then(sensor => {
-                Promise.all([
-                    sensor.readWord(this.SLAVE_ADDRESS, this.READ_0),
-                    sensor.readWord(this.SLAVE_ADDRESS, this.READ_2),
-                    sensor.readWord(this.SLAVE_ADDRESS, this.READ_4),
-                ])
-                .then(([a, b, c]) => {
-                    console.log(`X --> ${a}`)
-                    console.log(`Y --> ${b}`)
-                    console.log(`Z --> ${c}`)
-                    sensor.close()
-                    // this.x_axis = this.convert(a, b)
-                    // this.y_axis = this.convert(c, d)
-                    // this.z_axis = this.convert(e, f)
-                    // resolve([this.x_axis, this.y_axis, this.z_axis])
-                    resolve([x, y, z])
+                sensor.readWord(this.SLAVE_ADDRESS, this.READ_0).then( x => {
+                    sensor.readWord(this.SLAVE_ADDRESS, this.READ_2).then( y => {
+                        sensor.readWord(this.SLAVE_ADDRESS, this.READ_4).then( z => {
+                            sensor.close( () => {
+                                console.log(`X --> ${x}`)
+                                console.log(`Y --> ${y}`)
+                                console.log(`Z --> ${z}`)
+                                resolve([x, y, z])
+                            })
+                            .catch(err =>{
+                                reject("*** Error closing i2c bus")    
+                            })
+                        })
+                        .catch(err =>{
+                            reject("*** Error reading mag z-axis")    
+                        })
+                    })
+                    .catch(err =>{
+                        reject("*** Error reading mag y-axis")    
+                    })
                 })
-                .catch(err => {
-                    sensor.close()
-                    reject("*** Error reading compass data")
+                .catch(err =>{
+                    reject("*** Error reading mag x-axis")    
                 })
             })
             .catch(err => {
