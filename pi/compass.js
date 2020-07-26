@@ -9,8 +9,8 @@ class Compass {
         this.OPTION_0 = 0x24; // Magnetic high resolution, o/p data rate 50 Hz
         this.OPTION_1 = 0x25; // Magnetic full scale selection, +/- 12 gauss
         this.OPTION_2 = 0x26; // Normal mode, magnetic continuous conversion mode
-        this.VALUE_0 = 0xF0;
-        this.VALUE_1 = 0x60;
+        this.VALUE_0 = 0x70;
+        this.VALUE_1 = 0x00;
         this.VALUE_2 = 0X00;
         
         //Default
@@ -67,29 +67,24 @@ class Compass {
         return new Promise((resolve, reject) => {
             i2c.openPromisified(1)
             .then(sensor => {
-                sensor.readWord(this.SLAVE_ADDRESS, this.READ_0).then( x => {
-                    console.log(`X --> ${x}`)
-                    sensor.readWord(this.SLAVE_ADDRESS, this.READ_2).then( y => {
-                        console.log(`Y --> ${y}`)
-                        sensor.readWord(this.SLAVE_ADDRESS, this.READ_4).then( z => {
-                            console.log(`Z --> ${z}\n`)
-                            sensor.close( () => {
-                                resolve([x, y, z])
-                            })
-                            .catch(err =>{
-                                reject("*** Error closing i2c bus")    
-                            })
-                        })
-                        .catch(err =>{
-                            reject("*** Error reading mag z-axis")    
-                        })
-                    })
-                    .catch(err =>{
-                        reject("*** Error reading mag y-axis")    
-                    })
+                Promise.all([
+                    sensor.readByte(this.SLAVE_ADDRESS, this.READ_0),
+                    sensor.readByte(this.SLAVE_ADDRESS, this.READ_1),
+                    sensor.readByte(this.SLAVE_ADDRESS, this.READ_2),
+                    sensor.readByte(this.SLAVE_ADDRESS, this.READ_3),
+                    sensor.readByte(this.SLAVE_ADDRESS, this.READ_4),
+                    sensor.readByte(this.SLAVE_ADDRESS, this.READ_5)
+                ])
+                .then(([a, b, c, d, e, f]) => {
+                    sensor.close()
+                    this.x_axis = this.convert(a, b)
+                    this.y_axis = this.convert(c, d)
+                    this.z_axis = this.convert(e, f)
+		            resolve([this.x_axis, this.y_axis, this.z_axis])
                 })
-                .catch(err =>{
-                    reject("*** Error reading mag x-axis")    
+                .catch(err => {
+                    sensor.close()
+                    reject("*** Error reading compass data")
                 })
             })
             .catch(err => {
