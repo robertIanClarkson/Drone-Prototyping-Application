@@ -68,12 +68,12 @@ class Compass {
             i2c.openPromisified(1)
             .then(sensor => {
                 sensor.readWord(this.SLAVE_ADDRESS, this.READ_0).then( x => {
+                    console.log(`X --> ${x}`)
                     sensor.readWord(this.SLAVE_ADDRESS, this.READ_2).then( y => {
+                        console.log(`Y --> ${y}`)
                         sensor.readWord(this.SLAVE_ADDRESS, this.READ_4).then( z => {
+                            console.log(`Z --> ${z}\n`)
                             sensor.close( () => {
-                                console.log(`X --> ${x}`)
-                                console.log(`Y --> ${y}`)
-                                console.log(`Z --> ${z}`)
                                 resolve([x, y, z])
                             })
                             .catch(err =>{
