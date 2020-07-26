@@ -12,11 +12,6 @@ class Compass {
         this.VALUE_0 = 0x70;
         this.VALUE_1 = 0x00;
         this.VALUE_2 = 0X00;
-        
-        //Default
-        // this.VALUE_0 = 0x18;
-        // this.VALUE_1 = 0x20;
-        // this.VALUE_2 = 0X02;
 
         /* read */
         this.READ_0 = 0x08;

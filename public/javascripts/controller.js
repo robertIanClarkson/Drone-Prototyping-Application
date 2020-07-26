@@ -109,7 +109,7 @@ $( document ).ready( () => {
         updateMotorFields(data.motor_0, data.motor_1)
         updateCompassFields(data.compass)
         updateGyroFields(data.gyro)
-        console.log(data)
+        // console.log(data)
     })
 
     // INPUTS
