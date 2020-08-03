@@ -9,7 +9,7 @@ class Accel {
         this.OPTION_0 = 0x20;
         this.OPTION_1 = 0x21;
         this.VALUE_0 = 0x67;
-        this.VALUE_1 = 0x20;
+        this.VALUE_1 = 0x00;
 
         /* read */
         this.READ_0 = 0x28;
@@ -85,9 +85,9 @@ class Accel {
         return new Promise((resolve, reject) => {
             this.recursiveRead(sensor)
             .then( () => {
-                this.x_axis = Math.floor((this.x_axis / this.i) / 32)
-                this.y_axis = Math.floor((this.y_axis / this.i) / 32)
-                this.z_axis = Math.floor((this.z_axis / this.i) / 32)
+                this.x_axis = Math.floor((this.x_axis / this.i) / 256)
+                this.y_axis = Math.floor((this.y_axis / this.i) / 256)
+                this.z_axis = Math.floor((this.z_axis / this.i) / 256)
                 this.i = 0;
                 resolve([this.x_axis, this.y_axis, this.z_axis])
             })
