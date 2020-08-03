@@ -32,7 +32,7 @@ class Gyro {
 
         /* for average */
         this.i = 0;
-	    this.bufferSize = 100;
+	    this.bufferSize = 20;
     }
 
     start(sensor) {
