@@ -29,6 +29,10 @@ class Gyro {
         this.x_axis;
         this.y_axis;
         this.z_axis;
+
+        /* for average */
+        this.i = 0;
+	    this.bufferSize = 100;
     }
 
     start(sensor) {
@@ -57,7 +61,7 @@ class Gyro {
 		return result
     }
 
-    read(sensor) {
+    recursiveRead(sensor) {
         return new Promise((resolve, reject) => {
             Promise.all([
                 sensor.readByte(this.SLAVE_ADDRESS, this.READ_0),
@@ -68,13 +72,37 @@ class Gyro {
                 sensor.readByte(this.SLAVE_ADDRESS, this.READ_5)
             ])
             .then(([a, b, c, d, e, f]) => {
-                this.x_axis = this.convert(a, b)
-                this.y_axis = this.convert(c, d)
-                this.z_axis = this.convert(e, f)
-                resolve([this.x_axis, this.y_axis, this.z_axis])
+                this.x_axis += this.convert(a, b)
+                this.y_axis += this.convert(c, d)
+                this.z_axis += this.convert(e, f)
+                this.i += 1
+                if(this.i == this.bufferSize) {
+                    resolve()
+		} else {
+		    resolve(this.recursiveRead(sensor))
+		}
             })
             .catch(err => {
                 reject("*** GYRO: Error reading data")
+            })
+        })
+    }
+
+    read(sensor) {
+        this.x_axis = 0;
+        this.y_axis = 0;
+        this.z_axis = 0;
+        return new Promise((resolve, reject) => {
+            this.recursiveRead(sensor)
+            .then( () => {
+                this.x_axis = Math.floor((this.x_axis / this.i) / 256)
+                this.y_axis = Math.floor((this.y_axis / this.i) / 256)
+                this.z_axis = Math.floor((this.z_axis / this.i) / 256)
+                this.i = 0;
+                resolve([this.x_axis, this.y_axis, this.z_axis])
+            })
+            .catch( err => {
+                reject(err)
             })
         })
     }

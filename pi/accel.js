@@ -24,8 +24,9 @@ class Accel {
         this.y_axis;
         this.z_axis;
 
+        /* for average */
         this.i = 0;
-	this.bufferSize = 500;
+	    this.bufferSize = 100;
     }
 
     start(sensor) {
