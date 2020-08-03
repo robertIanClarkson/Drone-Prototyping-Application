@@ -40,11 +40,11 @@ const init = ( app, server ) => {
 
       socket.on('ready-for-data', data => {
         Promise.all([
-          // this.compass.read(sensor),
-          // this.gyro.read(sensor),
+          this.compass.read(sensor),
+          this.gyro.read(sensor),
           this.accel.read(sensor)
         ])
-        .then( ([/*compass_result, gyro_result,*/ accel_result]) => {
+        .then( ([compass_result, gyro_result, accel_result]) => {
           io.emit('new-data', {
             motor_0: {
               isOn: this.motor_0.getOnStatus(),
