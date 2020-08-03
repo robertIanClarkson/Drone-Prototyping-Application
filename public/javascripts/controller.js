@@ -95,10 +95,12 @@ function tune() {
 
 
 $( document ).ready( () => {
+    
     socket.emit( 'init-motors' , {
         motor_0_pin: 18,
         motor_1_pin: 23
     })
+    
     socket.emit('init-sensors', {
         compass: {
             slave_address: 0x1D
@@ -110,12 +112,15 @@ $( document ).ready( () => {
             slave_address: 0x6B
         }
     })
+    
     socket.emit( 'ready-for-data' , {})
+    
     socket.on( 'new-data' , (data) => {
         updateMotorFields(data.motor_0, data.motor_1)
         updateCompassFields(data.compass)
         updateGyroFields(data.gyro)
         updateAccelFields(data.accel)
+        socket.emit( 'ready-for-data' , {})
         // console.log(data)
     })
 

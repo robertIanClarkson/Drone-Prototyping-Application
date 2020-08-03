@@ -1,4 +1,6 @@
 const socketIo = require( 'socket.io' )
+const i2c = require('i2c-bus');
+
 const Motor = require('../pi/motor')
 const Compass = require('../pi/compass')
 const Gyro = require('../pi/gyro')
@@ -17,9 +19,64 @@ const init = ( app, server ) => {
 
   io.on( 'connection', socket => {
     console.log( 'client connected' )
+    // Open Bus
+    i2c.openPromisified(1)
+    .then(sensor => {
+      socket.on('init-sensors', data => {
+        this.compass = new Compass(data.compass)
+        this.gyro = new Gyro(data.gyro)
+        this.accel = new Accel(data.accel)
+  
+        this.compass.start(sensor).then(() => {
+          console.log('*** Compass Ready')
+          this.gyro.start(sensor).then(() => {
+            console.log('*** Gyro Ready')
+            this.accel.start(sensor).then(() => {
+              console.log('*** Accel Ready')
+            }) 
+          })
+        })
+      })
 
-    socket.on( 'disconnect', data => {
-      console.log( 'client disconnected' )
+      socket.on('ready-for-data', data => {
+        Promise.all([
+          this.compass.read(sensor),
+          this.gyro.read(sensor),
+          this.accel.read(sensor)
+        ])
+        .then( ([compass_result, gyro_result, accel_result]) => {
+          io.emit('new-data', {
+            motor_0: {
+              isOn: this.motor_0.getOnStatus(),
+              speed: this.motor_0.getSpeed()
+            },
+            motor_1: {
+              isOn: this.motor_1.getOnStatus(),
+              speed: this.motor_1.getSpeed()
+            },
+            compass: {
+              x_axis: compass_result[0],
+              y_axis: compass_result[1],
+              z_axis: compass_result[2]
+            },
+            gyro: {
+              x_axis: gyro_result[0],
+              y_axis: gyro_result[1],
+              z_axis: gyro_result[2]
+            },
+            accel: {
+              x_axis: accel_result[0],
+              y_axis: accel_result[1],
+              z_axis: accel_result[2]
+            }
+          })
+        })     
+      })
+
+      socket.on( 'disconnect', data => {
+        sensor.close()
+        console.log( 'client disconnected' )
+      })
     })
 
     socket.on('init-motors', data => {
@@ -28,21 +85,7 @@ const init = ( app, server ) => {
       console.log('*** Motors Ready')
     })
 
-    socket.on('init-sensors', data => {
-      this.compass = new Compass(data.compass)
-      this.gyro = new Gyro(data.gyro)
-      this.accel = new Accel(data.accel)
-
-      this.compass.start().then(() => {
-        console.log('*** Compass Ready')
-        this.gyro.start().then(() => {
-          console.log('*** Gyro Ready')
-          this.accel.start().then(() => {
-            console.log('*** Accel Ready')
-          }) 
-        })
-      })
-    })
+    
 
     socket.on('motor-on', data => {
       if(data.motor == 0) {
@@ -81,43 +124,6 @@ const init = ( app, server ) => {
       this.motor_0.tune(mid - data.offset);
       this.motor_1.tune(data.offset - mid);
       console.log(`*** tune ${data.offset}`);
-    })
-
-    socket.on('ready-for-data', data => {
-      var transmit = setInterval(() => {
-        Promise.all([
-          this.compass.read(),
-          this.gyro.read(),
-          this.accel.read()
-        ])
-        .then( ([compass_result, gyro_result, accel_result]) => {
-          io.emit('new-data', {
-            motor_0: {
-              isOn: this.motor_0.getOnStatus(),
-              speed: this.motor_0.getSpeed()
-            },
-            motor_1: {
-              isOn: this.motor_1.getOnStatus(),
-              speed: this.motor_1.getSpeed()
-            },
-            compass: {
-              x_axis: compass_result[0],
-              y_axis: compass_result[1],
-              z_axis: compass_result[2]
-            },
-            gyro: {
-              x_axis: gyro_result[0],
-              y_axis: gyro_result[1],
-              z_axis: gyro_result[2]
-            },
-            accel: {
-              x_axis: accel_result[0],
-              y_axis: accel_result[1],
-              z_axis: accel_result[2]
-            }
-          })
-        })     
-      }, 500);
     })
   })
 }
