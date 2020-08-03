@@ -25,6 +25,10 @@ class Compass {
         this.x_axis;
         this.y_axis;
         this.z_axis;
+
+        /* for average */
+        this.i = 0;
+	    this.bufferSize = 100;
     }
 
     start(sensor) {
