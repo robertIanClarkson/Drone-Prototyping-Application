@@ -40,11 +40,11 @@ const init = ( app, server ) => {
 
       socket.on('ready-for-data', data => {
         Promise.all([
-          this.compass.read(sensor),
-          this.gyro.read(sensor),
+          // this.compass.read(sensor),
+          // this.gyro.read(sensor),
           this.accel.read(sensor)
         ])
-        .then( ([compass_result, gyro_result, accel_result]) => {
+        .then( ([/*compass_result, gyro_result,*/ accel_result]) => {
           io.emit('new-data', {
             motor_0: {
               isOn: this.motor_0.getOnStatus(),
@@ -54,16 +54,16 @@ const init = ( app, server ) => {
               isOn: this.motor_1.getOnStatus(),
               speed: this.motor_1.getSpeed()
             },
-            compass: {
-              x_axis: compass_result[0],
-              y_axis: compass_result[1],
-              z_axis: compass_result[2]
-            },
-            gyro: {
-              x_axis: gyro_result[0],
-              y_axis: gyro_result[1],
-              z_axis: gyro_result[2]
-            },
+            // compass: {
+            //   x_axis: compass_result[0],
+            //   y_axis: compass_result[1],
+            //   z_axis: compass_result[2]
+            // },
+            // gyro: {
+            //   x_axis: gyro_result[0],
+            //   y_axis: gyro_result[1],
+            //   z_axis: gyro_result[2]
+            // },
             accel: {
               x_axis: accel_result[0],
               y_axis: accel_result[1],

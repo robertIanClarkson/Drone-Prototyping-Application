@@ -23,6 +23,14 @@ class Accel {
         this.x_axis;
         this.y_axis;
         this.z_axis;
+
+        this.i = 0;
+        
+        this.sum = {
+            x_axis = 0,
+            y_axis = 0,
+            z_axis = 0
+        }
     }
 
     start(sensor) {
@@ -48,7 +56,7 @@ class Accel {
 		return result
     }
 
-    read(sensor) {
+    recursiveRead(sensor) {
         return new Promise((resolve, reject) => {
             Promise.all([
                 sensor.readByte(this.SLAVE_ADDRESS, this.READ_0),
@@ -59,13 +67,37 @@ class Accel {
                 sensor.readByte(this.SLAVE_ADDRESS, this.READ_5)
             ])
             .then(([a, b, c, d, e, f]) => {
-                this.x_axis = this.convert(a, b)
-                this.y_axis = this.convert(c, d)
-                this.z_axis = this.convert(e, f)
-                resolve([this.x_axis, this.y_axis, this.z_axis])
+                this.sum.x_axis += this.convert(a, b)
+                this.sum.y_axis += this.convert(c, d)
+                this.sum.z_axis += this.convert(e, f)
+                this.i += 1
+                if(this.i == 100) {
+                    resolve()
+                } else {
+                    this.recursiveRead(sensor)
+                }
             })
             .catch(err => {
                 reject("*** ACCEL: Error reading data")
+            })
+        })
+    }
+
+    read(sensor) {
+        return new Promise((resolve, reject) => {
+            this.recursiveRead(sensor)
+            .then( () => {
+                this.x_axis = Math.floor(this.sum.x_axis / this.i)
+                this.y_axis = Math.floor(this.sum.y_axis / this.i)
+                this.z_axis = Math.floor(this.sum.z_axis / this.i)
+                this.sum.x_axis = 0;
+                this.sum.y_axis = 0;
+                this.sum.z_axis = 0;
+                this.i = 0;
+                resolve([this.x_axis, this.y_axis, this.z_axis])
+            })
+            .catch( err => {
+                reject(err)
             })
         })
     }
