@@ -93,7 +93,9 @@ function tune() {
     }
 }
 
-
+var i = 0
+var then = Date.now();
+var now;
 $( document ).ready( () => {
     
     socket.emit( 'init-motors' , {
@@ -120,6 +122,14 @@ $( document ).ready( () => {
         updateCompassFields(data.compass)
         updateGyroFields(data.gyro)
         updateAccelFields(data.accel)
+        ++i;
+        now = Date.now()
+        if(now - then >= 1000) {
+            console.log(`Refreshes = ${i}`)
+            console.log(`Time      = ${now - then}`)
+            then = now;
+            i = 0;
+        }
         socket.emit( 'ready-for-data' , {})
         // console.log(data)
     })
