@@ -7,7 +7,7 @@ function updateMotorFields(motor_0, motor_1) {
 
     // speed
     $('#pwm-0').text(motor_0.speed)
-    $('#pwm-1').text(motor_0.speed)
+    $('#pwm-1').text(motor_1.speed)
 }
 
 function updateCompassFields(values) {
@@ -93,6 +93,24 @@ function tune() {
     }
 }
 
+function coupled() {
+    // SLIDER-coupled
+    var coupled_slider = document.getElementById("coupled");
+    var output_coupled = document.getElementById("coupled-value");
+    output_coupled.innerHTML = coupled_slider.value;
+    crossfade.onchange = function() {
+        output_coupled.innerHTML = this.value;
+        socket.emit( 'adjust-speed' , {
+            motor: 0,
+            speed: this.value
+        })
+        socket.emit( 'adjust-speed' , {
+            motor: 1,
+            speed: this.value
+        })
+    }
+}
+
 var i = 0
 var then = Date.now();
 var now;
@@ -139,6 +157,7 @@ $( document ).ready( () => {
     motorOff()
     adjustSpeed()
     tune()
+    coupled()
 });
 
 /*************************MIDI****************************** */
