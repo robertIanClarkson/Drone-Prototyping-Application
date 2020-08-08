@@ -37,36 +37,48 @@ function updateAccelFields(values) {
     $('#accel-z').text(values.z_axis)
 }
 
-function graph() {
-    // var time = Date.now()
-    var lineChartData = {
-        labels: [],
-        datasets: [{
-            label: 'X-Axis',
-            borderColor: 'rgb(255, 0, 0)',
-            backgroundColor: 'rgb(255, 0, 0)',
-            fill: false,
-            data: [],
-            yAxisID: 'y-axis-1',
-        }, {
-            label: 'Y-Axis',
-            borderColor: 'rgb(0, 255, 0)',
-            backgroundColor: 'rgb(0, 255, 0)',
-            fill: false,
-            data: [],
-            yAxisID: 'y-axis-1'
-        }]
-    };
+function updateGraph(chart, compass, gyro, accel) {
+    chart.data.datasets[0].data.push(accel.x_axis)
+    chart.data.datasets[1].data.push(accel.y_axis)
+    chart.data.datasets[2].data.push(accel.z_axis)
+    chart.update();
+}
+
+function graph() {    
     var ctx = document.getElementById('accel-graph').getContext('2d');
-    window.myLine = Chart.Line(ctx, {
-        data: lineChartData,
+    return window.myLine = Chart.Line(ctx, {
+        data: {
+            labels: [],
+            datasets: [{
+                label: 'X-Axis',
+                borderColor: 'rgb(255, 0, 0)',
+                backgroundColor: 'rgb(255, 0, 0)',
+                fill: false,
+                data: [],
+                yAxisID: 'y-axis-1',
+            }, {
+                label: 'Y-Axis',
+                borderColor: 'rgb(0, 255, 0)',
+                backgroundColor: 'rgb(0, 255, 0)',
+                fill: false,
+                data: [],
+                yAxisID: 'y-axis-1'
+            }, {
+                label: 'Z-Axis',
+                borderColor: 'rgb(0, 0, 255)',
+                backgroundColor: 'rgb(0, 0, 255)',
+                fill: false,
+                data: [],
+                yAxisID: 'y-axis-1'
+            }]
+        },
 		options: {
             responsive: true,
             hoverMode: 'index',
             stacked: false,
             title: {
                 display: true,
-                text: 'Chart.js Line Chart - Multi Axis'
+                text: 'Accelerometer'
             },
             scales: {
                 yAxes: [{
@@ -78,7 +90,6 @@ function graph() {
             }
         }
     })
-    
 }
 
 function motorOn() {
@@ -175,6 +186,13 @@ var i = 0
 var then = Date.now();
 var now;
 $( document ).ready( () => {
+    // INPUTS
+    motorOn()
+    motorOff()
+    adjustSpeed()
+    tune()
+    coupled()
+    var chart = graph()
     
     socket.emit( 'init-motors' , {
         motor_0_pin: 18,
@@ -200,7 +218,7 @@ $( document ).ready( () => {
         updateCompassFields(data.compass)
         updateGyroFields(data.gyro)
         updateAccelFields(data.accel)
-        // graph(data)
+        updateGraph(chart, data.compass, data.gyro, data.accel)
         ++i;
         now = Date.now()
         if(now - then >= 1000) {
@@ -212,14 +230,6 @@ $( document ).ready( () => {
         socket.emit( 'ready-for-data' , {})
         // console.log(data)
     })
-
-    // INPUTS
-    motorOn()
-    motorOff()
-    adjustSpeed()
-    tune()
-    coupled()
-    graph()
 });
 
 /*************************MIDI****************************** */
