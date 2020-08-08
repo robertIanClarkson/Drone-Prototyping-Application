@@ -239,6 +239,10 @@ $( document ).ready( () => {
         socket.emit( 'ready-for-data' , {})
         // console.log(data)
     })
+
+    socket.on( 'error-reading-data' , () => {
+        socket.emit( 'ready-for-data' , {})
+    })
 });
 
 /*************************MIDI****************************** */
