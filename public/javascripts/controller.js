@@ -97,7 +97,7 @@ function coupled() {
     // SLIDER-coupled
     var coupled_slider = document.getElementById("coupled");
     var output_coupled = document.getElementById("coupled-value");
-    output_coupled.innerHTML = coupled_slider.value;
+    output_coupled.innerHTML = 0;
     coupled_slider.onchange = function() {
         output_coupled.innerHTML = this.value;
         socket.emit( 'adjust-speed' , {

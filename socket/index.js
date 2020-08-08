@@ -22,7 +22,7 @@ const init = ( app, server ) => {
     // Open Bus
     i2c.openPromisified(1)
     .then(sensor => {
-      socket.on('init-sensors', data => {
+      socket.on( 'init-sensors' , data => {
         this.compass = new Compass(data.compass)
         this.gyro = new Gyro(data.gyro)
         this.accel = new Accel(data.accel)
@@ -38,7 +38,7 @@ const init = ( app, server ) => {
         })
       })
 
-      socket.on('ready-for-data', data => {
+      socket.on( 'ready-for-data' , data => {
         Promise.all([
           this.compass.read(sensor),
           this.gyro.read(sensor),
@@ -79,7 +79,7 @@ const init = ( app, server ) => {
       })
     })
 
-    socket.on('init-motors', data => {
+    socket.on( 'init-motors' , data => {
       this.motor_0 = new Motor(data.motor_0_pin)
       this.motor_1 = new Motor(data.motor_1_pin)
       console.log('*** Motors Ready')
@@ -87,7 +87,7 @@ const init = ( app, server ) => {
 
     
 
-    socket.on('motor-on', data => {
+    socket.on( 'motor-on' , data => {
       if(data.motor == 0) {
         this.motor_0.setOn().then(() => {
           console.log("*** motor_0 on")
@@ -99,7 +99,7 @@ const init = ( app, server ) => {
       }
     })
 
-    socket.on('motor-off', data => {
+    socket.on( 'motor-off' , data => {
       if(data.motor == 0) {
         this.motor_0.setOff();
         console.log('*** motor_0 off')
@@ -109,21 +109,21 @@ const init = ( app, server ) => {
       }
     })
 
-    socket.on('adjust-speed', data => {
+    socket.on( 'adjust-speed' , data => {
       if(data.motor == 0) {
         this.motor_0.setSpeed(data.speed)
-        console.log('*** motor_0 adjust speed')
+        // console.log('*** motor_0 adjust speed')
       } else if(data.motor == 1) {
         this.motor_1.setSpeed(data.speed)
-        console.log('*** motor_1 adjust speed')
+        // console.log('*** motor_1 adjust speed')
       }
     })
 
-    socket.on('tune', data => {
+    socket.on( 'tune' , data => {
       var mid = 68;
       this.motor_0.tune(mid - data.offset);
       this.motor_1.tune(data.offset - mid);
-      console.log(`*** tune ${data.offset}`);
+      // console.log(`*** tune ${data.offset}`);
     })
   })
 }
