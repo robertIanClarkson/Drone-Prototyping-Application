@@ -79,6 +79,10 @@ block content
                 h6
                   u Value 
                 h7#coupled-value.motor-data NULL
+              .col.s3
+                button#on-universal(type='button' class='btn blue btn-' + btnType + ' btn-' + btnSize) on
+              .col.s3
+                button#off-universal(type='button' class='btn red btn-' + btnType + ' btn-' + btnSize) off
           .divider
           //- Motor 0
           .col.s6.vl-right
@@ -103,9 +107,9 @@ block content
                   h6#status-0.motor-data NULL
               .row
                 .col
-                  button#on-0(type='button' class='btn btn-' + btnType + ' btn-' + btnSize) on
+                  button#on-0(type='button' class='btn blue btn-' + btnType + ' btn-' + btnSize) on
                 .col
-                  button#off-0(type='button' class='btn btn-' + btnType + ' btn-' + btnSize) off
+                  button#off-0(type='button' class='btn red btn-' + btnType + ' btn-' + btnSize) off
           //- Motor 1
           .col.s6
             .slidecontainer
@@ -129,9 +133,9 @@ block content
                   h6#status-1.motor-data NULL
               .row
                 .col
-                  button#on-1(type='button' class='btn btn-' + btnType + ' btn-' + btnSize) on
+                  button#on-1(type='button' class='btn blue btn-' + btnType + ' btn-' + btnSize) on
                 .col
-                  button#off-1(type='button' class='btn btn-' + btnType + ' btn-' + btnSize) off
+                  button#off-1(type='button' class='btn red btn-' + btnType + ' btn-' + btnSize) off
     .divider
     script(src="/socket.io/socket.io.js")
     script(src="/javascripts/controller.js")

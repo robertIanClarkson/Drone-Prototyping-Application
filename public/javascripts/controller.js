@@ -29,16 +29,23 @@ function updateAccelFields(values) {
 }
 
 function motorOn() {
+    $( '#on-universal' ).click( event => {
+        socket.emit('motor-on', { motor: 0 })
+        socket.emit('motor-on', { motor: 1 })
+    })
     $( '#on-0' ).click( event => {
         socket.emit('motor-on', { motor: 0 })
     })
-
     $( '#on-1' ).click( event => {
         socket.emit('motor-on', { motor: 1 })
-    })
+    }) 
 }
 
 function motorOff() {
+    $( '#off-universal' ).click( event => {
+        socket.emit('motor-off', { motor: 0 })
+        socket.emit('motor-off', { motor: 1 })
+    })
     $( '#off-0' ).click( event => {
         socket.emit('motor-off', { motor: 0 })
     })
