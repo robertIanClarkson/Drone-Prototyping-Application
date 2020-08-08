@@ -45,6 +45,12 @@ function updateGraph(chart, compass, gyro, accel) {
     chart.data.datasets[2].data.push(accel.z_axis)
     chart.update()
     tick++
+    if(tick > 100) {
+        chart.data.labels.shift()
+        chart.data.datasets[0].data.shift()
+        chart.data.datasets[1].data.shift()
+        chart.data.datasets[2].data.shift()
+    }
 }
 
 function graph() {    
