@@ -17,22 +17,16 @@ class Motor {
 
   setOn() {
     return new Promise((resolve, reject) => {
-      try {
-        this.motor.servoWrite(1860)
-        this.sleep(2000).then(() => {
-          this.motor.servoWrite(1060)
-          this.sleep(2000).then(() => {
-            this.motor.servoWrite(0)
-            this.sleep(1000).then(() => {
+        this.motor.servoWrite(1150)
+        this.sleep(1000)
+        .then(() => {
               this.motor.servoWrite(1130)
               this.isOn = true
               resolve()
-            })
-          })
         })
-      } catch(error) {
-	      reject();
-      }
+        .catch(err => {
+          reject(err)
+        })
     });    
   };
 
