@@ -90,11 +90,11 @@ const init = ( app, server ) => {
     socket.on( 'motor-on' , data => {
       if(data.motor == 0) {
         this.motor_0.setOn().then(() => {
-          console.log("*** motor_0 on")
+          // console.log("*** motor_0 on")
         });
       } else if(data.motor == 1) {
         this.motor_1.setOn().then(() => {
-          console.log("*** motor_1 on")
+          // console.log("*** motor_1 on")
         });
       }
     })
@@ -102,10 +102,10 @@ const init = ( app, server ) => {
     socket.on( 'motor-off' , data => {
       if(data.motor == 0) {
         this.motor_0.setOff();
-        console.log('*** motor_0 off')
+        // console.log('*** motor_0 off')
       } else if(data.motor == 1) {
         this.motor_1.setOff();
-        console.log('*** motor_1 off')
+        // console.log('*** motor_1 off')
       }
     })
 
