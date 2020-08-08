@@ -78,9 +78,9 @@ class Gyro {
                 this.i += 1
                 if(this.i == this.bufferSize) {
                     resolve()
-		} else {
-		    resolve(this.recursiveRead(sensor))
-		}
+                } else {
+                    resolve(this.recursiveRead(sensor))
+                }
             })
             .catch(err => {
                 reject("*** GYRO: Error reading data")

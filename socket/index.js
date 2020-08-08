@@ -70,6 +70,9 @@ const init = ( app, server ) => {
               z_axis: accel_result[2]
             }
           })
+        })
+        .catch(err => {
+          console.log(err)
         })     
       })
 
