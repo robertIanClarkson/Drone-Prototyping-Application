@@ -18,13 +18,13 @@ class Motor {
   setOn() {
     return new Promise((resolve, reject) => {
         this.motor.servoWrite(1120)
-        this.sleep(250)
+        this.sleep(500)
         .then(() => {
           this.motor.servoWrite(1130)
-          this.sleep(250)
+          this.sleep(500)
           .then(() => {
             this.motor.servoWrite(1140)
-            this.sleep(250)
+            this.sleep(500)
             .then(() => {
               this.motor.servoWrite(1150)
               this.isOn = true
