@@ -43,8 +43,8 @@ function graph() {
         labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
         datasets: [{
             label: 'My First dataset',
-            borderColor: window.chartColors.red,
-            backgroundColor: window.chartColors.red,
+            borderColor: 'rgb(255, 99, 132)',
+            backgroundColor: 'rgb(255, 99, 132)',
             fill: false,
             data: [
                 0,
@@ -58,8 +58,8 @@ function graph() {
             yAxisID: 'y-axis-1',
         }, {
             label: 'My Second dataset',
-            borderColor: window.chartColors.blue,
-            backgroundColor: window.chartColors.blue,
+            borderColor: 'rgb(166, 47, 202)',
+            backgroundColor: 'rgb(166, 47, 202)',
             fill: false,
             data: [
                 7,
