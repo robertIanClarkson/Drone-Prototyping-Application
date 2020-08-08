@@ -37,11 +37,14 @@ function updateAccelFields(values) {
     $('#accel-z').text(values.z_axis)
 }
 
+let tick = 0;
 function updateGraph(chart, compass, gyro, accel) {
+    chart.data.labels.push(tick)
     chart.data.datasets[0].data.push(accel.x_axis)
     chart.data.datasets[1].data.push(accel.y_axis)
     chart.data.datasets[2].data.push(accel.z_axis)
-    chart.update();
+    chart.update()
+    tick++
 }
 
 function graph() {    
