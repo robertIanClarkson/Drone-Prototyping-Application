@@ -79,7 +79,7 @@ function tune() {
     // SLIDER-Crossfade
     var crossfade = document.getElementById("crossfade");
     var output_crossfade = document.getElementById("crossfade-value");
-    output_crossfade.innerHTML = crossfade.value;
+    output_crossfade.innerHTML = 0;
     crossfade.onchange = function() {
         if(this.value <= 68) {
             output_crossfade.innerHTML = this.value - 68;
@@ -97,7 +97,7 @@ function coupled() {
     // SLIDER-coupled
     var coupled_slider = document.getElementById("coupled");
     var output_coupled = document.getElementById("coupled-value");
-    output_coupled.innerHTML = 0;
+    output_coupled.innerHTML = coupled_slider.value;
     coupled_slider.onchange = function() {
         output_coupled.innerHTML = this.value;
         socket.emit( 'adjust-speed' , {
