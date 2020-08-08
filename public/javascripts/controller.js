@@ -37,46 +37,74 @@ function updateAccelFields(values) {
     $('#accel-z').text(values.z_axis)
 }
 
-function graph(data) {
-    var time = Date.now()
+function graph() {
+    // var time = Date.now()
+    var lineChartData = {
+        labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
+        datasets: [{
+            label: 'My First dataset',
+            borderColor: window.chartColors.red,
+            backgroundColor: window.chartColors.red,
+            fill: false,
+            data: [
+                0,
+                1,
+                2,
+                3,
+                4,
+                5,
+                6
+            ],
+            yAxisID: 'y-axis-1',
+        }, {
+            label: 'My Second dataset',
+            borderColor: window.chartColors.blue,
+            backgroundColor: window.chartColors.blue,
+            fill: false,
+            data: [
+                7,
+                8,
+                9,
+                10,
+                11,
+                12,
+                13
+            ],
+            yAxisID: 'y-axis-2'
+        }]
+    };
     var ctx = document.getElementById('accel-graph').getContext('2d');
-    var myChart = new Chart(ctx, {
-        type: 'line',
-        data: {
-            labels: ['x-axis', 'y-axis', 'z-axis'],
-            datasets: [{
-                label: 'Accel',
-                data: [{
-                    x: time,
-                    y: data.accel.x_axis
-                },{
-                    x: time,
-                    y: data.accel.y_axis
-                },{
-                    x: time,
-                    y: data.accel.z_axis
-                }],
-                backgroundColor: [
-                    'rgba(255, 99, 132, 0.2)',
-                    'rgba(54, 162, 235, 0.2)',
-                    'rgba(255, 206, 86, 0.2)'
-                ],
-                borderColor: [
-                    'rgba(255, 99, 132, 1)',
-                    'rgba(54, 162, 235, 1)',
-                    'rgba(255, 206, 86, 1)'
-                ],
-                borderWidth: 1
-            }]
-        },
-        options: {
+    window.myLine = Chart.Line(ctx, {
+        data: lineChartData,
+		options: {
+            responsive: true,
+            hoverMode: 'index',
+            stacked: false,
+            title: {
+                display: true,
+                text: 'Chart.js Line Chart - Multi Axis'
+            },
             scales: {
                 yAxes: [{
-                    stacked: true
-                }]
+                    type: 'linear', // only linear but allow scale type registration. This allows extensions to exist solely for log scale for instance
+                    display: true,
+                    position: 'left',
+                    id: 'y-axis-1',
+                }, {
+                    type: 'linear', // only linear but allow scale type registration. This allows extensions to exist solely for log scale for instance
+                    display: true,
+                    position: 'right',
+                    id: 'y-axis-2',
+
+                    // grid line settings
+                    gridLines: {
+                        drawOnChartArea: false, // only want the grid lines for one axis to show up
+                    },
+                }],
             }
         }
-    });
+    })
+    
 }
 
 function motorOn() {
@@ -198,7 +226,7 @@ $( document ).ready( () => {
         updateCompassFields(data.compass)
         updateGyroFields(data.gyro)
         updateAccelFields(data.accel)
-        graph(data)
+        // graph(data)
         ++i;
         now = Date.now()
         if(now - then >= 1000) {
@@ -217,6 +245,7 @@ $( document ).ready( () => {
     adjustSpeed()
     tune()
     coupled()
+    graph()
 });
 
 /*************************MIDI****************************** */
