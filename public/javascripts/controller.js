@@ -43,14 +43,14 @@ function updateGraph(chart, compass, gyro, accel) {
     chart.data.datasets[0].data.push(accel.x_axis)
     chart.data.datasets[1].data.push(accel.y_axis)
     chart.data.datasets[2].data.push(accel.z_axis)
-    chart.update()
-    tick++
     if(tick > 100) {
         chart.data.labels.shift()
         chart.data.datasets[0].data.shift()
         chart.data.datasets[1].data.shift()
         chart.data.datasets[2].data.shift()
     }
+    chart.update(0)
+    tick++
 }
 
 function graph() {    
@@ -86,7 +86,7 @@ function graph() {
             hoverMode: 'index',
             stacked: false,
             title: {
-                display: true,
+                display: false,
                 text: 'Accelerometer'
             },
             scales: {
