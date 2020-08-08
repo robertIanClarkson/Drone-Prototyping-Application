@@ -83,9 +83,13 @@ block content
                     h7#coupled-value.motor-data NULL
               .col.s6
                 .row
-                  .col.s3
+                  .col.s2
+                    h6
+                      u isOn: 
+                    h7#status-all.motor-data NULL
+                  .col.s2
                     button#on-universal(type='button' class='btn blue btn-' + btnType + ' btn-' + btnSize) on
-                  .col.s3
+                  .col.s2
                     button#off-universal(type='button' class='btn red btn-' + btnType + ' btn-' + btnSize) off
           .divider
           //- Motor 0

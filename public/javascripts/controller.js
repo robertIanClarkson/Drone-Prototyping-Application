@@ -8,6 +8,15 @@ function updateMotorFields(motor_0, motor_1) {
     // speed
     $('#pwm-0').text(motor_0.speed)
     $('#pwm-1').text(motor_1.speed)
+
+    // universal
+    if(motor_0.isOn == false && motor_1.isOn == false) { // both on
+        $('#status-all').text('false')
+    } else if(motor_0.isOn == true && motor_1.isOn == true) { // both off
+        $('#status-all').text('true')
+    } else { // mixed
+        $('#status-all').text('mixed')
+    }
 }
 
 function updateCompassFields(values) {
