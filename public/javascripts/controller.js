@@ -40,37 +40,21 @@ function updateAccelFields(values) {
 function graph() {
     // var time = Date.now()
     var lineChartData = {
-        labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
+        labels: [],
         datasets: [{
-            label: 'My First dataset',
-            borderColor: 'rgb(255, 99, 132)',
-            backgroundColor: 'rgb(255, 99, 132)',
+            label: 'X-Axis',
+            borderColor: 'rgb(255, 0, 0)',
+            backgroundColor: 'rgb(255, 0, 0)',
             fill: false,
-            data: [
-                0,
-                1,
-                2,
-                3,
-                4,
-                5,
-                6
-            ],
+            data: [],
             yAxisID: 'y-axis-1',
         }, {
-            label: 'My Second dataset',
-            borderColor: 'rgb(166, 47, 202)',
-            backgroundColor: 'rgb(166, 47, 202)',
+            label: 'Y-Axis',
+            borderColor: 'rgb(0, 255, 0)',
+            backgroundColor: 'rgb(0, 255, 0)',
             fill: false,
-            data: [
-                7,
-                8,
-                9,
-                10,
-                11,
-                12,
-                13
-            ],
-            yAxisID: 'y-axis-2'
+            data: [],
+            yAxisID: 'y-axis-1'
         }]
     };
     var ctx = document.getElementById('accel-graph').getContext('2d');
@@ -90,17 +74,7 @@ function graph() {
                     display: true,
                     position: 'left',
                     id: 'y-axis-1',
-                }, {
-                    type: 'linear', // only linear but allow scale type registration. This allows extensions to exist solely for log scale for instance
-                    display: true,
-                    position: 'right',
-                    id: 'y-axis-2',
-
-                    // grid line settings
-                    gridLines: {
-                        drawOnChartArea: false, // only want the grid lines for one axis to show up
-                    },
-                }],
+                }]
             }
         }
     })
