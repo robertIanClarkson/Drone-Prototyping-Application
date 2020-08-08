@@ -54,7 +54,7 @@ class Motor {
   };
 
   setSpeed(speed) {
-    this.PWM_VALUE = 1130 + (speed * 5)
+    this.PWM_VALUE = 1150 + (speed * 5)
     this.motor.servoWrite(this.PWM_VALUE)
   };
 
