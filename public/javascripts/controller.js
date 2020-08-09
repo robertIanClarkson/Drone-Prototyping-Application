@@ -93,6 +93,7 @@ function updateAccelGraphs(charts, accel) {
         x: accel.x_axis,
         y: accel.y_axis
     }
+    live.update()
 }
 
 /* GRAPH FUNCTIONS */
@@ -242,7 +243,8 @@ function accelLineGraph() {
 
 function accelLiveGraph_xy() {
     var ctx = document.getElementById('accel-live-xy').getContext('2d');
-    return window.myLine = Chart.Line(ctx, {
+    return window.myLine = new Chart(ctx, {
+        type: 'scatter',
         data: {
             labels: [],
             datasets: [{
@@ -254,6 +256,9 @@ function accelLiveGraph_xy() {
             }]
         },
 		options: {
+            legend: {
+                display: false
+            },
             responsive: true,
             hoverMode: 'index',
             stacked: false,
