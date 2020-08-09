@@ -229,6 +229,36 @@ function accelLineGraph() {
     })
 }
 
+function accelRadarGraph() {    
+    return window.myRadar = new Chart(document.getElementById('accel-radar-graph-xy'), {
+        type: 'radar',
+        data: {
+            labels: ['Y+', 'X+', 'Y-', 'X-'],
+            datasets: [{
+                label: 'Live Data',
+                backgroundColor: color(window.chartColors.red).alpha(0.2).rgbString(),
+                borderColor: window.chartColors.red,
+                pointBackgroundColor: window.chartColors.red,
+                data: []
+            }]
+        },
+		options: {
+            legend: {
+                position: 'top',
+            },
+            title: {
+                display: false,
+                text: 'Accel XY'
+            },
+            scale: {
+                ticks: {
+                    beginAtZero: true
+                }
+            }
+        }
+    });    
+}
+
 function motorOn() {
     $( '#on-universal' ).click( event => {
         socket.emit('motor-on', { motor: 0 })
@@ -332,6 +362,7 @@ $( document ).ready( () => {
     var compassChart = compassLineGraph()
     var gyroChart    = gyroLineGraph()
     var accelChart   = accelLineGraph()
+    var accelRadar   = accelRadarGraph()
 
     socket.emit( 'init-motors' , {
         motor_0_pin: 18,
