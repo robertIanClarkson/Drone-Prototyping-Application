@@ -310,7 +310,7 @@ function accelLiveGraph_xy() {
 }
 
 function accelLiveGraph_z() {
-    var ctx = document.getElementById('accel-live-xy').getContext('2d');
+    var ctx = document.getElementById('accel-live-z').getContext('2d');
     return window.myLine = new Chart(ctx, {
         type: 'scatter',
         data: {
@@ -348,7 +348,7 @@ function accelLiveGraph_z() {
                     ticks: {
                         max: 100,
                         min: -100,
-                        stepSize: 10
+                        stepSize: 25
                     },
                     type: 'linear',
                     display: true,
@@ -358,7 +358,7 @@ function accelLiveGraph_z() {
                     ticks: {
                         max: 100,
                         min: -100,
-                        stepSize: 10
+                        stepSize: 25
                     },
                     type: 'linear', // only linear but allow scale type registration. This allows extensions to exist solely for log scale for instance
                     display: true,
