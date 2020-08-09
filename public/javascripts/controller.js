@@ -261,15 +261,6 @@ function accelLiveGraph_xy() {
                 backgroundColor: 'rgb(255, 0, 0)',
                 fill: false,
                 data: []
-            },{
-                label: 'Origin',
-                borderColor: 'rgb(0, 255, 0)',
-                backgroundColor: 'rgb(0, 255, 0)',
-                fill: false,
-                data: [{
-                    x: 0,
-                    y: 0
-                }]
             }]
         },
 		options: {
@@ -288,7 +279,7 @@ function accelLiveGraph_xy() {
                     ticks: {
                         max: 100,
                         min: -100,
-                        stepSize: 10
+                        stepSize: 25
                     },
                     type: 'linear',
                     display: true,
@@ -298,7 +289,7 @@ function accelLiveGraph_xy() {
                     ticks: {
                         max: 100,
                         min: -100,
-                        stepSize: 10
+                        stepSize: 25
                     },
                     type: 'linear', // only linear but allow scale type registration. This allows extensions to exist solely for log scale for instance
                     display: true,
@@ -321,15 +312,6 @@ function accelLiveGraph_z() {
                 backgroundColor: 'rgb(255, 0, 0)',
                 fill: false,
                 data: []
-            },{
-                label: 'Origin',
-                borderColor: 'rgb(0, 255, 0)',
-                backgroundColor: 'rgb(0, 255, 0)',
-                fill: false,
-                data: [{
-                    x: 0,
-                    y: 0
-                }]
             }]
         },
 		options: {
