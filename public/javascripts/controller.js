@@ -236,9 +236,9 @@ function accelRadarGraph() {
             labels: ['Y+', 'X+', 'Y-', 'X-'],
             datasets: [{
                 label: 'Live Data',
-                backgroundColor: color(window.chartColors.red).alpha(0.2).rgbString(),
-                borderColor: window.chartColors.red,
-                pointBackgroundColor: window.chartColors.red,
+                backgroundColor: 'rgb(0, 0, 255)',
+                borderColor: 'rgb(0, 0, 255)',
+                pointBackgroundColor: 'rgb(0, 0, 255)',
                 data: []
             }]
         },
