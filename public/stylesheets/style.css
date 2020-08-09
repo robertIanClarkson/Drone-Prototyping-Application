@@ -60,9 +60,5 @@ a {
 .sensor-data {
   font-family: 'Roboto';
   font-size: 18px;
-  color: blue
-}
-
-.line-graph {
-  height: '75'
+  color: blue;
 }
