@@ -253,6 +253,7 @@ function accelRadarGraph() {
 		options: {
             legend: {
                 position: 'top',
+                display: false
             },
             title: {
                 display: false,
