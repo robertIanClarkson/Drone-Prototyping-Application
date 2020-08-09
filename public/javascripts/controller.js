@@ -70,19 +70,26 @@ function updateGyroGraphs(chart, gyro) {
 }
 
 let accel_tick = 0;
-function updateAccelGraphs(chart, accel) {
-    chart.data.labels.push(accel_tick)
-    chart.data.datasets[0].data.push(accel.x_axis)
-    chart.data.datasets[1].data.push(accel.y_axis)
-    chart.data.datasets[2].data.push(accel.z_axis)
+function updateAccelGraphs(charts, accel) {
+    // Line
+    let line = charts[0]
+    line.data.labels.push(accel_tick)
+    line.data.datasets[0].data.push(accel.x_axis)
+    line.data.datasets[1].data.push(accel.y_axis)
+    line.data.datasets[2].data.push(accel.z_axis)
     if(accel_tick > 100) {
-        chart.data.labels.shift()
-        chart.data.datasets[0].data.shift()
-        chart.data.datasets[1].data.shift()
-        chart.data.datasets[2].data.shift()
+        line.data.labels.shift()
+        line.data.datasets[0].data.shift()
+        line.data.datasets[1].data.shift()
+        line.data.datasets[2].data.shift()
     }
-    chart.update(0)
+    line.update(0)
     accel_tick++
+
+    // Radar
+    let radar = charts[1]
+    radar.data.datasets[0].data.push(accel.x_axis)
+    radar.data.datasets[0].data.push(accel.y_axis)
 }
 
 function compassLineGraph() {    
@@ -359,10 +366,10 @@ $( document ).ready( () => {
     adjustSpeed()
     tune()
     coupled()
-    var compassChart = compassLineGraph()
-    var gyroChart    = gyroLineGraph()
-    var accelChart   = accelLineGraph()
-    var accelRadar   = accelRadarGraph()
+    var compassLine   = compassLineGraph()
+    var gyroLine      = gyroLineGraph()
+    var accelLine     = accelLineGraph()
+    var accelRadar    = accelRadarGraph()
 
     socket.emit( 'init-motors' , {
         motor_0_pin: 18,
@@ -384,13 +391,17 @@ $( document ).ready( () => {
     socket.emit( 'ready-for-data' , {})
     
     socket.on( 'new-data' , (data) => {
+        // Fields
         updateMotorFields(data.motor_0, data.motor_1)
         updateCompassFields(data.compass)
-        updateCompassGraphs(compassChart, data.compass)
         updateGyroFields(data.gyro)
-        updateGyroGraphs(gyroChart, data.gyro)
         updateAccelFields(data.accel)
-        updateAccelGraphs(accelChart, data.accel)
+
+        // Graphs
+        updateCompassGraphs(compassLine, data.compass)
+        updateGyroGraphs(gyroLine, data.gyro)
+        updateAccelGraphs([accelLine, accelRadar], data.accel)
+        
         ++i;
         now = Date.now()
         if(now - then >= 1000) {
