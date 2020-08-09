@@ -24,7 +24,10 @@ block content
             .col.s4.vl-left
               h6
                 u Z-Axis
-              h7#compass-z.sensor-data NULL 
+              h7#compass-z.sensor-data NULL
+          .row
+            .col.s12
+              canvas#compass-line-graph
           .divider
           //- Gyro
           h5 Gyroscope
@@ -40,7 +43,10 @@ block content
             .col.s4.vl-left
               h6
                 u Z-Axis
-              h7#gyro-z.sensor-data NULL              
+              h7#gyro-z.sensor-data NULL
+          .row
+            .col.s12
+              canvas#gyro-line-graph           
           .divider
           //- Accel
           h5 Accelerometer
@@ -59,7 +65,7 @@ block content
               h7#accel-z.sensor-data NULL
           .row
             .col.s12
-              canvas#accel-graph
+              canvas#accel-line-graph
 
         //- Motors
         .col.s6.vl-left-thick

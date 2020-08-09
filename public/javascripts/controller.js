@@ -37,24 +37,152 @@ function updateAccelFields(values) {
     $('#accel-z').text(values.z_axis)
 }
 
-let tick = 0;
-function updateGraph(chart, compass, gyro, accel) {
+let compass_tick = 0;
+function updateCompassGraphs(chart, compass) {
     chart.data.labels.push(tick)
-    chart.data.datasets[0].data.push(accel.x_axis)
-    chart.data.datasets[1].data.push(accel.y_axis)
-    chart.data.datasets[2].data.push(accel.z_axis)
-    if(tick > 100) {
+    chart.data.datasets[0].data.push(compass.x_axis)
+    chart.data.datasets[1].data.push(compass.y_axis)
+    chart.data.datasets[2].data.push(compass.z_axis)
+    if(compass_tick > 100) {
         chart.data.labels.shift()
         chart.data.datasets[0].data.shift()
         chart.data.datasets[1].data.shift()
         chart.data.datasets[2].data.shift()
     }
     chart.update(0)
-    tick++
+    compass_tick++
 }
 
-function graph() {    
-    var ctx = document.getElementById('accel-graph').getContext('2d');
+let gyro_tick = 0;
+function updateGyroGraphs(chart, gyro) {
+    chart.data.labels.push(tick)
+    chart.data.datasets[0].data.push(gyro.x_axis)
+    chart.data.datasets[1].data.push(gyro.y_axis)
+    chart.data.datasets[2].data.push(gyro.z_axis)
+    if(gyro_tick > 100) {
+        chart.data.labels.shift()
+        chart.data.datasets[0].data.shift()
+        chart.data.datasets[1].data.shift()
+        chart.data.datasets[2].data.shift()
+    }
+    chart.update(0)
+    gyro_tick++
+}
+
+let accel_tick = 0;
+function updateAccelGraphs(chart, accel) {
+    chart.data.labels.push(tick)
+    chart.data.datasets[0].data.push(accel.x_axis)
+    chart.data.datasets[1].data.push(accel.y_axis)
+    chart.data.datasets[2].data.push(accel.z_axis)
+    if(accel_tick > 100) {
+        chart.data.labels.shift()
+        chart.data.datasets[0].data.shift()
+        chart.data.datasets[1].data.shift()
+        chart.data.datasets[2].data.shift()
+    }
+    chart.update(0)
+    accel_tick++
+}
+
+function compassLineGraph() {    
+    var ctx = document.getElementById('compass-line-graph').getContext('2d');
+    return window.myLine = Chart.Line(ctx, {
+        data: {
+            labels: [],
+            datasets: [{
+                label: 'X-Axis',
+                borderColor: 'rgb(255, 0, 0)',
+                backgroundColor: 'rgb(255, 0, 0)',
+                fill: false,
+                data: [],
+                yAxisID: 'y-axis-1',
+            }, {
+                label: 'Y-Axis',
+                borderColor: 'rgb(0, 255, 0)',
+                backgroundColor: 'rgb(0, 255, 0)',
+                fill: false,
+                data: [],
+                yAxisID: 'y-axis-1'
+            }, {
+                label: 'Z-Axis',
+                borderColor: 'rgb(0, 0, 255)',
+                backgroundColor: 'rgb(0, 0, 255)',
+                fill: false,
+                data: [],
+                yAxisID: 'y-axis-1'
+            }]
+        },
+		options: {
+            responsive: true,
+            hoverMode: 'index',
+            stacked: false,
+            title: {
+                display: false,
+                text: 'Compass'
+            },
+            scales: {
+                yAxes: [{
+                    type: 'linear', // only linear but allow scale type registration. This allows extensions to exist solely for log scale for instance
+                    display: true,
+                    position: 'left',
+                    id: 'y-axis-1',
+                }]
+            }
+        }
+    })
+}
+
+function gyroLineGraph() {    
+    var ctx = document.getElementById('gyro-line-graph').getContext('2d');
+    return window.myLine = Chart.Line(ctx, {
+        data: {
+            labels: [],
+            datasets: [{
+                label: 'X-Axis',
+                borderColor: 'rgb(255, 0, 0)',
+                backgroundColor: 'rgb(255, 0, 0)',
+                fill: false,
+                data: [],
+                yAxisID: 'y-axis-1',
+            }, {
+                label: 'Y-Axis',
+                borderColor: 'rgb(0, 255, 0)',
+                backgroundColor: 'rgb(0, 255, 0)',
+                fill: false,
+                data: [],
+                yAxisID: 'y-axis-1'
+            }, {
+                label: 'Z-Axis',
+                borderColor: 'rgb(0, 0, 255)',
+                backgroundColor: 'rgb(0, 0, 255)',
+                fill: false,
+                data: [],
+                yAxisID: 'y-axis-1'
+            }]
+        },
+		options: {
+            responsive: true,
+            hoverMode: 'index',
+            stacked: false,
+            title: {
+                display: false,
+                text: 'Gyrometer'
+            },
+            scales: {
+                yAxes: [{
+                    type: 'linear', // only linear but allow scale type registration. This allows extensions to exist solely for log scale for instance
+                    display: true,
+                    position: 'left',
+                    id: 'y-axis-1',
+                }]
+            }
+        }
+    })
+}
+
+function accelLineGraph() {    
+    var ctx = document.getElementById('accel-line-graph').getContext('2d');
     return window.myLine = Chart.Line(ctx, {
         data: {
             labels: [],
@@ -201,8 +329,10 @@ $( document ).ready( () => {
     adjustSpeed()
     tune()
     coupled()
-    var chart = graph()
-    
+    var compassChart = compassLineGraph()
+    var gyroChart    = gyroLineGraph()
+    var accelChart   = accelLineGraph()
+
     socket.emit( 'init-motors' , {
         motor_0_pin: 18,
         motor_1_pin: 23
@@ -225,9 +355,11 @@ $( document ).ready( () => {
     socket.on( 'new-data' , (data) => {
         updateMotorFields(data.motor_0, data.motor_1)
         updateCompassFields(data.compass)
+        updateCompassGraphs(compassChart, data.compass)
         updateGyroFields(data.gyro)
+        updateGyroGraphs(gyroChart, data.gyro)
         updateAccelFields(data.accel)
-        updateGraph(chart, data.compass, data.gyro, data.accel)
+        updateAccelGraphs(accelChart, data.accel)
         ++i;
         now = Date.now()
         if(now - then >= 1000) {
