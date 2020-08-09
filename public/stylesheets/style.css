@@ -62,3 +62,7 @@ a {
   font-size: 18px;
   color: blue
 }
+
+.line-graph {
+  height: '75'
+}
