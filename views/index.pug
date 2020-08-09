@@ -5,7 +5,6 @@ block content
   - var btnType = 'info'
   - var btnSize = 'lg'
   - var lineGraphHeight = '75'
-  - var liveGraphHeight = '100'
   
   body.background
     .row
@@ -69,7 +68,7 @@ block content
             .col.s6.vl-right
               canvas#accel-live-xy
             .col.s6
-              canvas#accel-live-z(height=liveGraphHeight)
+              canvas#accel-live-z
           .row
             .col.s12
               canvas#accel-line-graph(height=lineGraphHeight)

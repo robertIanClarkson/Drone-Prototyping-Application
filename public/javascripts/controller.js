@@ -72,8 +72,24 @@ function updateGyroGraphs(chart, gyro) {
 
 let accel_tick = 0;
 function updateAccelGraphs(charts, accel) {
-    // Line
-    let line = charts[0]
+    // Live - XY
+    let xy = charts[0]
+    xy.data.datasets[0].data[0] = {
+        x: accel.x_axis,
+        y: accel.y_axis
+    }
+    xy.update()
+
+    // Live - Z
+    let z = charts[1]
+    z.data.datasets[0].data[0] = {
+        x: 0,
+        y: accel.z_axis
+    }
+    z.update()
+
+    // Line - XYZ
+    let line = charts[2]
     line.data.labels.push(accel_tick)
     line.data.datasets[0].data.push(accel.x_axis)
     line.data.datasets[1].data.push(accel.y_axis)
@@ -85,15 +101,7 @@ function updateAccelGraphs(charts, accel) {
         line.data.datasets[2].data.shift()
     }
     line.update(0)
-    accel_tick++
-
-    // Live
-    let live = charts[1]
-    live.data.datasets[0].data[0] = {
-        x: accel.x_axis,
-        y: accel.y_axis
-    }
-    live.update()
+    accel_tick++    
 }
 
 /* GRAPH FUNCTIONS */
@@ -301,6 +309,66 @@ function accelLiveGraph_xy() {
     })
 }
 
+function accelLiveGraph_z() {
+    var ctx = document.getElementById('accel-live-xy').getContext('2d');
+    return window.myLine = new Chart(ctx, {
+        type: 'scatter',
+        data: {
+            labels: [],
+            datasets: [{
+                label: 'Live Data',
+                borderColor: 'rgb(255, 0, 0)',
+                backgroundColor: 'rgb(255, 0, 0)',
+                fill: false,
+                data: []
+            },{
+                label: 'Origin',
+                borderColor: 'rgb(0, 255, 0)',
+                backgroundColor: 'rgb(0, 255, 0)',
+                fill: false,
+                data: [{
+                    x: 0,
+                    y: 0
+                }]
+            }]
+        },
+		options: {
+            legend: {
+                display: false
+            },
+            responsive: true,
+            hoverMode: 'index',
+            stacked: false,
+            title: {
+                display: false,
+                text: 'Accelerometer'
+            },
+            scales: {
+                xAxes: [{
+                    ticks: {
+                        max: 100,
+                        min: -100,
+                        stepSize: 10
+                    },
+                    type: 'linear',
+                    display: true,
+                    position: 'bottom'
+                }],
+                yAxes: [{
+                    ticks: {
+                        max: 100,
+                        min: -100,
+                        stepSize: 10
+                    },
+                    type: 'linear', // only linear but allow scale type registration. This allows extensions to exist solely for log scale for instance
+                    display: true,
+                    position: 'left'
+                }]
+            }
+        }
+    })
+}
+
 /* MOTOR FUNCTIONS */
 function motorOn() {
     $( '#on-universal' ).click( event => {
@@ -407,6 +475,7 @@ $( document ).ready( () => {
     var gyroLine      = gyroLineGraph()
     var accelLine     = accelLineGraph()
     var accelLive_xy  = accelLiveGraph_xy()
+    var accelLive_z   = accelLiveGraph_z()
 
     socket.emit( 'init-motors' , {
         motor_0_pin: 18,
@@ -437,7 +506,7 @@ $( document ).ready( () => {
         // Graphs
         updateCompassGraphs(compassLine, data.compass)
         updateGyroGraphs(gyroLine, data.gyro)
-        updateAccelGraphs([accelLine, accelLive_xy], data.accel)
+        updateAccelGraphs([accelLive_xy, accelLive_z, accelLine], data.accel)
         
         ++i;
         now = Date.now()
