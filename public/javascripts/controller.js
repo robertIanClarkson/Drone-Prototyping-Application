@@ -85,24 +85,6 @@ function updateAccelGraphs(charts, accel) {
     }
     line.update(0)
     accel_tick++
-
-    // Radar
-    let radar = charts[1]
-    if(accel.x_axis > 0) {
-        radar.data.datasets[0].data[1] = accel.x_axis
-        radar.data.datasets[0].data[3] = 0
-    } else {
-        radar.data.datasets[0].data[1] = 0
-        radar.data.datasets[0].data[3] = accel.x_axis
-    }
-    if(accel.y_axis > 0) {
-        radar.data.datasets[0].data[0] = accel.y_axis
-        radar.data.datasets[0].data[2] = 0
-    } else {
-        radar.data.datasets[0].data[0] = 0
-        radar.data.datasets[0].data[2] = accel.y_axis
-    }    
-    radar.update(0)
 }
 
 function compassLineGraph() {    
@@ -249,37 +231,6 @@ function accelLineGraph() {
     })
 }
 
-function accelRadarGraph() {    
-    return window.myRadar = new Chart(document.getElementById('accel-radar-graph-xy'), {
-        type: 'radar',
-        data: {
-            labels: ['Y+', 'X+', 'Y-', 'X-'],
-            datasets: [{
-                label: 'Live Data',
-                backgroundColor: 'rgb(0, 0, 255)',
-                borderColor: 'rgb(0, 0, 255)',
-                pointBackgroundColor: 'rgb(0, 0, 255)',
-                data: []
-            }]
-        },
-		options: {
-            legend: {
-                position: 'top',
-                display: false
-            },
-            title: {
-                display: false,
-                text: 'Accel XY'
-            },
-            scale: {
-                ticks: {
-                    beginAtZero: true
-                }
-            }
-        }
-    });    
-}
-
 function motorOn() {
     $( '#on-universal' ).click( event => {
         socket.emit('motor-on', { motor: 0 })
@@ -383,7 +334,7 @@ $( document ).ready( () => {
     var compassLine   = compassLineGraph()
     var gyroLine      = gyroLineGraph()
     var accelLine     = accelLineGraph()
-    var accelRadar    = accelRadarGraph()
+    // var accelRadar    = accelRadarGraph()
 
     socket.emit( 'init-motors' , {
         motor_0_pin: 18,
@@ -414,7 +365,7 @@ $( document ).ready( () => {
         // Graphs
         updateCompassGraphs(compassLine, data.compass)
         updateGyroGraphs(gyroLine, data.gyro)
-        updateAccelGraphs([accelLine, accelRadar], data.accel)
+        updateAccelGraphs([accelLine], data.accel)
         
         ++i;
         now = Date.now()
