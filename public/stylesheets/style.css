@@ -51,6 +51,10 @@ a {
   border-left: 2px solid grey;
 }
 
+.vl-right-thick {
+  border-right: 2px solid grey;
+}
+
 .motor-data {
   font-family: 'Roboto';
   font-size: 18px;
