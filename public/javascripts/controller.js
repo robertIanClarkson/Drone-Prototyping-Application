@@ -88,8 +88,16 @@ function updateAccelGraphs(charts, accel) {
 
     // Radar
     let radar = charts[1]
-    radar.data.datasets[0].data[0] = accel.x_axis
-    radar.data.datasets[0].data[1] = accel.y_axis
+    if(accel.x_axis > 0) {
+        radar.data.datasets[0].data[1] = accel.x_axis
+    } else {
+        radar.data.datasets[0].data[3] = accel.x_axis
+    }
+    if(accel.y_axis > 0) {
+        radar.data.datasets[0].data[0] = accel.x_axis
+    } else {
+        radar.data.datasets[0].data[2] = accel.x_axis
+    }    
     radar.update(0)
 }
 
