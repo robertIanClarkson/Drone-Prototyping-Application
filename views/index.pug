@@ -57,6 +57,9 @@ block content
               h6
                 u Z-Axis
               h7#accel-z.sensor-data NULL
+          .row
+            .col.s12
+              canvas#accel-graph
 
         //- Motors
         .col.s6.vl-left-thick
@@ -146,8 +149,6 @@ block content
                   button#on-1(type='button' class='btn green btn-' + btnType + ' btn-' + btnSize) on
                 .col
                   button#off-1(type='button' class='btn red btn-' + btnType + ' btn-' + btnSize) off
-    .divider
-    canvas#accel-graph
     .divider
 
     script(src="/socket.io/socket.io.js")
