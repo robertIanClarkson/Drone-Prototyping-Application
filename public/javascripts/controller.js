@@ -88,8 +88,9 @@ function updateAccelGraphs(charts, accel) {
 
     // Radar
     let radar = charts[1]
-    radar.data.datasets[0].data.push(accel.x_axis)
-    radar.data.datasets[0].data.push(accel.y_axis)
+    radar.data.datasets[0].data[0] = accel.x_axis
+    radar.data.datasets[0].data[1] = accel.y_axis
+    radar.update(0)
 }
 
 function compassLineGraph() {    
