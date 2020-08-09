@@ -253,6 +253,15 @@ function accelLiveGraph_xy() {
                 backgroundColor: 'rgb(255, 0, 0)',
                 fill: false,
                 data: []
+            },{
+                label: 'Origin',
+                borderColor: 'rgb(0, 255, 0)',
+                backgroundColor: 'rgb(0, 255, 0)',
+                fill: false,
+                data: [{
+                    x: 0,
+                    y: 0
+                }]
             }]
         },
 		options: {
