@@ -1,5 +1,6 @@
 var socket = io();
 
+/* UPDATE FUNCTIONS */
 function updateMotorFields(motor_0, motor_1) {
     // on/off
     $('#status-0').text(motor_0.isOn)
@@ -85,8 +86,16 @@ function updateAccelGraphs(charts, accel) {
     }
     line.update(0)
     accel_tick++
+
+    // Live
+    let live = charts[1]
+    live.data.datasets[0].data[0] = {
+        x: accel.x_axis,
+        y: accel.y_axis
+    }
 }
 
+/* GRAPH FUNCTIONS */
 function compassLineGraph() {    
     var ctx = document.getElementById('compass-line-graph').getContext('2d');
     return window.myLine = Chart.Line(ctx, {
@@ -231,6 +240,54 @@ function accelLineGraph() {
     })
 }
 
+function accelLiveGraph_xy() {
+    var ctx = document.getElementById('accel-live-xy').getContext('2d');
+    return window.myLine = Chart.Line(ctx, {
+        data: {
+            labels: [],
+            datasets: [{
+                label: 'Live Data',
+                borderColor: 'rgb(255, 0, 0)',
+                backgroundColor: 'rgb(255, 0, 0)',
+                fill: false,
+                data: []
+            }]
+        },
+		options: {
+            responsive: true,
+            hoverMode: 'index',
+            stacked: false,
+            title: {
+                display: false,
+                text: 'Accelerometer'
+            },
+            scales: {
+                xAxes: [{
+                    ticks: {
+                        max: 100,
+                        min: -100,
+                        stepSize: 10
+                    },
+                    type: 'linear',
+                    display: true,
+                    position: 'bottom'
+                }],
+                yAxes: [{
+                    ticks: {
+                        max: 100,
+                        min: -100,
+                        stepSize: 10
+                    },
+                    type: 'linear', // only linear but allow scale type registration. This allows extensions to exist solely for log scale for instance
+                    display: true,
+                    position: 'left'
+                }]
+            }
+        }
+    })
+}
+
+/* MOTOR FUNCTIONS */
 function motorOn() {
     $( '#on-universal' ).click( event => {
         socket.emit('motor-on', { motor: 0 })
@@ -321,6 +378,7 @@ function coupled() {
     }
 }
 
+/* MAIN */
 var i = 0
 var then = Date.now();
 var now;
@@ -334,7 +392,7 @@ $( document ).ready( () => {
     var compassLine   = compassLineGraph()
     var gyroLine      = gyroLineGraph()
     var accelLine     = accelLineGraph()
-    // var accelRadar    = accelRadarGraph()
+    var accelLive_xy  = accelLiveGraph_xy()
 
     socket.emit( 'init-motors' , {
         motor_0_pin: 18,
@@ -365,7 +423,7 @@ $( document ).ready( () => {
         // Graphs
         updateCompassGraphs(compassLine, data.compass)
         updateGyroGraphs(gyroLine, data.gyro)
-        updateAccelGraphs([accelLine], data.accel)
+        updateAccelGraphs([accelLine, accelLive_xy], data.accel)
         
         ++i;
         now = Date.now()

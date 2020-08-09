@@ -5,7 +5,7 @@ block content
   - var btnType = 'info'
   - var btnSize = 'lg'
   - var lineGraphHeight = '75'
-  - var radarGraphHeight = '100'
+  - var liveGraphHeight = '100'
   
   body.background
     .row
@@ -67,9 +67,9 @@ block content
               h7#accel-z.sensor-data NULL
           .row
             .col.s6.vl-right
-              canvas#accel-radar-graph-xy
+              canvas#accel-live-xy(height=liveGraphHeight)
             .col.s6
-              canvas#accel-radar-graph-z(height=radarGraphHeight)
+              canvas#accel-live-z(height=liveGraphHeight)
           .row
             .col.s12
               canvas#accel-line-graph(height=lineGraphHeight)
