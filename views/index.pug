@@ -4,6 +4,7 @@ block content
 
   - var btnType = 'info'
   - var btnSize = 'lg'
+  - var lineGraphHeight = '75'
   
   body.background
     .row
@@ -27,7 +28,7 @@ block content
               h7#compass-z.sensor-data NULL
           .row
             .col.s12
-              canvas#compass-line-graph
+              canvas#compass-line-graph(height=lineGraphHeight)
           .divider
           //- Gyro
           h5 Gyroscope
@@ -46,7 +47,7 @@ block content
               h7#gyro-z.sensor-data NULL
           .row
             .col.s12
-              canvas#gyro-line-graph           
+              canvas#gyro-line-graph(height=lineGraphHeight)           
           .divider
           //- Accel
           h5 Accelerometer
@@ -65,7 +66,7 @@ block content
               h7#accel-z.sensor-data NULL
           .row
             .col.s12
-              canvas#accel-line-graph
+              canvas#accel-line-graph(height=lineGraphHeight)
 
         //- Motors
         .col.s6.vl-left-thick

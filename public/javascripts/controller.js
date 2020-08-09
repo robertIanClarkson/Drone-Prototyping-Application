@@ -39,7 +39,7 @@ function updateAccelFields(values) {
 
 let compass_tick = 0;
 function updateCompassGraphs(chart, compass) {
-    chart.data.labels.push(tick)
+    chart.data.labels.push(compass_tick)
     chart.data.datasets[0].data.push(compass.x_axis)
     chart.data.datasets[1].data.push(compass.y_axis)
     chart.data.datasets[2].data.push(compass.z_axis)
@@ -55,7 +55,7 @@ function updateCompassGraphs(chart, compass) {
 
 let gyro_tick = 0;
 function updateGyroGraphs(chart, gyro) {
-    chart.data.labels.push(tick)
+    chart.data.labels.push(gyro_tick)
     chart.data.datasets[0].data.push(gyro.x_axis)
     chart.data.datasets[1].data.push(gyro.y_axis)
     chart.data.datasets[2].data.push(gyro.z_axis)
@@ -71,7 +71,7 @@ function updateGyroGraphs(chart, gyro) {
 
 let accel_tick = 0;
 function updateAccelGraphs(chart, accel) {
-    chart.data.labels.push(tick)
+    chart.data.labels.push(accel_tick)
     chart.data.datasets[0].data.push(accel.x_axis)
     chart.data.datasets[1].data.push(accel.y_axis)
     chart.data.datasets[2].data.push(accel.z_axis)
