@@ -175,19 +175,19 @@ const init = ( app, server ) => {
 
     socket.on( 'tune' , data => {
       var mid = 68;
-      var adjustedPWM_0 = this.motor_0.tune(mid - data.offset);
-      var adjustedPWM_1 = this.motor_1.tune(data.offset - mid);
+      this.motor_0.tune(mid - data.offset);
+      this.motor_1.tune(data.offset - mid);
       // console.log(`*** tune ${data.offset}`);
       io.emit('motor-data', {
         motor_0: {
           isOn: this.motor_0.getOnStatus(),
-          speed: adjustedPWM_0,
-          value: ((adjustedPWM_0 - 1150) / 5)
+          speed: this.motor_0.getSpeed(),
+          value: ((this.motor_0.getSpeed() - 1150) / 5)
         },
         motor_1: {
           isOn: this.motor_1.getOnStatus(),
-          speed: adjustedPWM_1,
-          value: ((adjustedPWM_1 - 1150) / 5)
+          speed: this.motor_1.getSpeed(),
+          value: ((this.motor_1.getSpeed() - 1150) / 5)
         },
       })
     })
