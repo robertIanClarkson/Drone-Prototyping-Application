@@ -49,7 +49,6 @@ $(document).ready(() => {
   // Incoming data handler
   socket.on('new-data', (data) => {
     // Fields
-    Updater.updateMotorFields(data.motor_0, data.motor_1)
     Updater.updateCompassFields(data.compass)
     Updater.updateGyroFields(data.gyro)
     Updater.updateAccelFields(data.accel)
@@ -74,5 +73,10 @@ $(document).ready(() => {
   // Catch for failed to read data
   socket.on('error-reading-data', () => {
     socket.emit('ready-for-data', {})
+  })
+
+  // Update motor GUI elements on user input
+  socket.on('motor-data', (data) => {
+    Updater.updateMotorFields(data.motor_0, data.motor_1)
   })
 });
