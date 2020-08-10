@@ -87,7 +87,16 @@ block content
           .divider
           //- Coupled
           .slidecontainer
-            h5 Coupled
+            .row
+              .col
+                h5 Coupled
+              .col
+                .switch
+                  label
+                    Off
+                    input(type="checkbox")
+                    span(class="lever")
+                    On
             input#coupled(type="range" min="0" max="140" value="0")
             .row
               .col.s6
