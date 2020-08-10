@@ -1,6 +1,6 @@
-import * as Motors from './motors';
-import * as Grapher from './graphs';
-import * as Updater from './update';
+import * as Motors from './motors.js';
+import * as Grapher from './graphs.js';
+import * as Updater from './update.js';
 
 var socket = io();
 
@@ -59,14 +59,14 @@ $(document).ready(() => {
     Updater.updateGyroGraphs(gyroLine, data.gyro)
     Updater.updateAccelGraphs([accelLive_xy, accelLive_z, accelLine], data.accel)
 
-    ++i;
-    now = Date.now()
-    if (now - then >= 1000) {
-      console.log(`Refreshes = ${i}`)
-      console.log(`Time      = ${now - then}`)
-      then = now;
-      i = 0;
-    }
+    // ++i;
+    // now = Date.now()
+    // if (now - then >= 1000) {
+    //   console.log(`Refreshes = ${i}`)
+    //   console.log(`Time      = ${now - then}`)
+    //   then = now;
+    //   i = 0;
+    // }
     socket.emit('ready-for-data', {})
     // console.log(data)
   })
