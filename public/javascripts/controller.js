@@ -10,11 +10,11 @@ var then = Date.now();
 var now;
 $(document).ready(() => {
   // Motors Listeners
-  Motors.motorOn()
-  Motors.motorOff()
-  Motors.adjustSpeed()
-  Motors.tune()
-  Motors.coupled()
+  Motors.motorOn(socket)
+  Motors.motorOff(socket)
+  Motors.adjustSpeed(socket)
+  Motors.tune(socket)
+  Motors.coupled(socket)
 
   // Init Graphs 
   var compassLine  = Grapher.compassLineGraph()

@@ -1,6 +1,6 @@
 /* MOTOR FUNCTIONS */
 /* Listens for 'motor on' commands from client */
-function motorOn() {
+function motorOn(socket) {
   $('#on-universal').click(event => {
     socket.emit('motor-on', { motor: 0 })
     socket.emit('motor-on', { motor: 1 })
@@ -14,7 +14,7 @@ function motorOn() {
 }
 
 /* Listens for 'motor off' commands from client */
-function motorOff() {
+function motorOff(socket) {
   $('#off-universal').click(event => {
     socket.emit('motor-off', { motor: 0 })
     socket.emit('motor-off', { motor: 1 })
@@ -28,7 +28,7 @@ function motorOff() {
 }
 
 /* Listens for 'adjust-speed' commands from client */
-function adjustSpeed() {
+function adjustSpeed(socket) {
   // SLIDER--> Motor-0
   var slider0 = document.getElementById("speed-0");
   var output0 = document.getElementById("speedValue-0");
@@ -57,7 +57,7 @@ function adjustSpeed() {
 }
 
 /* Listens to tune crossfade slider --> makes one motor faster than the other */
-function tune() {
+function tune(socket) {
   // SLIDER--> Crossfade
   var crossfade = document.getElementById("crossfade");
   var output_crossfade = document.getElementById("crossfade-value");
@@ -76,7 +76,7 @@ function tune() {
 }
 
 /* Listens to the coupled speed slider --> Treats both motors as one motor */
-function coupled() {
+function coupled(socket) {
   // SLIDER--> coupled motors
   var coupled_slider = document.getElementById("coupled");
   var output_coupled = document.getElementById("coupled-value");
