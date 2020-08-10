@@ -9,9 +9,22 @@ function updateMotorFields(motor_0, motor_1) {
   $('#pwm-0').text(motor_0.speed)
   $('#pwm-1').text(motor_1.speed)
 
+  console.log(motor_0)
   // sliders
-  $('#speed-0').value = `${motor_0.value}`
-  $('#speed-1').value = `${motor_1.value}`
+  if(motor_0.value < 0) {
+    $('#speed-0').val(0)
+    $('#speedValue-0').text(0)
+  } else {
+    $('#speed-0').val(motor_0.value)
+    $('#speedValue-0').text(motor_0.value)
+  }
+  if(motor_1.value < 0) {
+    $('#speed-1').val(0)
+    $('#speedValue-1').text(0)
+  } else {
+    $('#speed-1').val(motor_1.value)
+    $('#speedValue-1').text(motor_1.value)
+  }
 
   // universal
   if (motor_0.isOn == false && motor_1.isOn == false) { // both on

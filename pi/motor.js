@@ -6,7 +6,7 @@ class Motor {
   constructor(pin) {
     this.motor;
     this.isOn = false;
-    this.PWM_VALUE = 1130;
+    this.PWM_VALUE = 0;
     this.PWM_AMOUNT = 20;
     this.motor = new Gpio(pin, { mode: Gpio.OUTPUT });
   }
@@ -26,7 +26,8 @@ class Motor {
               this.motor.servoWrite(1140)
               this.sleep(500)
                 .then(() => {
-                  this.motor.servoWrite(1150)
+                  this.PWM_VALUE = 1150
+                  this.motor.servoWrite(this.PWM_VALUE)
                   this.isOn = true
                   resolve()
                 })
@@ -40,7 +41,8 @@ class Motor {
 
   setOff() {
     this.isOn = false
-    this.motor.servoWrite(0)
+    this.PWM_VALUE = 0
+    this.motor.servoWrite(this.PWM_VALUE)
   };
 
   setDown() {
