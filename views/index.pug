@@ -88,15 +88,10 @@ block content
           //- Coupled
           .slidecontainer
             .row
-              .col
-                h5 Coupled
-              .col
-                .switch
-                  label
-                    Off
-                    input(type="checkbox")
-                    span(class="lever")
-                    On
+              .col.s3
+                h5 Coupled:
+              .col.s3
+                h5#coupled-status.motor-data NULL
             input#coupled(type="range" min="0" max="140" value="0")
             .row
               .col.s6
