@@ -48,11 +48,13 @@ const init = ( app, server ) => {
           io.emit('new-data', {
             motor_0: {
               isOn: this.motor_0.getOnStatus(),
-              speed: this.motor_0.getSpeed()
+              speed: this.motor_0.getSpeed(),
+              value: ((this.motor_0.getSpeed() / 5) - 1150)
             },
             motor_1: {
               isOn: this.motor_1.getOnStatus(),
-              speed: this.motor_1.getSpeed()
+              speed: this.motor_1.getSpeed(),
+              value: ((this.motor_1.getSpeed() / 5) - 1150)
             },
             compass: {
               x_axis: compass_result[0],

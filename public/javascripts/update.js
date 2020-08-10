@@ -9,6 +9,10 @@ function updateMotorFields(motor_0, motor_1) {
   $('#pwm-0').text(motor_0.speed)
   $('#pwm-1').text(motor_1.speed)
 
+  // sliders
+  $('#speed-0').value = `${motor_0.value}`
+  $('#speed-1').value = `${motor_1.value}`
+
   // universal
   if (motor_0.isOn == false && motor_1.isOn == false) { // both on
     $('#status-all').text('false')
