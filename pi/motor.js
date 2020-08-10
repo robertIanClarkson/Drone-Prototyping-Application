@@ -69,8 +69,8 @@ class Motor {
   };
 
   tune(offset) {
-    this.PWM_VALUE += (offset * 5)
-    this.motor.servoWrite(this.PWM_VALUE)
+    this.motor.servoWrite(this.PWM_VALUE + (offset * 5))
+    return this.PWM_VALUE + (offset * 5)
   };
 }
 
