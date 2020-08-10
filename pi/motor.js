@@ -8,34 +8,34 @@ class Motor {
     this.isOn = false;
     this.PWM_VALUE = 1130;
     this.PWM_AMOUNT = 20;
-    this.motor = new Gpio(pin, {mode: Gpio.OUTPUT});
+    this.motor = new Gpio(pin, { mode: Gpio.OUTPUT });
   }
-  
+
   sleep(ms) {
     return new Promise(resolve => setTimeout(resolve, ms));
   }
 
   setOn() {
     return new Promise((resolve, reject) => {
-        this.motor.servoWrite(1120)
-        this.sleep(500)
+      this.motor.servoWrite(1120)
+      this.sleep(500)
         .then(() => {
           this.motor.servoWrite(1130)
           this.sleep(500)
-          .then(() => {
-            this.motor.servoWrite(1140)
-            this.sleep(500)
             .then(() => {
-              this.motor.servoWrite(1150)
-              this.isOn = true
-              resolve()
+              this.motor.servoWrite(1140)
+              this.sleep(500)
+                .then(() => {
+                  this.motor.servoWrite(1150)
+                  this.isOn = true
+                  resolve()
+                })
             })
-          })    
         })
         .catch(err => {
           reject(err)
         })
-    });    
+    });
   };
 
   setOff() {

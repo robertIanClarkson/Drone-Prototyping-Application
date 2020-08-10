@@ -2,509 +2,509 @@ var socket = io();
 
 /* UPDATE FUNCTIONS */
 function updateMotorFields(motor_0, motor_1) {
-    // on/off
-    $('#status-0').text(motor_0.isOn)
-    $('#status-1').text(motor_1.isOn)
+  // on/off
+  $('#status-0').text(motor_0.isOn)
+  $('#status-1').text(motor_1.isOn)
 
-    // speed
-    $('#pwm-0').text(motor_0.speed)
-    $('#pwm-1').text(motor_1.speed)
+  // speed
+  $('#pwm-0').text(motor_0.speed)
+  $('#pwm-1').text(motor_1.speed)
 
-    // universal
-    if(motor_0.isOn == false && motor_1.isOn == false) { // both on
-        $('#status-all').text('false')
-    } else if(motor_0.isOn == true && motor_1.isOn == true) { // both off
-        $('#status-all').text('true')
-    } else { // mixed
-        $('#status-all').text('mixed')
-    }
+  // universal
+  if (motor_0.isOn == false && motor_1.isOn == false) { // both on
+    $('#status-all').text('false')
+  } else if (motor_0.isOn == true && motor_1.isOn == true) { // both off
+    $('#status-all').text('true')
+  } else { // mixed
+    $('#status-all').text('mixed')
+  }
 }
 
 function updateCompassFields(values) {
-    $('#compass-x').text(values.x_axis)
-    $('#compass-y').text(values.y_axis)
-    $('#compass-z').text(values.z_axis)
+  $('#compass-x').text(values.x_axis)
+  $('#compass-y').text(values.y_axis)
+  $('#compass-z').text(values.z_axis)
 }
 
 function updateGyroFields(values) {
-    $('#gyro-x').text(values.x_axis)
-    $('#gyro-y').text(values.y_axis)
-    $('#gyro-z').text(values.z_axis)
+  $('#gyro-x').text(values.x_axis)
+  $('#gyro-y').text(values.y_axis)
+  $('#gyro-z').text(values.z_axis)
 }
 
 function updateAccelFields(values) {
-    $('#accel-x').text(values.x_axis)
-    $('#accel-y').text(values.y_axis)
-    $('#accel-z').text(values.z_axis)
+  $('#accel-x').text(values.x_axis)
+  $('#accel-y').text(values.y_axis)
+  $('#accel-z').text(values.z_axis)
 }
 
 let compass_tick = 0;
 function updateCompassGraphs(chart, compass) {
-    chart.data.labels.push(compass_tick)
-    chart.data.datasets[0].data.push(compass.x_axis)
-    chart.data.datasets[1].data.push(compass.y_axis)
-    chart.data.datasets[2].data.push(compass.z_axis)
-    if(compass_tick > 100) {
-        chart.data.labels.shift()
-        chart.data.datasets[0].data.shift()
-        chart.data.datasets[1].data.shift()
-        chart.data.datasets[2].data.shift()
-    }
-    chart.update(0)
-    compass_tick++
+  chart.data.labels.push(compass_tick)
+  chart.data.datasets[0].data.push(compass.x_axis)
+  chart.data.datasets[1].data.push(compass.y_axis)
+  chart.data.datasets[2].data.push(compass.z_axis)
+  if (compass_tick > 100) {
+    chart.data.labels.shift()
+    chart.data.datasets[0].data.shift()
+    chart.data.datasets[1].data.shift()
+    chart.data.datasets[2].data.shift()
+  }
+  chart.update(0)
+  compass_tick++
 }
 
 let gyro_tick = 0;
 function updateGyroGraphs(chart, gyro) {
-    chart.data.labels.push(gyro_tick)
-    chart.data.datasets[0].data.push(gyro.x_axis)
-    chart.data.datasets[1].data.push(gyro.y_axis)
-    chart.data.datasets[2].data.push(gyro.z_axis)
-    if(gyro_tick > 100) {
-        chart.data.labels.shift()
-        chart.data.datasets[0].data.shift()
-        chart.data.datasets[1].data.shift()
-        chart.data.datasets[2].data.shift()
-    }
-    chart.update(0)
-    gyro_tick++
+  chart.data.labels.push(gyro_tick)
+  chart.data.datasets[0].data.push(gyro.x_axis)
+  chart.data.datasets[1].data.push(gyro.y_axis)
+  chart.data.datasets[2].data.push(gyro.z_axis)
+  if (gyro_tick > 100) {
+    chart.data.labels.shift()
+    chart.data.datasets[0].data.shift()
+    chart.data.datasets[1].data.shift()
+    chart.data.datasets[2].data.shift()
+  }
+  chart.update(0)
+  gyro_tick++
 }
 
 let accel_tick = 0;
 function updateAccelGraphs(charts, accel) {
-    // Live - XY
-    let xy = charts[0]
-    xy.data.datasets[0].data[0] = {
-        x: accel.x_axis,
-        y: accel.y_axis
-    }
-    xy.update()
+  // Live - XY
+  let xy = charts[0]
+  xy.data.datasets[0].data[0] = {
+    x: accel.x_axis,
+    y: accel.y_axis
+  }
+  xy.update()
 
-    // Live - Z
-    let z = charts[1]
-    z.data.datasets[0].data[0] = {
-        x: 0,
-        y: accel.z_axis
-    }
-    z.update()
+  // Live - Z
+  let z = charts[1]
+  z.data.datasets[0].data[0] = {
+    x: 0,
+    y: accel.z_axis
+  }
+  z.update()
 
-    // Line - XYZ
-    let line = charts[2]
-    line.data.labels.push(accel_tick)
-    line.data.datasets[0].data.push(accel.x_axis)
-    line.data.datasets[1].data.push(accel.y_axis)
-    line.data.datasets[2].data.push(accel.z_axis)
-    if(accel_tick > 100) {
-        line.data.labels.shift()
-        line.data.datasets[0].data.shift()
-        line.data.datasets[1].data.shift()
-        line.data.datasets[2].data.shift()
-    }
-    line.update(0)
-    accel_tick++    
+  // Line - XYZ
+  let line = charts[2]
+  line.data.labels.push(accel_tick)
+  line.data.datasets[0].data.push(accel.x_axis)
+  line.data.datasets[1].data.push(accel.y_axis)
+  line.data.datasets[2].data.push(accel.z_axis)
+  if (accel_tick > 100) {
+    line.data.labels.shift()
+    line.data.datasets[0].data.shift()
+    line.data.datasets[1].data.shift()
+    line.data.datasets[2].data.shift()
+  }
+  line.update(0)
+  accel_tick++
 }
 
 /* GRAPH FUNCTIONS */
-function compassLineGraph() {    
-    var ctx = document.getElementById('compass-line-graph').getContext('2d');
-    return window.myLine = Chart.Line(ctx, {
-        data: {
-            labels: [],
-            datasets: [{
-                label: 'X-Axis',
-                borderColor: 'rgb(255, 0, 0)',
-                backgroundColor: 'rgb(255, 0, 0)',
-                fill: false,
-                data: [],
-                yAxisID: 'y-axis-1',
-            }, {
-                label: 'Y-Axis',
-                borderColor: 'rgb(0, 255, 0)',
-                backgroundColor: 'rgb(0, 255, 0)',
-                fill: false,
-                data: [],
-                yAxisID: 'y-axis-1'
-            }, {
-                label: 'Z-Axis',
-                borderColor: 'rgb(0, 0, 255)',
-                backgroundColor: 'rgb(0, 0, 255)',
-                fill: false,
-                data: [],
-                yAxisID: 'y-axis-1'
-            }]
-        },
-		options: {
-            responsive: true,
-            hoverMode: 'index',
-            stacked: false,
-            title: {
-                display: false,
-                text: 'Compass'
-            },
-            scales: {
-                yAxes: [{
-                    type: 'linear', // only linear but allow scale type registration. This allows extensions to exist solely for log scale for instance
-                    display: true,
-                    position: 'left',
-                    id: 'y-axis-1',
-                }]
-            }
-        }
-    })
+function compassLineGraph() {
+  var ctx = document.getElementById('compass-line-graph').getContext('2d');
+  return window.myLine = Chart.Line(ctx, {
+    data: {
+      labels: [],
+      datasets: [{
+        label: 'X-Axis',
+        borderColor: 'rgb(255, 0, 0)',
+        backgroundColor: 'rgb(255, 0, 0)',
+        fill: false,
+        data: [],
+        yAxisID: 'y-axis-1',
+      }, {
+        label: 'Y-Axis',
+        borderColor: 'rgb(0, 255, 0)',
+        backgroundColor: 'rgb(0, 255, 0)',
+        fill: false,
+        data: [],
+        yAxisID: 'y-axis-1'
+      }, {
+        label: 'Z-Axis',
+        borderColor: 'rgb(0, 0, 255)',
+        backgroundColor: 'rgb(0, 0, 255)',
+        fill: false,
+        data: [],
+        yAxisID: 'y-axis-1'
+      }]
+    },
+    options: {
+      responsive: true,
+      hoverMode: 'index',
+      stacked: false,
+      title: {
+        display: false,
+        text: 'Compass'
+      },
+      scales: {
+        yAxes: [{
+          type: 'linear', // only linear but allow scale type registration. This allows extensions to exist solely for log scale for instance
+          display: true,
+          position: 'left',
+          id: 'y-axis-1',
+        }]
+      }
+    }
+  })
 }
 
-function gyroLineGraph() {    
-    var ctx = document.getElementById('gyro-line-graph').getContext('2d');
-    return window.myLine = Chart.Line(ctx, {
-        data: {
-            labels: [],
-            datasets: [{
-                label: 'X-Axis',
-                borderColor: 'rgb(255, 0, 0)',
-                backgroundColor: 'rgb(255, 0, 0)',
-                fill: false,
-                data: [],
-                yAxisID: 'y-axis-1',
-            }, {
-                label: 'Y-Axis',
-                borderColor: 'rgb(0, 255, 0)',
-                backgroundColor: 'rgb(0, 255, 0)',
-                fill: false,
-                data: [],
-                yAxisID: 'y-axis-1'
-            }, {
-                label: 'Z-Axis',
-                borderColor: 'rgb(0, 0, 255)',
-                backgroundColor: 'rgb(0, 0, 255)',
-                fill: false,
-                data: [],
-                yAxisID: 'y-axis-1'
-            }]
-        },
-		options: {
-            responsive: true,
-            hoverMode: 'index',
-            stacked: false,
-            title: {
-                display: false,
-                text: 'Gyrometer'
-            },
-            scales: {
-                yAxes: [{
-                    type: 'linear', // only linear but allow scale type registration. This allows extensions to exist solely for log scale for instance
-                    display: true,
-                    position: 'left',
-                    id: 'y-axis-1',
-                }]
-            }
-        }
-    })
+function gyroLineGraph() {
+  var ctx = document.getElementById('gyro-line-graph').getContext('2d');
+  return window.myLine = Chart.Line(ctx, {
+    data: {
+      labels: [],
+      datasets: [{
+        label: 'X-Axis',
+        borderColor: 'rgb(255, 0, 0)',
+        backgroundColor: 'rgb(255, 0, 0)',
+        fill: false,
+        data: [],
+        yAxisID: 'y-axis-1',
+      }, {
+        label: 'Y-Axis',
+        borderColor: 'rgb(0, 255, 0)',
+        backgroundColor: 'rgb(0, 255, 0)',
+        fill: false,
+        data: [],
+        yAxisID: 'y-axis-1'
+      }, {
+        label: 'Z-Axis',
+        borderColor: 'rgb(0, 0, 255)',
+        backgroundColor: 'rgb(0, 0, 255)',
+        fill: false,
+        data: [],
+        yAxisID: 'y-axis-1'
+      }]
+    },
+    options: {
+      responsive: true,
+      hoverMode: 'index',
+      stacked: false,
+      title: {
+        display: false,
+        text: 'Gyrometer'
+      },
+      scales: {
+        yAxes: [{
+          type: 'linear', // only linear but allow scale type registration. This allows extensions to exist solely for log scale for instance
+          display: true,
+          position: 'left',
+          id: 'y-axis-1',
+        }]
+      }
+    }
+  })
 }
 
-function accelLineGraph() {    
-    var ctx = document.getElementById('accel-line-graph').getContext('2d');
-    return window.myLine = Chart.Line(ctx, {
-        data: {
-            labels: [],
-            datasets: [{
-                label: 'X-Axis',
-                borderColor: 'rgb(255, 0, 0)',
-                backgroundColor: 'rgb(255, 0, 0)',
-                fill: false,
-                data: [],
-                yAxisID: 'y-axis-1',
-            }, {
-                label: 'Y-Axis',
-                borderColor: 'rgb(0, 255, 0)',
-                backgroundColor: 'rgb(0, 255, 0)',
-                fill: false,
-                data: [],
-                yAxisID: 'y-axis-1'
-            }, {
-                label: 'Z-Axis',
-                borderColor: 'rgb(0, 0, 255)',
-                backgroundColor: 'rgb(0, 0, 255)',
-                fill: false,
-                data: [],
-                yAxisID: 'y-axis-1'
-            }]
-        },
-		options: {
-            responsive: true,
-            hoverMode: 'index',
-            stacked: false,
-            title: {
-                display: false,
-                text: 'Accelerometer'
-            },
-            scales: {
-                yAxes: [{
-                    type: 'linear', // only linear but allow scale type registration. This allows extensions to exist solely for log scale for instance
-                    display: true,
-                    position: 'left',
-                    id: 'y-axis-1',
-                }]
-            }
-        }
-    })
+function accelLineGraph() {
+  var ctx = document.getElementById('accel-line-graph').getContext('2d');
+  return window.myLine = Chart.Line(ctx, {
+    data: {
+      labels: [],
+      datasets: [{
+        label: 'X-Axis',
+        borderColor: 'rgb(255, 0, 0)',
+        backgroundColor: 'rgb(255, 0, 0)',
+        fill: false,
+        data: [],
+        yAxisID: 'y-axis-1',
+      }, {
+        label: 'Y-Axis',
+        borderColor: 'rgb(0, 255, 0)',
+        backgroundColor: 'rgb(0, 255, 0)',
+        fill: false,
+        data: [],
+        yAxisID: 'y-axis-1'
+      }, {
+        label: 'Z-Axis',
+        borderColor: 'rgb(0, 0, 255)',
+        backgroundColor: 'rgb(0, 0, 255)',
+        fill: false,
+        data: [],
+        yAxisID: 'y-axis-1'
+      }]
+    },
+    options: {
+      responsive: true,
+      hoverMode: 'index',
+      stacked: false,
+      title: {
+        display: false,
+        text: 'Accelerometer'
+      },
+      scales: {
+        yAxes: [{
+          type: 'linear', // only linear but allow scale type registration. This allows extensions to exist solely for log scale for instance
+          display: true,
+          position: 'left',
+          id: 'y-axis-1',
+        }]
+      }
+    }
+  })
 }
 
 function accelLiveGraph_xy() {
-    var ctx = document.getElementById('accel-live-xy').getContext('2d');
-    return window.myLine = new Chart(ctx, {
-        type: 'scatter',
-        data: {
-            labels: [],
-            datasets: [{
-                label: 'Live Data',
-                borderColor: 'rgb(255, 0, 0)',
-                backgroundColor: 'rgb(255, 0, 0)',
-                fill: false,
-                data: []
-            }]
-        },
-		options: {
-            legend: {
-                display: false
-            },
-            responsive: true,
-            hoverMode: 'index',
-            stacked: false,
-            title: {
-                display: false,
-                text: 'Accelerometer'
-            },
-            scales: {
-                xAxes: [{
-                    ticks: {
-                        max: 100,
-                        min: -100,
-                        stepSize: 25
-                    },
-                    type: 'linear',
-                    display: true,
-                    position: 'bottom'
-                }],
-                yAxes: [{
-                    ticks: {
-                        max: 100,
-                        min: -100,
-                        stepSize: 25
-                    },
-                    type: 'linear', // only linear but allow scale type registration. This allows extensions to exist solely for log scale for instance
-                    display: true,
-                    position: 'left'
-                }]
-            }
-        }
-    })
+  var ctx = document.getElementById('accel-live-xy').getContext('2d');
+  return window.myLine = new Chart(ctx, {
+    type: 'scatter',
+    data: {
+      labels: [],
+      datasets: [{
+        label: 'Live Data',
+        borderColor: 'rgb(255, 0, 0)',
+        backgroundColor: 'rgb(255, 0, 0)',
+        fill: false,
+        data: []
+      }]
+    },
+    options: {
+      legend: {
+        display: false
+      },
+      responsive: true,
+      hoverMode: 'index',
+      stacked: false,
+      title: {
+        display: false,
+        text: 'Accelerometer'
+      },
+      scales: {
+        xAxes: [{
+          ticks: {
+            max: 100,
+            min: -100,
+            stepSize: 25
+          },
+          type: 'linear',
+          display: true,
+          position: 'bottom'
+        }],
+        yAxes: [{
+          ticks: {
+            max: 100,
+            min: -100,
+            stepSize: 25
+          },
+          type: 'linear', // only linear but allow scale type registration. This allows extensions to exist solely for log scale for instance
+          display: true,
+          position: 'left'
+        }]
+      }
+    }
+  })
 }
 
 function accelLiveGraph_z() {
-    var ctx = document.getElementById('accel-live-z').getContext('2d');
-    return window.myLine = new Chart(ctx, {
-        type: 'scatter',
-        data: {
-            labels: [],
-            datasets: [{
-                label: 'Live Data',
-                borderColor: 'rgb(255, 0, 0)',
-                backgroundColor: 'rgb(255, 0, 0)',
-                fill: false,
-                data: []
-            }]
-        },
-		options: {
-            legend: {
-                display: false
-            },
-            responsive: true,
-            hoverMode: 'index',
-            stacked: false,
-            title: {
-                display: false,
-                text: 'Accelerometer'
-            },
-            scales: {
-                xAxes: [{
-                    ticks: {
-                        max: 100,
-                        min: -100,
-                        stepSize: 25
-                    },
-                    type: 'linear',
-                    display: true,
-                    position: 'bottom'
-                }],
-                yAxes: [{
-                    ticks: {
-                        max: 100,
-                        min: -100,
-                        stepSize: 25
-                    },
-                    type: 'linear', // only linear but allow scale type registration. This allows extensions to exist solely for log scale for instance
-                    display: true,
-                    position: 'left'
-                }]
-            }
-        }
-    })
+  var ctx = document.getElementById('accel-live-z').getContext('2d');
+  return window.myLine = new Chart(ctx, {
+    type: 'scatter',
+    data: {
+      labels: [],
+      datasets: [{
+        label: 'Live Data',
+        borderColor: 'rgb(255, 0, 0)',
+        backgroundColor: 'rgb(255, 0, 0)',
+        fill: false,
+        data: []
+      }]
+    },
+    options: {
+      legend: {
+        display: false
+      },
+      responsive: true,
+      hoverMode: 'index',
+      stacked: false,
+      title: {
+        display: false,
+        text: 'Accelerometer'
+      },
+      scales: {
+        xAxes: [{
+          ticks: {
+            max: 100,
+            min: -100,
+            stepSize: 25
+          },
+          type: 'linear',
+          display: true,
+          position: 'bottom'
+        }],
+        yAxes: [{
+          ticks: {
+            max: 100,
+            min: -100,
+            stepSize: 25
+          },
+          type: 'linear', // only linear but allow scale type registration. This allows extensions to exist solely for log scale for instance
+          display: true,
+          position: 'left'
+        }]
+      }
+    }
+  })
 }
 
 /* MOTOR FUNCTIONS */
 function motorOn() {
-    $( '#on-universal' ).click( event => {
-        socket.emit('motor-on', { motor: 0 })
-        socket.emit('motor-on', { motor: 1 })
-    })
-    $( '#on-0' ).click( event => {
-        socket.emit('motor-on', { motor: 0 })
-    })
-    $( '#on-1' ).click( event => {
-        socket.emit('motor-on', { motor: 1 })
-    }) 
+  $('#on-universal').click(event => {
+    socket.emit('motor-on', { motor: 0 })
+    socket.emit('motor-on', { motor: 1 })
+  })
+  $('#on-0').click(event => {
+    socket.emit('motor-on', { motor: 0 })
+  })
+  $('#on-1').click(event => {
+    socket.emit('motor-on', { motor: 1 })
+  })
 }
 
 function motorOff() {
-    $( '#off-universal' ).click( event => {
-        socket.emit('motor-off', { motor: 0 })
-        socket.emit('motor-off', { motor: 1 })
-    })
-    $( '#off-0' ).click( event => {
-        socket.emit('motor-off', { motor: 0 })
-    })
-    $( '#off-1' ).click( event => {
-        socket.emit('motor-off', { motor: 1 })
-    })
+  $('#off-universal').click(event => {
+    socket.emit('motor-off', { motor: 0 })
+    socket.emit('motor-off', { motor: 1 })
+  })
+  $('#off-0').click(event => {
+    socket.emit('motor-off', { motor: 0 })
+  })
+  $('#off-1').click(event => {
+    socket.emit('motor-off', { motor: 1 })
+  })
 }
 
 function adjustSpeed() {
-    // SLIDER-0
-    var slider0 = document.getElementById("speed-0");
-    var output0 = document.getElementById("speedValue-0");
-    output0.innerHTML = slider0.value;
-    slider0.onchange = function() {
-        output0.innerHTML = this.value;
-        var data_0 = {
-            motor: 0,
-            speed: this.value
-        }
-        socket.emit( 'adjust-speed' , data_0)
+  // SLIDER-0
+  var slider0 = document.getElementById("speed-0");
+  var output0 = document.getElementById("speedValue-0");
+  output0.innerHTML = slider0.value;
+  slider0.onchange = function () {
+    output0.innerHTML = this.value;
+    var data_0 = {
+      motor: 0,
+      speed: this.value
     }
-    
-    // SLIDER-1
-    var slider1 = document.getElementById("speed-1");
-    var output1 = document.getElementById("speedValue-1");
-    output1.innerHTML = slider1.value;
-    slider1.onchange = function() {
-        output1.innerHTML = this.value;
-        var data_1 = {
-            motor: 1,
-            speed: this.value
-        }
-        socket.emit( 'adjust-speed' , data_1)
+    socket.emit('adjust-speed', data_0)
+  }
+
+  // SLIDER-1
+  var slider1 = document.getElementById("speed-1");
+  var output1 = document.getElementById("speedValue-1");
+  output1.innerHTML = slider1.value;
+  slider1.onchange = function () {
+    output1.innerHTML = this.value;
+    var data_1 = {
+      motor: 1,
+      speed: this.value
     }
+    socket.emit('adjust-speed', data_1)
+  }
 }
 
 function tune() {
-    // SLIDER-Crossfade
-    var crossfade = document.getElementById("crossfade");
-    var output_crossfade = document.getElementById("crossfade-value");
-    output_crossfade.innerHTML = 0;
-    crossfade.onchange = function() {
-        if(this.value <= 68) {
-            output_crossfade.innerHTML = this.value - 68;
-        } else {
-            output_crossfade.innerHTML = `+${this.value - 68}`;
-        }
-        var data = {
-            offset: this.value
-        }
-        socket.emit( 'tune' , data)
+  // SLIDER-Crossfade
+  var crossfade = document.getElementById("crossfade");
+  var output_crossfade = document.getElementById("crossfade-value");
+  output_crossfade.innerHTML = 0;
+  crossfade.onchange = function () {
+    if (this.value <= 68) {
+      output_crossfade.innerHTML = this.value - 68;
+    } else {
+      output_crossfade.innerHTML = `+${this.value - 68}`;
     }
+    var data = {
+      offset: this.value
+    }
+    socket.emit('tune', data)
+  }
 }
 
 function coupled() {
-    // SLIDER-coupled
-    var coupled_slider = document.getElementById("coupled");
-    var output_coupled = document.getElementById("coupled-value");
-    output_coupled.innerHTML = coupled_slider.value;
-    coupled_slider.onchange = function() {
-        output_coupled.innerHTML = this.value;
-        socket.emit( 'adjust-speed' , {
-            motor: 0,
-            speed: this.value
-        })
-        socket.emit( 'adjust-speed' , {
-            motor: 1,
-            speed: this.value
-        })
-    }
+  // SLIDER-coupled
+  var coupled_slider = document.getElementById("coupled");
+  var output_coupled = document.getElementById("coupled-value");
+  output_coupled.innerHTML = coupled_slider.value;
+  coupled_slider.onchange = function () {
+    output_coupled.innerHTML = this.value;
+    socket.emit('adjust-speed', {
+      motor: 0,
+      speed: this.value
+    })
+    socket.emit('adjust-speed', {
+      motor: 1,
+      speed: this.value
+    })
+  }
 }
 
 /* MAIN */
 var i = 0
 var then = Date.now();
 var now;
-$( document ).ready( () => {
-    // INPUTS
-    motorOn()
-    motorOff()
-    adjustSpeed()
-    tune()
-    coupled()
-    var compassLine   = compassLineGraph()
-    var gyroLine      = gyroLineGraph()
-    var accelLine     = accelLineGraph()
-    var accelLive_xy  = accelLiveGraph_xy()
-    var accelLive_z   = accelLiveGraph_z()
+$(document).ready(() => {
+  // INPUTS
+  motorOn()
+  motorOff()
+  adjustSpeed()
+  tune()
+  coupled()
+  var compassLine = compassLineGraph()
+  var gyroLine = gyroLineGraph()
+  var accelLine = accelLineGraph()
+  var accelLive_xy = accelLiveGraph_xy()
+  var accelLive_z = accelLiveGraph_z()
 
-    socket.emit( 'init-motors' , {
-        motor_0_pin: 18,
-        motor_1_pin: 23
-    })
-    
-    socket.emit('init-sensors', {
-        compass: {
-            slave_address: 0x1D
-        },
-        accel: {
-            slave_address: 0x1D
-        },
-        gyro: {
-            slave_address: 0x6B
-        }
-    })
-    
-    socket.emit( 'ready-for-data' , {})
-    
-    socket.on( 'new-data' , (data) => {
-        // Fields
-        updateMotorFields(data.motor_0, data.motor_1)
-        updateCompassFields(data.compass)
-        updateGyroFields(data.gyro)
-        updateAccelFields(data.accel)
+  socket.emit('init-motors', {
+    motor_0_pin: 18,
+    motor_1_pin: 23
+  })
 
-        // Graphs
-        updateCompassGraphs(compassLine, data.compass)
-        updateGyroGraphs(gyroLine, data.gyro)
-        updateAccelGraphs([accelLive_xy, accelLive_z, accelLine], data.accel)
-        
-        ++i;
-        now = Date.now()
-        if(now - then >= 1000) {
-            console.log(`Refreshes = ${i}`)
-            console.log(`Time      = ${now - then}`)
-            then = now;
-            i = 0;
-        }
-        socket.emit( 'ready-for-data' , {})
-        // console.log(data)
-    })
+  socket.emit('init-sensors', {
+    compass: {
+      slave_address: 0x1D
+    },
+    accel: {
+      slave_address: 0x1D
+    },
+    gyro: {
+      slave_address: 0x6B
+    }
+  })
 
-    socket.on( 'error-reading-data' , () => {
-        socket.emit( 'ready-for-data' , {})
-    })
+  socket.emit('ready-for-data', {})
+
+  socket.on('new-data', (data) => {
+    // Fields
+    updateMotorFields(data.motor_0, data.motor_1)
+    updateCompassFields(data.compass)
+    updateGyroFields(data.gyro)
+    updateAccelFields(data.accel)
+
+    // Graphs
+    updateCompassGraphs(compassLine, data.compass)
+    updateGyroGraphs(gyroLine, data.gyro)
+    updateAccelGraphs([accelLive_xy, accelLive_z, accelLine], data.accel)
+
+    ++i;
+    now = Date.now()
+    if (now - then >= 1000) {
+      console.log(`Refreshes = ${i}`)
+      console.log(`Time      = ${now - then}`)
+      then = now;
+      i = 0;
+    }
+    socket.emit('ready-for-data', {})
+    // console.log(data)
+  })
+
+  socket.on('error-reading-data', () => {
+    socket.emit('ready-for-data', {})
+  })
 });
 
 /*************************MIDI****************************** */
