@@ -29,20 +29,20 @@ function updateMotorFields(motor_0, motor_1) {
   if (motor_0.isOn == false && motor_1.isOn == false) { // both off
     $('#status-all').text('false')
     if(motor_0.speed == motor_1.speed) {
-      $('#coupled').slider('enable')
+      $('#coupled').slider({ disabled: false })
     } else {
-      $('#coupled').slider('disable')
+      $('#coupled').slider({ disabled: true })
     }
   } else if (motor_0.isOn == true && motor_1.isOn == true) { // both on
     $('#status-all').text('true')
     if(motor_0.speed == motor_1.speed) {
-      $('#coupled').slider('enable')
+      $('#coupled').slider({ disabled: false })
     } else {
-      $('#coupled').slider('disable')
+      $('#coupled').slider({ disabled: true })
     }
   } else { // mixed
     $('#status-all').text('mixed')
-    $('#coupled').slider('disable')
+    $('#coupled').slider({ disabled: true })
   }
 }
 
