@@ -98,25 +98,35 @@ const init = ( app, server ) => {
     socket.on( 'motor-on' , data => {
       if(data.motor == 0) {
         this.motor_0.setOn().then(() => {
-          // console.log("*** motor_0 on")
+          io.emit('motor-data', {
+            motor_0: {
+              isOn: this.motor_0.getOnStatus(),
+              speed: this.motor_0.getSpeed(),
+              value: ((this.motor_0.getSpeed() - 1150) / 5)
+            },
+            motor_1: {
+              isOn: this.motor_1.getOnStatus(),
+              speed: this.motor_1.getSpeed(),
+              value: ((this.motor_1.getSpeed() - 1150) / 5)
+            },
+          })
         });
       } else if(data.motor == 1) {
         this.motor_1.setOn().then(() => {
-          // console.log("*** motor_1 on")
+          io.emit('motor-data', {
+            motor_0: {
+              isOn: this.motor_0.getOnStatus(),
+              speed: this.motor_0.getSpeed(),
+              value: ((this.motor_0.getSpeed() - 1150) / 5)
+            },
+            motor_1: {
+              isOn: this.motor_1.getOnStatus(),
+              speed: this.motor_1.getSpeed(),
+              value: ((this.motor_1.getSpeed() - 1150) / 5)
+            },
+          })
         });
       }
-      io.emit('motor-data', {
-        motor_0: {
-          isOn: this.motor_0.getOnStatus(),
-          speed: this.motor_0.getSpeed(),
-          value: ((this.motor_0.getSpeed() - 1150) / 5)
-        },
-        motor_1: {
-          isOn: this.motor_1.getOnStatus(),
-          speed: this.motor_1.getSpeed(),
-          value: ((this.motor_1.getSpeed() - 1150) / 5)
-        },
-      })
     })
 
     socket.on( 'motor-off' , data => {
