@@ -9,7 +9,6 @@ function updateMotorFields(motor_0, motor_1) {
   $('#pwm-0').text(motor_0.speed)
   $('#pwm-1').text(motor_1.speed)
 
-  console.log(motor_0)
   // sliders
   if(motor_0.value < 0) {
     $('#speed-0').val(0)
@@ -27,12 +26,23 @@ function updateMotorFields(motor_0, motor_1) {
   }
 
   // universal
-  if (motor_0.isOn == false && motor_1.isOn == false) { // both on
+  if (motor_0.isOn == false && motor_1.isOn == false) { // both off
     $('#status-all').text('false')
-  } else if (motor_0.isOn == true && motor_1.isOn == true) { // both off
+    if(motor_0.speed == motor_1.speed) {
+      $('#coupled').slider('enable')
+    } else {
+      $('#coupled').slider('disable')
+    }
+  } else if (motor_0.isOn == true && motor_1.isOn == true) { // both on
     $('#status-all').text('true')
+    if(motor_0.speed == motor_1.speed) {
+      $('#coupled').slider('enable')
+    } else {
+      $('#coupled').slider('disable')
+    }
   } else { // mixed
     $('#status-all').text('mixed')
+    $('#coupled').slider('disable')
   }
 }
 
