@@ -47,9 +47,25 @@ Links correspond to what I personally used. However, feel free to mix and match 
 ## CAD Models
 #### [Onshape™ Models](https://cad.onshape.com/documents/c5a66f21c28828a756cf88b1/w/3172519d3cd5b9c9eeba6fb3/e/0769fcc171bb256ae3bfbe8a)
 #### Body
-<img src="./readme_images/body_sketch.png" alt="Body Sketch" width="400"/><img src="./readme_images/body.png" alt="Body" width="400"/>
+<div class="row">
+  <div class="col">
+    <img src="./readme_images/body_sketch.png" alt="Body Sketch" width="49%"/>
+  </div>
+  <div class="col">
+    <img src="./readme_images/body.png" alt="Body" width="49%"/>
+  </div>
+</div>
+
 #### Motor Mount
-<img src="./readme_images/mount_sketch.png" alt="Motor Mount Sketch" width="400"/><img src="./readme_images/mount.png" alt="Motor Mount" width="400"/>
+<div class="row">
+  <div class="col">
+    <img src="./readme_images/mount_sketch.png" alt="Motor Mount Sketch" width="49%"/>
+  </div>
+  <div class="col">
+    <img src="./readme_images/mount.png" alt="Motor Mount" width="49%"/>
+  </div>
+</div>
+
 
 ## Wiring
 #### ***NOTE:** I am not good with fritzing™ software, use notes as well.*
