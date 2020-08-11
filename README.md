@@ -47,11 +47,9 @@ Links correspond to what I personally used. However, feel free to mix and match 
 ## CAD Models
 #### [Onshape™ Models](https://cad.onshape.com/documents/c5a66f21c28828a756cf88b1/w/3172519d3cd5b9c9eeba6fb3/e/0769fcc171bb256ae3bfbe8a)
 #### Body
-![Body](./readme_images/body.png)
-![Body Sketch](./readme_images/body_sketch.png)
+<img src="./readme_images/body_sketch.png" alt="Body Sketch" width="400"/><img src="./readme_images/body.png" alt="Body" width="400"/>
 #### Motor Mount
-![Motor Mount](./readme_images/mount.png)
-![Motor Mount Sketch](./readme_images/mount_sketch.png)
+<img src="./readme_images/mount_sketch.png" alt="Motor Mount Sketch" width="400"/><img src="./readme_images/mount.png" alt="Motor Mount" width="400"/>
 
 ## Wiring
 #### ***NOTE:** I am not good with fritzing™ software, use notes as well.*
@@ -63,7 +61,6 @@ Links correspond to what I personally used. However, feel free to mix and match 
 ###### ***NOTE:** This is a general representation, soldering may be required to connect wires to sensor, esc, motor, and battery.*
 
 ###### ***NOTE:** Breadboard can be disregarded and connections can be made directly between entities*
-y
 
 ## Installation - Raspi Terminal
 ```bash
@@ -93,7 +90,7 @@ $ make go
 ## Usage
 
 ## Journal
-##### *This Project was started in 2017. I was very new to programming but was able to get the motors running via a terminal menu. I could not produce enough thrust out of the brushless motors and stopped working on the project. In May of 2020, upon Covid-19 I had a surplus of time and a much better understanding of programming and decided to pick the project back up. Ironically using the same parts as in 2017, I was able to create enough thrust by simply putting my 2 7.4v batteries in series, doubling the voltage. However, the motors and propellers I was using where incredibly violent and loud leading me to make a smaller model. This allowed me to prototype at my desk without be too loud (was still pretty loud). After many hours of working on this project it was really starting to come together and I decided to keep this journal as well as pictures and videos.*
+###### This Project was started in 2017. I was very new to programming but was able to get the motors running via a terminal menu. I could not produce enough thrust out of the brushless motors and stopped working on the project. In May of 2020, upon Covid-19 I had a surplus of time and a much better understanding of programming and decided to pick the project back up. Ironically using the same parts as in 2017, I was able to create enough thrust by simply putting my 2 7.4v batteries in series, doubling the voltage. However, the motors and propellers I was using where incredibly violent and loud leading me to make a smaller model. This allowed me to prototype at my desk without be too loud (was still pretty loud). After many hours of working on this project it was really starting to come together and I decided to keep this journal as well as pictures and videos.
 
 ```
 8/11/2020
