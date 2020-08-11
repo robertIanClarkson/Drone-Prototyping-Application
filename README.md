@@ -49,20 +49,20 @@ Links correspond to what I personally used. However, feel free to mix and match 
 #### Body
 <div class="row">
   <div class="col">
-    <img src="./readme_images/body_sketch.png" alt="Body Sketch" width="49%"/>
+    <img src="./readme_images/body_sketch.png" alt="Body Sketch" width="40%"/>
   </div>
   <div class="col">
-    <img src="./readme_images/body.png" alt="Body" width="49%"/>
+    <img src="./readme_images/body.png" alt="Body" width="40%"/>
   </div>
 </div>
 
 #### Motor Mount
 <div class="row">
   <div class="col">
-    <img src="./readme_images/mount_sketch.png" alt="Motor Mount Sketch" width="49%"/>
+    <img src="./readme_images/mount_sketch.png" alt="Motor Mount Sketch" width="40%"/>
   </div>
   <div class="col">
-    <img src="./readme_images/mount.png" alt="Motor Mount" width="49%"/>
+    <img src="./readme_images/mount.png" alt="Motor Mount" width="40%"/>
   </div>
 </div>
 
