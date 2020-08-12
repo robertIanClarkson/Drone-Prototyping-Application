@@ -95,7 +95,7 @@ const init = ( app, server ) => {
       this.motor_0 = new Motor(data.motor_0_pin)
       this.motor_1 = new Motor(data.motor_1_pin)
       console.log('*** Motors Ready')
-      emitMotorData(io)
+      emitMotorData()
     })
 
     
@@ -103,11 +103,11 @@ const init = ( app, server ) => {
     socket.on( 'motor-on' , data => {
       if(data.motor == 0) {
         this.motor_0.setOn().then(() => {
-          emitMotorData(io)
+          emitMotorData()
         })
       } else if(data.motor == 1) {
         this.motor_1.setOn().then(() => {
-          emitMotorData(io)
+          emitMotorData()
         })
       }
     })
@@ -120,7 +120,7 @@ const init = ( app, server ) => {
         this.motor_1.setOff();
         // console.log('*** motor_1 off')
       }
-      emitMotorData(io)
+      emitMotorData()
     })
 
     socket.on( 'adjust-speed' , data => {
@@ -131,7 +131,7 @@ const init = ( app, server ) => {
         this.motor_1.setSpeed(data.speed)
         // console.log('*** motor_1 adjust speed')
       }
-      emitMotorData(io)
+      emitMotorData()
     })
 
     socket.on( 'tune' , data => {
@@ -139,7 +139,7 @@ const init = ( app, server ) => {
       this.motor_0.tune(mid - data.offset);
       this.motor_1.tune(data.offset - mid);
       // console.log(`*** tune ${data.offset}`);
-      emitMotorData(io)
+      emitMotorData()
     })
   })
 }
