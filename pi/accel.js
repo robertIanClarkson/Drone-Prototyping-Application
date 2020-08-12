@@ -83,8 +83,6 @@ class Accel {
     this.x_axis = 0;
     this.y_axis = 0;
     this.z_axis = 0;
-
-    let then = Date.now()
     return new Promise((resolve, reject) => {
       this.recursiveRead(sensor)
         .then(() => {
@@ -92,7 +90,6 @@ class Accel {
           this.y_axis = Math.floor((this.y_axis / this.i) / 256)
           this.z_axis = Math.floor((this.z_axis / this.i) / 256)
           this.i = 0;
-          console.log(Date.now() - then)
           resolve([this.x_axis, this.y_axis, this.z_axis])
         })
         .catch(err => {

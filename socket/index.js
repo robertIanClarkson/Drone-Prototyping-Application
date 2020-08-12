@@ -86,7 +86,7 @@ const init = (app, server) => {
         })
 
         socket.on('ready-for-data', data => {
-          setInterval(emitSensorData, 200, sensor)
+          setInterval(emitSensorData, 100, sensor)
         })
 
         socket.on('disconnect', data => {
