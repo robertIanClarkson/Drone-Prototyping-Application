@@ -6,6 +6,21 @@ const Compass = require('../pi/compass')
 const Gyro = require('../pi/gyro')
 const Accel = require('../pi/accel')
 
+function emitMotorData(io) {
+  io.emit('motor-data', {
+    motor_0: {
+      isOn:  this.motor_0.getOnStatus(),
+      speed: this.motor_0.getSpeed(),
+      value: this.motor_0.getValue()
+    },
+    motor_1: {
+      isOn:  this.motor_1.getOnStatus(),
+      speed: this.motor_1.getSpeed(),
+      value: this.motor_1.getValue()
+    }
+  })
+}
+
 const init = ( app, server ) => {
   const io = socketIo( server )
 
@@ -79,18 +94,7 @@ const init = ( app, server ) => {
       this.motor_0 = new Motor(data.motor_0_pin)
       this.motor_1 = new Motor(data.motor_1_pin)
       console.log('*** Motors Ready')
-      io.emit('motor-data', {
-        motor_0: {
-          isOn: this.motor_0.getOnStatus(),
-          speed: this.motor_0.getSpeed(),
-          value: ((this.motor_0.getSpeed() - 1150) / 5)
-        },
-        motor_1: {
-          isOn: this.motor_1.getOnStatus(),
-          speed: this.motor_1.getSpeed(),
-          value: ((this.motor_1.getSpeed() - 1150) / 5)
-        },
-      })
+      emitMotorData(io)
     })
 
     
@@ -98,34 +102,12 @@ const init = ( app, server ) => {
     socket.on( 'motor-on' , data => {
       if(data.motor == 0) {
         this.motor_0.setOn().then(() => {
-          io.emit('motor-data', {
-            motor_0: {
-              isOn: this.motor_0.getOnStatus(),
-              speed: this.motor_0.getSpeed(),
-              value: ((this.motor_0.getSpeed() - 1150) / 5)
-            },
-            motor_1: {
-              isOn: this.motor_1.getOnStatus(),
-              speed: this.motor_1.getSpeed(),
-              value: ((this.motor_1.getSpeed() - 1150) / 5)
-            },
-          })
-        });
+          emitMotorData(io)
+        })
       } else if(data.motor == 1) {
         this.motor_1.setOn().then(() => {
-          io.emit('motor-data', {
-            motor_0: {
-              isOn: this.motor_0.getOnStatus(),
-              speed: this.motor_0.getSpeed(),
-              value: ((this.motor_0.getSpeed() - 1150) / 5)
-            },
-            motor_1: {
-              isOn: this.motor_1.getOnStatus(),
-              speed: this.motor_1.getSpeed(),
-              value: ((this.motor_1.getSpeed() - 1150) / 5)
-            },
-          })
-        });
+          emitMotorData(io)
+        })
       }
     })
 
@@ -137,18 +119,7 @@ const init = ( app, server ) => {
         this.motor_1.setOff();
         // console.log('*** motor_1 off')
       }
-      io.emit('motor-data', {
-        motor_0: {
-          isOn: this.motor_0.getOnStatus(),
-          speed: this.motor_0.getSpeed(),
-          value: ((this.motor_0.getSpeed() - 1150) / 5)
-        },
-        motor_1: {
-          isOn: this.motor_1.getOnStatus(),
-          speed: this.motor_1.getSpeed(),
-          value: ((this.motor_1.getSpeed() - 1150) / 5)
-        },
-      })
+      emitMotorData(io)
     })
 
     socket.on( 'adjust-speed' , data => {
@@ -159,18 +130,7 @@ const init = ( app, server ) => {
         this.motor_1.setSpeed(data.speed)
         // console.log('*** motor_1 adjust speed')
       }
-      io.emit('motor-data', {
-        motor_0: {
-          isOn: this.motor_0.getOnStatus(),
-          speed: this.motor_0.getSpeed(),
-          value: ((this.motor_0.getSpeed() - 1150) / 5)
-        },
-        motor_1: {
-          isOn: this.motor_1.getOnStatus(),
-          speed: this.motor_1.getSpeed(),
-          value: ((this.motor_1.getSpeed() - 1150) / 5)
-        },
-      })
+      emitMotorData(io)
     })
 
     socket.on( 'tune' , data => {
@@ -178,18 +138,7 @@ const init = ( app, server ) => {
       this.motor_0.tune(mid - data.offset);
       this.motor_1.tune(data.offset - mid);
       // console.log(`*** tune ${data.offset}`);
-      io.emit('motor-data', {
-        motor_0: {
-          isOn: this.motor_0.getOnStatus(),
-          speed: this.motor_0.getSpeed(),
-          value: ((this.motor_0.getSpeed() - 1150) / 5)
-        },
-        motor_1: {
-          isOn: this.motor_1.getOnStatus(),
-          speed: this.motor_1.getSpeed(),
-          value: ((this.motor_1.getSpeed() - 1150) / 5)
-        },
-      })
+      emitMotorData(io)
     })
   })
 }

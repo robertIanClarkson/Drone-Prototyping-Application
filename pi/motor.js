@@ -68,6 +68,12 @@ class Motor {
     return this.PWM_VALUE
   };
 
+  getValue() {
+    let val = (this.PWM_VALUE - 1150) / 5
+    if(val < 0) return 0
+    return val
+  }
+
   tune(offset) {
     this.motor.servoWrite(this.PWM_VALUE + (offset * 5))
   };
