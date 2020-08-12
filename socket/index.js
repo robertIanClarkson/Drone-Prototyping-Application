@@ -33,7 +33,7 @@ const init = (app, server) => {
     })
   }
 
-  function emitSensorData() {
+  function emitSensorData(sensor) {
     Promise.all([
       compass.read(sensor),
       gyro.read(sensor),
@@ -70,15 +70,15 @@ const init = (app, server) => {
     i2c.openPromisified(1)
       .then(sensor => {
         socket.on('init-sensors', data => {
-          this.compass = new Compass(data.compass)
-          this.gyro = new Gyro(data.gyro)
-          this.accel = new Accel(data.accel)
+          compass = new Compass(data.compass)
+          gyro = new Gyro(data.gyro)
+          accel = new Accel(data.accel)
 
-          this.compass.start(sensor).then(() => {
+          compass.start(sensor).then(() => {
             console.log('*** Compass Ready')
-            this.gyro.start(sensor).then(() => {
+            gyro.start(sensor).then(() => {
               console.log('*** Gyro Ready')
-              this.accel.start(sensor).then(() => {
+              accel.start(sensor).then(() => {
                 console.log('*** Accel Ready')
               })
             })
@@ -86,7 +86,7 @@ const init = (app, server) => {
         })
 
         socket.on('ready-for-data', data => {
-          setInterval(emitSensorData, 200)
+          setInterval(emitSensorData, 200, sensor)
         })
 
         socket.on('disconnect', data => {
