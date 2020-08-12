@@ -6,22 +6,23 @@ const Compass = require('../pi/compass')
 const Gyro = require('../pi/gyro')
 const Accel = require('../pi/accel')
 
-function emitMotorData(io) {
-  io.emit('motor-data', {
-    motor_0: {
-      isOn:  this.motor_0.getOnStatus(),
-      speed: this.motor_0.getSpeed(),
-      value: this.motor_0.getValue()
-    },
-    motor_1: {
-      isOn:  this.motor_1.getOnStatus(),
-      speed: this.motor_1.getSpeed(),
-      value: this.motor_1.getValue()
-    }
-  })
-}
-
 const init = ( app, server ) => {
+
+  function emitMotorData(io) {
+    io.emit('motor-data', {
+      motor_0: {
+        isOn:  this.motor_0.getOnStatus(),
+        speed: this.motor_0.getSpeed(),
+        value: this.motor_0.getValue()
+      },
+      motor_1: {
+        isOn:  this.motor_1.getOnStatus(),
+        speed: this.motor_1.getSpeed(),
+        value: this.motor_1.getValue()
+      }
+    })
+  }
+  
   const io = socketIo( server )
 
   app.set( 'io', io )
