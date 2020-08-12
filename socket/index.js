@@ -10,8 +10,8 @@ const init = ( app, server ) => {
 
   const io = socketIo( server )
 
-  const motor_0 = new Motor(18);
-  const motor_1 = new Motor(23);
+  var motor_0;
+  var motor_1;
   var compass;
   var gyro;
   var accel;
@@ -92,8 +92,8 @@ const init = ( app, server ) => {
     })
 
     socket.on( 'init-motors' , data => {
-      //this.motor_0 = new Motor(data.motor_0_pin)
-      //this.motor_1 = new Motor(data.motor_1_pin)
+      motor_0 = new Motor(data.motor_0_pin)
+      motor_1 = new Motor(data.motor_1_pin)
       console.log('*** Motors Ready')
       emitMotorData()
     })
