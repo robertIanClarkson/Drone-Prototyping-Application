@@ -66,7 +66,7 @@ $(document).ready(() => {
     //   then = now;
     //   i = 0;
     // }
-    socket.emit('ready-for-data', {})
+    // socket.emit('ready-for-data', {})
     // console.log(data)
   })
 

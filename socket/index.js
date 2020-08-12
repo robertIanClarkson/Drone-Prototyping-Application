@@ -35,9 +35,9 @@ const init = (app, server) => {
 
   function emitSensorData() {
     Promise.all([
-      this.compass.read(sensor),
-      this.gyro.read(sensor),
-      this.accel.read(sensor)
+      compass.read(sensor),
+      gyro.read(sensor),
+      accel.read(sensor)
     ])
       .then(([compass_result, gyro_result, accel_result]) => {
         io.emit('new-data', {
