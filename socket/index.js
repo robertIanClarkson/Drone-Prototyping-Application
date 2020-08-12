@@ -8,8 +8,18 @@ const Accel = require('../pi/accel')
 
 const init = ( app, server ) => {
 
-  function emitMotorData(io) {
-    io.emit('motor-data', {
+  const io = socketIo( server )
+
+  var motor_0;
+  var motor_1;
+  var compass;
+  var gyro;
+  var accel;
+
+  app.set( 'io', io )
+
+  function emitMotorData() {
+    this.io.emit('motor-data', {
       motor_0: {
         isOn:  this.motor_0.getOnStatus(),
         speed: this.motor_0.getSpeed(),
@@ -22,16 +32,6 @@ const init = ( app, server ) => {
       }
     })
   }
-  
-  const io = socketIo( server )
-
-  app.set( 'io', io )
-
-  var motor_0;
-  var motor_1;
-  var compass;
-  var gyro;
-  var accel;
 
   io.on( 'connection', socket => {
     console.log( 'client connected' )
