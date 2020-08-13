@@ -165,6 +165,29 @@ block content
                   button#on-1(type='button' class='btn green btn-' + btnType + ' btn-' + btnSize) on
                 .col
                   button#off-1(type='button' class='btn red btn-' + btnType + ' btn-' + btnSize) off
+          .col.s12
+            div#cube-anime
+          .row
+            .col.s1
+              h6 X
+            .col.s10
+              input#accel-x(type="range" min="-180" max="180" value="0")
+            .col.s1
+              h6#accel-x-val 0
+          .row
+            .col.s1
+              h6 Y
+            .col.s10
+              input#accel-y(type="range" min="-180" max="180" value="0")
+            .col.s1
+              h6#accel-y-val 0
+          .row
+            .col.s1
+              h6 Z
+            .col.s10
+              input#accel-z(type="range" min="-180" max="180" value="0")
+            .col.s1
+              h6#accel-z-val 0
           //- Error
           .col.s6
             .divider
