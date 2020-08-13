@@ -71,8 +71,9 @@ $(document).ready(() => {
   })
 
   // Catch for failed to read data
-  socket.on('error-reading-data', () => {
-    socket.emit('ready-for-data', {})
+  socket.on('error-reading-data', (data) => {
+    console.log(data.error)
+    $('#error').text(data.error)
   })
 
   // Update motor GUI elements on user input

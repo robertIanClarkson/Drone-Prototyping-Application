@@ -60,7 +60,9 @@ const init = (app, server) => {
       })
       .catch(err => {
         console.log(err)
-        io.emit('error-reading-data', {})
+        io.emit('error-reading-data', {
+          error: err
+        })
       })
   }
 
