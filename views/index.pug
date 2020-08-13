@@ -165,6 +165,13 @@ block content
                   button#on-1(type='button' class='btn green btn-' + btnType + ' btn-' + btnSize) on
                 .col
                   button#off-1(type='button' class='btn red btn-' + btnType + ' btn-' + btnSize) off
+          //- Error
+          .row
+            .col.s6
+              .divider
+              h5 Error:
+              h6#error.motor-data No Error
+          //- Animation
           .row
             div#cube-anime
           .row
@@ -188,12 +195,6 @@ block content
               input#accel-z(type="range" min="-180" max="180" value="0")
             .col.s1
               h6#accel-z-val 0
-          //- Error
-          .row
-            .col.s6
-              .divider
-              h5 Error:
-              h6#error.motor-data No Error
     .divider
 
     script(src="/socket.io/socket.io.js")
