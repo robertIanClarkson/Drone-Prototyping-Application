@@ -1,6 +1,7 @@
 import * as Motors from './motors.js';
 import * as Grapher from './graphs.js';
 import * as Updater from './update.js';
+import { cubeAnimation } from './cube_animation.js';
 
 var socket = io();
 
@@ -9,6 +10,8 @@ var i = 0
 var then = Date.now();
 var now;
 $(document).ready(() => {
+  cubeAnimation()
+
   // Motors Listeners
   Motors.motorOn(socket)
   Motors.motorOff(socket)
