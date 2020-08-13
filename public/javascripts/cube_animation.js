@@ -1,4 +1,4 @@
-export function cubeAnimation() {
+function cubeAnimation() {
   var container = document.getElementById('cube-anime');
 
   // scene - main object
@@ -77,8 +77,11 @@ export function cubeAnimation() {
     }
   
     renderer.render(scene, camera);
-  };
-  
+  };  
   animate();
+}
+
+export {
+  cubeAnimation
 }
 

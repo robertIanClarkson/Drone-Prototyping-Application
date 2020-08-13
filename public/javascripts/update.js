@@ -141,6 +141,15 @@ function updateAccelGraphs(charts, accel) {
   accel_tick++
 }
 
+function updateCube(data) {
+  $('#accel-x-anime').val(data.accel.x_axis)
+  $('#accel-y-anime').val(data.accel.y_axis)
+  $('#accel-z-anime').val(data.accel.z_axis)
+  $('#accel-x-val-anime').text(data.accel.x_axis)
+  $('#accel-y-val-anime').text(data.accel.y_axis)
+  $('#accel-z-val-anime').text(data.accel.z_axis)
+}
+
 export {
   updateMotorFields,
   updateCompassFields,
@@ -148,5 +157,6 @@ export {
   updateAccelFields,
   updateCompassGraphs,
   updateGyroGraphs,
-  updateAccelGraphs
+  updateAccelGraphs,
+  updateCube
 }

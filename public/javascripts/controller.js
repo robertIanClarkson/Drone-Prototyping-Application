@@ -10,8 +10,6 @@ var i = 0
 var then = Date.now();
 var now;
 $(document).ready(() => {
-  cubeAnimation()
-
   // Motors Listeners
   Motors.motorOn(socket)
   Motors.motorOff(socket)
@@ -25,6 +23,9 @@ $(document).ready(() => {
   var accelLine    = Grapher.accelLineGraph()
   var accelLive_xy = Grapher.accelLiveGraph_xy()
   var accelLive_z  = Grapher.accelLiveGraph_z()
+
+  // 3D Cube
+  cubeAnimation()
 
   /* SOCKETIO */
   // Set GPIO pins for motors
@@ -61,6 +62,9 @@ $(document).ready(() => {
     Updater.updateGyroGraphs(gyroLine, data.gyro)
     Updater.updateAccelGraphs([accelLive_xy, accelLive_z, accelLine], data.accel)
 
+    // Cube
+    Updater.updateCube(data)
+    
     // ++i;
     // now = Date.now()
     // if (now - then >= 1000) {
