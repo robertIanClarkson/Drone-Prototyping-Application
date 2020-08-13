@@ -1,7 +1,7 @@
 import * as Motors from './motors.js';
 import * as Grapher from './graphs.js';
 import * as Updater from './update.js';
-import { cubeAnimation } from './cube_animation.js';
+import { CubeAnimation } from './cube_animation.js';
 
 var socket = io();
 
@@ -25,7 +25,7 @@ $(document).ready(() => {
   var accelLive_z  = Grapher.accelLiveGraph_z()
 
   // 3D Cube
-  cubeAnimation()
+  var cube = new CubeAnimation();
 
   /* SOCKETIO */
   // Set GPIO pins for motors
@@ -63,8 +63,9 @@ $(document).ready(() => {
     Updater.updateAccelGraphs([accelLive_xy, accelLive_z, accelLine], data.accel)
 
     // Cube
-    Updater.updateCube(data)
-    
+    Updater.updateCubeSliders(data)
+    cube.set(data.accel.x_axis, data.accel.y_axis, data.accel.z_axis)
+
     // ++i;
     // now = Date.now()
     // if (now - then >= 1000) {

@@ -141,7 +141,7 @@ function updateAccelGraphs(charts, accel) {
   accel_tick++
 }
 
-function updateCube(data) {
+function updateCubeSliders(data) {
   $('#accel-x-anime').val(data.accel.x_axis)
   $('#accel-y-anime').val(data.accel.y_axis)
   $('#accel-z-anime').val(data.accel.z_axis)
@@ -158,5 +158,5 @@ export {
   updateCompassGraphs,
   updateGyroGraphs,
   updateAccelGraphs,
-  updateCube
+  updateCubeSliders
 }
