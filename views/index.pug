@@ -165,7 +165,8 @@ block content
                   button#on-1(type='button' class='btn green btn-' + btnType + ' btn-' + btnSize) on
                 .col
                   button#off-1(type='button' class='btn red btn-' + btnType + ' btn-' + btnSize) off
-          .col.s12
+          .row
+            .col.s12
             div#cube-anime
           .row
             .col.s1
@@ -189,11 +190,13 @@ block content
             .col.s1
               h6#accel-z-val 0
           //- Error
-          .col.s6
-            .divider
-            h5 Error:
-            h6#error.motor-data No Error
+          .row
+            .col.s6
+              .divider
+              h5 Error:
+              h6#error.motor-data No Error
     .divider
 
     script(src="/socket.io/socket.io.js")
-    script(type="module" src="/javascripts/controller.js")
+    script(type="module" src="./javascripts/controller.js")
+    script(src="./javascripts/cube_animation.js")
