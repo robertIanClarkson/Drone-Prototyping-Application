@@ -49,8 +49,8 @@ var animate = function () {
   requestAnimationFrame(animate);
 
   // x-axis - slider
-  var sliderX = document.getElementById("accel-x");
-  var outputX = document.getElementById("accel-x-val");
+  var sliderX = document.getElementById("accel-x-anime");
+  var outputX = document.getElementById("accel-x-val-anime");
   outputX.innerHTML = sliderX.value;
   sliderX.oninput = function () {
     outputX.innerHTML = this.value;
@@ -58,8 +58,8 @@ var animate = function () {
   }
 
   // y-axis - slider
-  var sliderY = document.getElementById("accel-y");
-  var outputY = document.getElementById("accel-y-val");
+  var sliderY = document.getElementById("accel-y-anime");
+  var outputY = document.getElementById("accel-y-val-anime");
   outputY.innerHTML = sliderY.value;
   sliderY.oninput = function () {
     outputY.innerHTML = this.value;
@@ -67,8 +67,8 @@ var animate = function () {
   }
 
   // z-axis - slider
-  var sliderZ = document.getElementById("accel-z");
-  var outputZ = document.getElementById("accel-z-val");
+  var sliderZ = document.getElementById("accel-z-anime");
+  var outputZ = document.getElementById("accel-z-val-anime");
   outputZ.innerHTML = sliderZ.value;
   sliderZ.oninput = function () {
     outputZ.innerHTML = this.value;
