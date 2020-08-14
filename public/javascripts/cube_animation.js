@@ -42,48 +42,9 @@ class CubeAnimation {
     
     var animate = function () {
       requestAnimationFrame(animate);
-    
-      // // x-axis - slider
-      // var sliderX = document.getElementById("accel-x-anime");
-      // var outputX = document.getElementById("accel-x-val-anime");
-      // outputX.innerHTML = sliderX.value;
-      // sliderX.oninput = function () {
-      //   outputX.innerHTML = this.value;
-      //   setAngle(this.cube, 'x', this.value)
-      // }
-    
-      // // y-axis - slider
-      // var sliderY = document.getElementById("accel-y-anime");
-      // var outputY = document.getElementById("accel-y-val-anime");
-      // outputY.innerHTML = sliderY.value;
-      // sliderY.oninput = function () {
-      //   outputY.innerHTML = this.value;
-      //   setAngle(this.cube, 'y', this.value)
-      // }
-    
-      // // z-axis - slider
-      // var sliderZ = document.getElementById("accel-z-anime");
-      // var outputZ = document.getElementById("accel-z-val-anime");
-      // outputZ.innerHTML = sliderZ.value;
-      // sliderZ.oninput = function () {
-      //   outputZ.innerHTML = this.value;
-      //   setAngle(this.cube, 'z', this.value)
-      // }
-    
       renderer.render(scene, camera);
     };  
     animate();
-  }
-
-  // helper function (degree to radians) bc THREE uses radians (unit circle)
-  setAngle(cube, axis, degree) {
-    if(axis == 'x') {
-      cube.rotation.x = degree * (Math.PI / 180)
-    } else if(axis == 'y') {
-      cube.rotation.y = degree * (Math.PI / 180)
-    } else if(axis == 'z') {
-      cube.rotation.z = degree * (Math.PI / 180)
-    }
   }
 
   set(x, y, z) {
