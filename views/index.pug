@@ -50,7 +50,11 @@ block content
               canvas#gyro-line-graph(height=lineGraphHeight)           
           .divider
           //- Accel
-          h5 Accelerometer
+          .row
+            .col.s6
+              h5 Accelerometer
+            .col.s6
+              button#zero-accel(type='button' class='btn orange btn-' + btnType + ' btn-' + btnSize) Zero
           .row
             .col.s4
               h6

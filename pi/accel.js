@@ -27,6 +27,11 @@ class Accel {
     /* for average */
     this.i = 0;
     this.bufferSize = 20;
+
+    /* offset */
+    this.xOffset = 0;
+    this.yOffset = 0;
+    this.zOffset = 0;
   }
 
   start(sensor) {
@@ -86,9 +91,9 @@ class Accel {
     return new Promise((resolve, reject) => {
       this.recursiveRead(sensor)
         .then(() => {
-          this.x_axis = Math.floor((this.x_axis / this.i) / 256)
-          this.y_axis = Math.floor((this.y_axis / this.i) / 256)
-          this.z_axis = Math.floor((this.z_axis / this.i) / 256)
+          this.x_axis = Math.floor((this.x_axis / this.bufferSize) / 256) + this.xOffset
+          this.y_axis = Math.floor((this.y_axis / this.bufferSize) / 256) + this.yOffset
+          this.z_axis = Math.floor((this.z_axis / this.bufferSize) / 256) + this.zOffset
           this.i = 0;
           resolve([this.x_axis, this.y_axis, this.z_axis])
         })
@@ -96,6 +101,14 @@ class Accel {
           reject(err)
         })
     })
+  }
+
+  zero(sensor) {
+    this.read(sensor)
+      .then(([x, y, z]) => {
+        this.xOffset = - x
+        this.yOffset = - y
+      })
   }
 }
 

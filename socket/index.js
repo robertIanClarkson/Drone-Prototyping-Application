@@ -91,6 +91,10 @@ const init = (app, server) => {
           setInterval(emitSensorData, 100, sensor)
         })
 
+        socket.on('zero-accel', _ => {
+          accel.zero(sensor)
+        })
+
         socket.on('disconnect', data => {
           sensor.close()
           console.log('client disconnected')
