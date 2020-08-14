@@ -103,11 +103,18 @@ class Accel {
     })
   }
 
-  zero(sensor) {
+  zeroXY(sensor) {
     this.read(sensor)
       .then(([x, y, z]) => {
-        this.xOffset = - x
-        this.yOffset = - y
+        this.xOffset = (- x)
+        this.yOffset = (- y)
+      })
+  }
+
+  zeroZ(sensor) {
+    this.read(sensor)
+      .then(([x, y, z]) => {
+        this.zOffset = (- z)
       })
   }
 }

@@ -10,10 +10,13 @@ var i = 0
 var then = Date.now();
 var now;
 $(document).ready(() => {
-  $('#zero-accel').click(event => {
-    socket.emit('zero-accel', {})
+  $('#zero-accel-xy').click(event => {
+    socket.emit('zero-accel-xy', {})
   })
 
+  $('#zero-accel-z').click(event => {
+    socket.emit('zero-accel-z', {})
+  })
 
   // Motors Listeners
   Motors.motorOn(socket)

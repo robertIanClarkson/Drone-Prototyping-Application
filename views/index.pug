@@ -51,10 +51,12 @@ block content
           .divider
           //- Accel
           .row
-            .col.s6
-              h5 Accelerometer
-            .col.s6
-              button#zero-accel(type='button' class='btn orange btn-' + btnType + ' btn-' + btnSize) Zero
+            h5 Accelerometer
+          .row
+            .col.s2
+              button#zero-accel-xy(type='button' class='btn orange btn-' + btnType + ' btn-' + btnSize) Zero XY
+            .col.s2
+              button#zero-accel-z(type='button' class='btn orange btn-' + btnType + ' btn-' + btnSize) Zero Z
           .row
             .col.s4
               h6

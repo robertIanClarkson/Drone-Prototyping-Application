@@ -91,8 +91,12 @@ const init = (app, server) => {
           setInterval(emitSensorData, 100, sensor)
         })
 
-        socket.on('zero-accel', _ => {
-          accel.zero(sensor)
+        socket.on('zero-accel-xy', _ => {
+          accel.zeroXY(sensor)
+        })
+
+        socket.on('zero-accel-z', _ => {
+          accel.zeroXY(sensor)
         })
 
         socket.on('disconnect', data => {
