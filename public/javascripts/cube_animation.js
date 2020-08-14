@@ -1,6 +1,8 @@
 class CubeAnimation {
   constructor() {
     this.cube;
+    this.rollF = 0;
+    this.pitchF = 0;
   }
 
   init() {
@@ -55,10 +57,11 @@ class CubeAnimation {
     let roll = Math.atan(y / Math.sqrt(Math.pow(x, 2) + Math.pow(z, 2))) * 180 / Math.PI;
     let pitch = Math.atan(-1 * x / Math.sqrt(Math.pow(y, 2) + Math.pow(z, 2))) * 180 / Math.PI
 
-    let rollF = 0.94 * rollF + 0.06 * roll;
-    let pitchF = 0.94 * pitchF + 0.06 * pitch;
+    this.rollF  = 0.94 * this.rollF + 0.06 * roll;
+    this.pitchF = 0.94 * this.pitchF + 0.06 * pitch;
 
-    console.log(`roll: ${roll} | pitch: ${pitch}        rollF: ${rollF} | pitchF: ${pitchF}`)
+    console.log(`roll: ${roll} | pitch: ${pitch}`)
+    console.log(`rollF: ${this.rollF} | pitchF: ${this.pitchF}`)
   }
 }
 
