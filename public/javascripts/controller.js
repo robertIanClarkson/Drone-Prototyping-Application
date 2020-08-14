@@ -25,7 +25,9 @@ $(document).ready(() => {
   var accelLive_z  = Grapher.accelLiveGraph_z()
 
   // 3D Cube
-  var cube = new CubeAnimation();
+  let cube = new CubeAnimation()
+  cube.init()
+  //cube.set(10, 10 , 10)
 
   /* SOCKETIO */
   // Set GPIO pins for motors
