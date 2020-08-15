@@ -98,13 +98,13 @@ class Accel {
       this.recursiveRead(sensor)
         .then(() => {
           this.i = 0;
-          this.x_axis = Math.floor((this.x_axis / this.bufferSize) / 256) + this.xOffset
-          this.y_axis = Math.floor((this.y_axis / this.bufferSize) / 256) + this.yOffset
-          this.z_axis = Math.floor((this.z_axis / this.bufferSize) / 256) + this.zOffset
-          this.x_axis_f = (1.0 - this.filter) * this.x_axis_f + this.filter * this.x_axis
-          this.y_axis_f = (1.0 - this.filter) * this.y_axis_f + this.filter * this.y_axis
-          this.z_axis_f = (1.0 - this.filter) * this.z_axis_f + this.filter * this.z_axis
-          resolve([Math.round(this.x_axis_f), Math.round(this.y_axis_f), Math.round(this.z_axis_f)])
+          this.x_axis = ((this.x_axis / this.bufferSize) / 256) + this.xOffset
+          this.y_axis = ((this.y_axis / this.bufferSize) / 256) + this.yOffset
+          this.z_axis = ((this.z_axis / this.bufferSize) / 256) + this.zOffset
+          this.x_axis_f = Math.round((1.0 - this.filter) * this.x_axis_f + this.filter * this.x_axis)
+          this.y_axis_f = Math.round((1.0 - this.filter) * this.y_axis_f + this.filter * this.y_axis)
+          this.z_axis_f = Math.round((1.0 - this.filter) * this.z_axis_f + this.filter * this.z_axis)
+          resolve([this.x_axis_f, this.y_axis_f, this.z_axis_f])
         })
         .catch(err => {
           reject(err)
@@ -112,19 +112,19 @@ class Accel {
     })
   }
 
-  zeroXY(sensor) {
-    this.read(sensor)
-      .then(([x, y, z]) => {
-        this.xOffset = (- x)
-        this.yOffset = (- y)
-      })
+  zeroXY() {
+    this.xOffset = -(this.x_axis_f)
+    this.yOffset = -(this.y_axis_f)
   }
 
-  zeroZ(sensor) {
-    this.read(sensor)
-      .then(([x, y, z]) => {
-        this.zOffset = (- z)
-      })
+  zeroZ() {
+    this.zOffset = -(this.z_axis_f)
+  }
+
+  zeroClear() {
+    this.xOffset = 0
+    this.yOffset = 0
+    this.zOffset = 0
   }
 }
 

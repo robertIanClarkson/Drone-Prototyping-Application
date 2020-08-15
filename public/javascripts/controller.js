@@ -1,6 +1,7 @@
 import * as Motors from './motors.js';
 import * as Grapher from './graphs.js';
 import * as Updater from './update.js';
+import * as Zero from './zeroSensors.js';
 import { CubeAnimation } from './cube_animation.js';
 
 var socket = io();
@@ -10,13 +11,8 @@ var i = 0
 var then = Date.now();
 var now;
 $(document).ready(() => {
-  $('#zero-accel-xy').click(event => {
-    socket.emit('zero-accel-xy', {})
-  })
-
-  $('#zero-accel-z').click(event => {
-    socket.emit('zero-accel-z', {})
-  })
+  // Zero Sensors
+  Zero.zeroAccel(socket)
 
   // Motors Listeners
   Motors.motorOn(socket)

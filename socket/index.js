@@ -71,6 +71,8 @@ const init = (app, server) => {
     // Open Bus
     i2c.openPromisified(1)
       .then(sensor => {
+
+        /* SENSORS W/ I2C */
         socket.on('init-sensors', data => {
           compass = new Compass(data.compass)
           gyro = new Gyro(data.gyro)
@@ -91,28 +93,32 @@ const init = (app, server) => {
           setInterval(emitSensorData, 100, sensor)
         })
 
-        socket.on('zero-accel-xy', _ => {
-          accel.zeroXY(sensor)
-        })
-
-        socket.on('zero-accel-z', _ => {
-          accel.zeroZ(sensor)
-        })
-
         socket.on('disconnect', data => {
           sensor.close()
           console.log('client disconnected')
         })
       })
 
+    /* SENSORS w/o I2C */
+    socket.on('zero-accel-xy', _ => {
+      accel.zeroXY()
+    })
+
+    socket.on('zero-accel-z', _ => {
+      accel.zeroZ()
+    })
+
+    socket.on('zero-accel-clear', _ => {
+      accel.zeroClear()
+    })
+
+    /* MOTORS */
     socket.on('init-motors', data => {
       motor_0 = new Motor(data.motor_0_pin)
       motor_1 = new Motor(data.motor_1_pin)
       console.log('*** Motors Ready')
       emitMotorData()
     })
-
-
 
     socket.on('motor-on', data => {
       if (data.motor == 0) {
