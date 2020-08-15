@@ -34,7 +34,7 @@ class Accel {
     this.zOffset = 0;
 
     /* filter */
-    this.filter = .20;
+    this.filter = .40;
     this.x_axis_f = 0;
     this.y_axis_f = 0;
     this.z_axis_f = 0;
@@ -104,7 +104,7 @@ class Accel {
           this.x_axis_f = Math.round((1.0 - this.filter) * this.x_axis_f + this.filter * this.x_axis)
           this.y_axis_f = Math.round((1.0 - this.filter) * this.y_axis_f + this.filter * this.y_axis)
           this.z_axis_f = Math.round((1.0 - this.filter) * this.z_axis_f + this.filter * this.z_axis)
-          resolve([(this.x_axis_f + this.xOffset), (this.y_axis_f + this.yOffset), (this.z_axis_f + this.zOffset])
+          resolve([(this.x_axis_f + this.xOffset), (this.y_axis_f + this.yOffset), (this.z_axis_f + this.zOffset)])
         })
         .catch(err => {
           reject(err)
