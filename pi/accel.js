@@ -104,7 +104,7 @@ class Accel {
           this.x_axis_f = (1.0 - this.filter) * this.x_axis_f + this.filter * this.x_axis
           this.y_axis_f = (1.0 - this.filter) * this.y_axis_f + this.filter * this.y_axis
           this.z_axis_f = (1.0 - this.filter) * this.z_axis_f + this.filter * this.z_axis
-          resolve([this.x_axis_f, this.y_axis_f, this.z_axis_f])
+          resolve([Math.round(this.x_axis_f), Math.round(this.y_axis_f), Math.round(this.z_axis_f)])
         })
         .catch(err => {
           reject(err)
