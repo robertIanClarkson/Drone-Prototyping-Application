@@ -98,12 +98,12 @@ class Accel {
       this.recursiveRead(sensor)
         .then(() => {
           this.i = 0;
-          this.x_axis = ((this.x_axis / this.bufferSize) / 256) + this.xOffset
-          this.y_axis = ((this.y_axis / this.bufferSize) / 256) + this.yOffset
-          this.z_axis = ((this.z_axis / this.bufferSize) / 256) + this.zOffset
-          this.x_axis_f = Math.round((1.0 - this.filter) * this.x_axis_f + this.filter * this.x_axis)
-          this.y_axis_f = Math.round((1.0 - this.filter) * this.y_axis_f + this.filter * this.y_axis)
-          this.z_axis_f = Math.round((1.0 - this.filter) * this.z_axis_f + this.filter * this.z_axis)
+          this.x_axis = (this.x_axis / this.bufferSize) / 256
+          this.y_axis = (this.y_axis / this.bufferSize) / 256
+          this.z_axis = (this.z_axis / this.bufferSize) / 256
+          this.x_axis_f = Math.round((1.0 - this.filter) * this.x_axis_f + this.filter * this.x_axis) + this.xOffset
+          this.y_axis_f = Math.round((1.0 - this.filter) * this.y_axis_f + this.filter * this.y_axis) + this.yOffset
+          this.z_axis_f = Math.round((1.0 - this.filter) * this.z_axis_f + this.filter * this.z_axis) + this.zOffset
           resolve([this.x_axis_f, this.y_axis_f, this.z_axis_f])
         })
         .catch(err => {
