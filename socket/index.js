@@ -96,7 +96,7 @@ const init = (app, server) => {
         })
 
         socket.on('zero-accel-z', _ => {
-          accel.zeroXY(sensor)
+          accel.zeroZ(sensor)
         })
 
         socket.on('disconnect', data => {
