@@ -53,20 +53,8 @@ class CubeAnimation {
     let pitch = Math.atan(y / Math.sqrt(Math.pow(x, 2) + Math.pow(z, 2)));
     let roll = Math.atan(-1 * x / Math.sqrt(Math.pow(y, 2) + Math.pow(z, 2)));
 
-    // if(z < 0) {
-    //   if(y > x) {
-
-    //   } else {
-
-    //   }
-    // }
-
     this.cube.rotation.x = roll;
-    this.cube.rotation.z = pitch;
-    this.cube.rotation.y = 0;
-
-    // console.log(`roll: ${roll} | pitch: ${pitch}`);
-    // console.log(`rollF: ${this.rollF} | pitchF: ${this.pitchF}`);
+    this.cube.rotation.z = pitch;    
   }
 }
 
