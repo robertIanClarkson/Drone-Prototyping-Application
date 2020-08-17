@@ -51,7 +51,7 @@ const init = (app, server) => {
     let pitch = getPitch(accel)
     let roll = getRoll(accel)
     magX = compass.x_axis * Math.cos(pitch) + compass.z_axis * Math.sin(pitch);
-    magY = compass.x_axis * Math.sin(roll) * Math.sin(pitch) + compass.y_axis * Math.cos(roll) - compass.z_axis * sin(roll) * cos(pitch);
+    magY = compass.x_axis * Math.sin(roll) * Math.sin(pitch) + compass.y_axis * Math.cos(roll) - compass.z_axis * Math.sin(roll) * Math.cos(pitch);
 
     let heading = Math.round(180 * Math.atan2(magY, magX) / Math.PI);
     if (heading < 0) {
