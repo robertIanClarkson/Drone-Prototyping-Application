@@ -20,7 +20,7 @@ block content
             .col.s3
               button#zero-compass(type='button' class='btn orange btn-' + btnType + ' btn-small') zero
             .col.s6
-              h6#zero-compass-message.motor-data
+              h6#zero-compass-message.sensor-data
           .row
             .col.s3
               h6
@@ -52,6 +52,13 @@ block content
               button#zero-accel-xy(type='button' class='btn orange btn-' + btnType + ' btn-small') zero xy
             .col.s3
               button#zero-accel-z(type='button' class='btn orange btn-' + btnType + ' btn-small') zero z
+            .col.s3
+              .row
+                h6#offset-accel-x NULL
+              .row
+                h6#offset-accel-y NULL
+              .row
+                h6#offset-accel-z NULL
           .row
             .col.s4
               h6

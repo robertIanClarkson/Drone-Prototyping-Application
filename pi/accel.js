@@ -108,8 +108,12 @@ class Accel {
           resolve({
             x_axis: (this.x_axis_f + this.xOffset),
             y_axis: (this.y_axis_f + this.yOffset),
-            z_axis: (this.z_axis_f + this.zOffset)
-          })        })
+            z_axis: (this.z_axis_f + this.zOffset),
+            x_off: this.xOffset,
+            y_off: this.yOffset,
+            z_off: this.zOffset
+          })
+        })
         .catch(err => {
           reject(err)
         })

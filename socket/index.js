@@ -77,6 +77,9 @@ const init = (app, server) => {
             x_axis: accel_data.x_axis,
             y_axis: accel_data.y_axis,
             z_axis: accel_data.z_axis,
+            x_off: accel_data.x_off,
+            y_off: accel_data.y_off,
+            z_off: accel_data.z_off,
             roll: getRoll(accel_data),
             pitch: getPitch(accel_data)
           }
