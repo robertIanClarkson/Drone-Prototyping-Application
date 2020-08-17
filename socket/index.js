@@ -42,20 +42,16 @@ const init = (app, server) => {
   }
 
   function getRoll(accel) {
-    let accYnorm = accel.y_axis / Math.sqrt(accel.x_axis * accel.x_axis + accel.y_axis * accel.y_axis + accel.z_axis * accel.z_axis);
+    let accYnorm = - accel.y_axis / Math.sqrt(accel.x_axis * accel.x_axis + accel.y_axis * accel.y_axis + accel.z_axis * accel.z_axis);
     return - Math.asin(accYnorm / Math.cos(getPitch(accel)));
   }
 
   function getHeading(compass, accel) {
-    // let magX = compass.x_axis * Math.cos(getPitch(accel)) + compass.z_axis * Math.sin(getPitch(accel));
-    // let magY = compass.x_axis * Math.sin(getRoll(accel)) * Math.sin(getPitch(accel)) + compass.y_axis * Math.cos(getRoll(accel)) - compass.z_axis * Math.sin(getRoll(accel)) * Math.cos(getPitch(accel))
-    // let heading = Math.round(180 * Math.atan2(compass.y_axis, compass.x_axis) / Math.PI);
     let pitch = getPitch(accel)
     let roll = getRoll(accel)
-    // magX = compass.x_axis * Math.cos(pitch) + compass.z_axis * Math.sin(pitch);
-    // magY = compass.x_axis * Math.sin(roll) * Math.sin(pitch) + compass.y_axis * Math.cos(roll) - compass.z_axis * Math.sin(roll) * Math.cos(pitch);
-    // let heading = Math.round(180 * Math.atan2(magY, magX) / Math.PI);
-    let heading = Math.round(180 * Math.atan2(compass.y_axis, compass.x_axis) / Math.PI);
+    let magX = compass.x_axis * Math.cos(pitch) + compass.z_axis * Math.sin(pitch);
+    let magY = compass.x_axis * Math.sin(roll) * Math.sin(pitch) + compass.y_axis * Math.cos(roll) - compass.z_axis * Math.sin(roll) * Math.cos(pitch);
+    let heading = Math.round(180 * Math.atan2(magY, magX) / Math.PI);
     if (heading < 0) {
       heading += 360
     }
