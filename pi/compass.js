@@ -110,7 +110,7 @@ class Compass {
           this.y_axis_f = Math.round((1.0 - this.filter) * this.y_axis_f + this.filter * this.y_axis)
           this.z_axis_f = Math.round((1.0 - this.filter) * this.z_axis_f + this.filter * this.z_axis)
           this.heading = 180 * Math.atan2(this.y_axis_f, this.x_axis_f) / Math.PI;
-          resolve([(this.x_axis_f + this.xOffset), (this.y_axis_f + this.yOffset), (this.z_axis_f + this.zOffset)])
+          resolve([(this.x_axis_f + this.xOffset), (this.y_axis_f + this.yOffset), (this.z_axis_f + this.zOffset), this.heading])
         })
         .catch(err => {
           reject(err)
