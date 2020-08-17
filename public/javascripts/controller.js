@@ -12,6 +12,7 @@ var then = Date.now();
 var now;
 $(document).ready(() => {
   // Zero Sensors
+  Zero.zeroCompass(socket)
   Zero.zeroAccel(socket)
 
   // Motors Listeners

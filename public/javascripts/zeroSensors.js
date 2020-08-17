@@ -12,6 +12,23 @@ function zeroAccel(socket) {
   })
 }
 
+function zeroCompass(socket) {
+  $('#zero-compass').click(event => {
+    socket.emit('zero-compass', {})
+    $('#zero-compass').addClass('disabled')
+    $('#zero-compass-clear').addClass('disabled')
+    setTimeout(function () {
+      $('#zero-compass').removeClass('disabled')
+      $('#zero-compass-clear').removeClass('disabled')
+    }, 5000);
+  })
+
+  $('#zero-compass-clear').click(event => {
+    socket.emit('zero-compass-clear')
+  })
+}
+
 export {
+  zeroCompass,
   zeroAccel
 }
