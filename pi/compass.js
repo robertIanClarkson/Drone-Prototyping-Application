@@ -30,6 +30,17 @@ class Compass {
     /* for average */
     this.i = 0;
     this.bufferSize = 10;
+
+    /* offset */
+    this.xOffset = 0;
+    this.yOffset = 0;
+    this.zOffset = 0;
+
+    /* filter */
+    this.filter = .40;
+    this.x_axis_f = 0;
+    this.y_axis_f = 0;
+    this.z_axis_f = 0;
   }
 
   start(sensor) {
@@ -90,11 +101,14 @@ class Compass {
     return new Promise((resolve, reject) => {
       this.recursiveRead(sensor)
         .then(() => {
-          this.x_axis = Math.floor((this.x_axis / this.i) / 256)
-          this.y_axis = Math.floor((this.y_axis / this.i) / 256)
-          this.z_axis = Math.floor((this.z_axis / this.i) / 256)
           this.i = 0;
-          resolve([this.x_axis, this.y_axis, this.z_axis])
+          this.x_axis = (this.x_axis / this.bufferSize)
+          this.y_axis = (this.y_axis / this.bufferSize)
+          this.z_axis = (this.z_axis / this.bufferSize)
+          this.x_axis_f = Math.round((1.0 - this.filter) * this.x_axis_f + this.filter * this.x_axis)
+          this.y_axis_f = Math.round((1.0 - this.filter) * this.y_axis_f + this.filter * this.y_axis)
+          this.z_axis_f = Math.round((1.0 - this.filter) * this.z_axis_f + this.filter * this.z_axis)
+          resolve([(this.x_axis_f + this.xOffset), (this.y_axis_f + this.yOffset), (this.z_axis_f + this.zOffset)])
         })
         .catch(err => {
           reject(err)
