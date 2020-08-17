@@ -32,20 +32,32 @@ const init = (app, server) => {
     })
   }
 
+  function getPitch(accel) {
+    let accXnorm = accel.x_axis / Math.sqrt(accel.x_axis * accel.x_axis + accel.y_axis * accel.y_axis + accel.z_axis * accel.z_axis);
+    return Math.asin(accXnorm)
+  }
+
+  function getRoll(accel) {
+    let accYnorm = accel.y_axis / Math.sqrt(accel.x_axis * accel.x_axis + accel.y_axis * accel.y_axis + accel.z_axis * accel.z_axis);
+    return - Math.asin(accYnorm / Math.cos(getPitch(accel)));
+  }
+
+
+
   function getHeading(compass, accel) {
-    var heading = Math.round(180 * Math.atan2(compass.y_axis, compass.x_axis) / Math.PI);
+    // let magX = compass.x_axis * Math.cos(getPitch(accel)) + compass.z_axis * Math.sin(getPitch(accel));
+    // let magY = compass.x_axis * Math.sin(getRoll(accel)) * Math.sin(getPitch(accel)) + compass.y_axis * Math.cos(getRoll(accel)) - compass.z_axis * Math.sin(getRoll(accel)) * Math.cos(getPitch(accel))
+    // let heading = Math.round(180 * Math.atan2(compass.y_axis, compass.x_axis) / Math.PI);
+    let pitch = getPitch(accel)
+    let roll = getRoll(accel)
+    magX = compass.x_axis * Math.cos(pitch) + compass.z_axis * Math.sin(pitch);
+    magY = compass.x_axis * Math.sin(roll) * Math.sin(pitch) + compass.y_axis * Math.cos(roll) - compass.z_axis * sin(roll) * cos(pitch);
+
+    let heading = Math.round(180 * Math.atan2(magY, magX) / Math.PI);
     if (heading < 0) {
       heading += 360
     }
     return heading
-  }
-
-  function getRoll(accel) {
-    return Math.atan(accel.y_axis / Math.sqrt(Math.pow(accel.x_axis, 2) + Math.pow(accel.z_axis, 2)))
-  }
-
-  function getPitch(accel) {
-    return Math.atan(accel.x_axis / Math.sqrt(Math.pow(accel.y_axis, 2) + Math.pow(accel.z_axis, 2)))
   }
 
   function emitSensorData(sensor) {
@@ -59,14 +71,14 @@ const init = (app, server) => {
             x_axis: compass_data.x_axis,
             y_axis: compass_data.y_axis,
             z_axis: compass_data.z_axis,
-            heading: getHeading(compass_result, accel_result)
+            heading: getHeading(compass_data, accel_data)
           },
           accel: {
             x_axis: accel_data.x_axis,
             y_axis: accel_data.y_axis,
             z_axis: accel_data.z_axis,
-            roll: getRoll(accel_result),
-            pitch: getPitch(accel_result)
+            roll: getRoll(accel_data),
+            pitch: getPitch(accel_data)
           }
         })
       })
