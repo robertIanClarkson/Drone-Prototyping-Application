@@ -52,9 +52,10 @@ const init = (app, server) => {
     // let heading = Math.round(180 * Math.atan2(compass.y_axis, compass.x_axis) / Math.PI);
     let pitch = getPitch(accel)
     let roll = getRoll(accel)
-    magX = compass.x_axis * Math.cos(pitch) + compass.z_axis * Math.sin(pitch);
-    magY = compass.x_axis * Math.sin(roll) * Math.sin(pitch) + compass.y_axis * Math.cos(roll) - compass.z_axis * Math.sin(roll) * Math.cos(pitch);
-
+    // magX = compass.x_axis * Math.cos(pitch) + compass.z_axis * Math.sin(pitch);
+    // magY = compass.x_axis * Math.sin(roll) * Math.sin(pitch) + compass.y_axis * Math.cos(roll) - compass.z_axis * Math.sin(roll) * Math.cos(pitch);
+    let magX = compass.x_axis * Math.cos(pitch) + compass.y_axis * Math.sin(roll) * Math.sin(pitch) - compass.z_axis * Math.cos(roll) * Math.sin(pitch)
+    let magY = compass.y_axis * Math.cos(roll) + compass.z_axis * Math.sin(roll)
     let heading = Math.round(180 * Math.atan2(magY, magX) / Math.PI);
     if (heading < 0) {
       heading += 360
