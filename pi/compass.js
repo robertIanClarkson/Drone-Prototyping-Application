@@ -6,20 +6,21 @@ class Compass {
     this.SLAVE_ADDRESS = data.slave_address;
 
     /* write */
-    this.OPTION_0 = 0x24; // Magnetic high resolution, o/p data rate 50 Hz
-    this.OPTION_1 = 0x25; // Magnetic full scale selection, +/- 12 gauss
-    this.OPTION_2 = 0x26; // Normal mode, magnetic continuous conversion mode
-    this.VALUE_0 = 0x70;
-    this.VALUE_1 = 0x00;
+    this.OPTION_0 = 0x00; // Magnetic high resolution, o/p data rate 50 Hz
+    this.OPTION_1 = 0x01; // Magnetic full scale selection, +/- 12 gauss
+    this.OPTION_2 = 0x02; // Normal mode, magnetic continuous conversion mode
+    
+    this.VALUE_0 = 0x98;
+    this.VALUE_1 = 0x20;
     this.VALUE_2 = 0x00;
 
     /* read */
-    this.READ_0 = 0x08;
-    this.READ_1 = 0x09;
-    this.READ_2 = 0x0A;
-    this.READ_3 = 0x0B;
-    this.READ_4 = 0x0C;
-    this.READ_5 = 0x0D;
+    this.READ_0 = 0x03;
+    this.READ_1 = 0x04;
+    this.READ_2 = 0x05;
+    this.READ_3 = 0x06;
+    this.READ_4 = 0x07;
+    this.READ_5 = 0x08;
 
     /* results */
     this.x_axis;

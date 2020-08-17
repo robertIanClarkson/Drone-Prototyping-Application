@@ -13,7 +13,6 @@ const init = (app, server) => {
   var motor_0;
   var motor_1;
   var compass;
-  var gyro;
   var accel;
 
   app.set('io', io)
@@ -36,7 +35,6 @@ const init = (app, server) => {
   function emitSensorData(sensor) {
     Promise.all([
       compass.read(sensor),
-      gyro.read(sensor),
       accel.read(sensor)
     ])
       .then(([compass_result, gyro_result, accel_result]) => {
@@ -45,11 +43,6 @@ const init = (app, server) => {
             x_axis: compass_result[0],
             y_axis: compass_result[1],
             z_axis: compass_result[2]
-          },
-          gyro: {
-            x_axis: gyro_result[0],
-            y_axis: gyro_result[1],
-            z_axis: gyro_result[2]
           },
           accel: {
             x_axis: accel_result[0],
@@ -75,16 +68,13 @@ const init = (app, server) => {
         /* SENSORS W/ I2C */
         socket.on('init-sensors', data => {
           compass = new Compass(data.compass)
-          gyro = new Gyro(data.gyro)
+          // gyro = new Gyro(data.gyro)
           accel = new Accel(data.accel)
 
           compass.start(sensor).then(() => {
             console.log('*** Compass Ready')
-            gyro.start(sensor).then(() => {
-              console.log('*** Gyro Ready')
-              accel.start(sensor).then(() => {
-                console.log('*** Accel Ready')
-              })
+            accel.start(sensor).then(() => {
+              console.log('*** Accel Ready')
             })
           })
         })

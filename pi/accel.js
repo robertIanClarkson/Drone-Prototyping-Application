@@ -7,9 +7,10 @@ class Accel {
 
     /* write */
     this.OPTION_0 = 0x20;
-    this.OPTION_1 = 0x21;
-    this.VALUE_0 = 0x67;
-    this.VALUE_1 = 0x00;
+    this.OPTION_1 = 0x23;
+
+    this.VALUE_0 = 0x57;
+    this.VALUE_1 = 0x08;
 
     /* read */
     this.READ_0 = 0x28;

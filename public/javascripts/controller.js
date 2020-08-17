@@ -23,7 +23,6 @@ $(document).ready(() => {
 
   // Init Graphs 
   var compassLine  = Grapher.compassLineGraph()
-  var gyroLine     = Grapher.gyroLineGraph()
   var accelLine    = Grapher.accelLineGraph()
   var accelLive_xy = Grapher.accelLiveGraph_xy()
   var accelLive_z  = Grapher.accelLiveGraph_z()
@@ -43,13 +42,10 @@ $(document).ready(() => {
   // Set hex addresses for 'compass, gyro, accel'
   socket.emit('init-sensors', {
     compass: {
-      slave_address: 0x1D
+      slave_address: 0x1E
     },
     accel: {
-      slave_address: 0x1D
-    },
-    gyro: {
-      slave_address: 0x6B
+      slave_address: 0x19
     }
   })
 
@@ -60,12 +56,10 @@ $(document).ready(() => {
   socket.on('new-data', (data) => {
     // Fields
     Updater.updateCompassFields(data.compass)
-    Updater.updateGyroFields(data.gyro)
     Updater.updateAccelFields(data.accel)
 
     // Graphs
     Updater.updateCompassGraphs(compassLine, data.compass)
-    Updater.updateGyroGraphs(gyroLine, data.gyro)
     Updater.updateAccelGraphs([accelLive_xy, accelLive_z, accelLine], data.accel)
 
     // Cube
