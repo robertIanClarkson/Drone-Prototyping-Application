@@ -103,9 +103,9 @@ class Compass {
       this.recursiveRead(sensor)
         .then(() => {
           this.i = 0;
-          this.x_axis = (this.x_axis / this.bufferSize)
-          this.y_axis = (this.y_axis / this.bufferSize)
-          this.z_axis = (this.z_axis / this.bufferSize)
+          this.x_axis = (this.x_axis / this.bufferSize) / 1100
+          this.y_axis = (this.y_axis / this.bufferSize) / 1100
+          this.z_axis = (this.z_axis / this.bufferSize) / 980
           this.x_axis_f = Math.round((1.0 - this.filter) * this.x_axis_f + this.filter * this.x_axis)
           this.y_axis_f = Math.round((1.0 - this.filter) * this.y_axis_f + this.filter * this.y_axis)
           this.z_axis_f = Math.round((1.0 - this.filter) * this.z_axis_f + this.filter * this.z_axis)
