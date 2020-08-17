@@ -72,8 +72,8 @@ function updateAccelFields(values) {
   $('#accel-y').text(values.y_axis)
   $('#accel-z').text(values.z_axis)
   $('#offset-accel-x').text(`X: ${values.x_off}`)
-  $('#offset-accel-y').text(`Y: ${values.x_off}`)
-  $('#offset-accel-z').text(`Z: ${values.x_off}`)
+  $('#offset-accel-y').text(`Y: ${values.y_off}`)
+  $('#offset-accel-z').text(`Z: ${values.z_off}`)
 }
 
 /* update line graph for compass data */
