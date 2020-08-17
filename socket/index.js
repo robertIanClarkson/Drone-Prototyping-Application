@@ -40,14 +40,15 @@ const init = (app, server) => {
       .then(([compass_result, accel_result]) => {
         io.emit('new-data', {
           compass: {
-            x_axis: compass_result[0],
-            y_axis: compass_result[1],
-            z_axis: compass_result[2]
+            x_axis:  compass_result[0],
+            y_axis:  compass_result[1],
+            z_axis:  compass_result[2],
+            heading: compass_result[3]
           },
           accel: {
             x_axis: accel_result[0],
             y_axis: accel_result[1],
-            z_axis: accel_result[2]
+            z_axis: accel_result[2],
           }
         })
       })

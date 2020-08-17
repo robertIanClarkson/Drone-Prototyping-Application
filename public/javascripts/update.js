@@ -56,6 +56,7 @@ function updateCompassFields(values) {
   $('#compass-x').text(values.x_axis)
   $('#compass-y').text(values.y_axis)
   $('#compass-z').text(values.z_axis)
+  $('#compass-heading').text(values.heading)
 }
 
 /* update gyro raw data output from server */

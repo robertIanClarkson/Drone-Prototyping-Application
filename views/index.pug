@@ -14,18 +14,22 @@ block content
           //- Compass
           h5 Compass
           .row
-            .col.s4
+            .col.s3
               h6
                 u X-Axis
               h7#compass-x.sensor-data NULL
-            .col.s4.vl-left
+            .col.s3.vl-left
               h6
                 u Y-Axis
               h7#compass-y.sensor-data NULL
-            .col.s4.vl-left
+            .col.s3.vl-left
               h6
                 u Z-Axis
               h7#compass-z.sensor-data NULL
+            .col.s3.vl-left
+              h6
+                u Heading
+              h7#compass-heading.sensor-data NULL
           .row
             .col.s12
               canvas#compass-line-graph(height=lineGraphHeight)           
