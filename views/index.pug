@@ -45,7 +45,7 @@ block content
           //- Accel
           .row
             h5 Accelerometer
-          .row(height="100px")
+          .row
             .col.s3
               button#zero-accel-clear(type='button' class='btn orange darken-4 btn-' + btnType + ' btn-small') clear
             .col.s3
@@ -54,11 +54,12 @@ block content
               button#zero-accel-z(type='button' class='btn orange btn-' + btnType + ' btn-small') zero z
             .col.s3
               .row
-                h6#offset-accel-x NULL
-              .row
-                h6#offset-accel-y NULL
-              .row
-                h6#offset-accel-z NULL
+                .col.s4
+                  h6#offset-accel-x.sensor-data NULL
+                .col.s4
+                  h6#offset-accel-y.sensor-data NULL
+                .col.s4
+                  h6#offset-accel-z.sensor-data NULL
           .row
             .col.s4
               h6
