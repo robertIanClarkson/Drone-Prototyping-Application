@@ -26,7 +26,7 @@ class Compass {
     this.x_axis;
     this.y_axis;
     this.z_axis;
-    this.heading;
+    // this.heading;
 
     /* for average */
     this.i = 0;
@@ -109,11 +109,11 @@ class Compass {
           this.x_axis_f = Math.round((1.0 - this.filter) * this.x_axis_f + this.filter * this.x_axis)
           this.y_axis_f = Math.round((1.0 - this.filter) * this.y_axis_f + this.filter * this.y_axis)
           this.z_axis_f = Math.round((1.0 - this.filter) * this.z_axis_f + this.filter * this.z_axis)
-          this.heading = Math.round(180 * Math.atan2(this.y_axis_f, this.x_axis_f) / Math.PI);
-          if(this.heading < 0) {
-            this.heading += 360
-          }
-          resolve([(this.x_axis_f + this.xOffset), (this.y_axis_f + this.yOffset), (this.z_axis_f + this.zOffset), this.heading])
+          resolve({
+            x_axis: (this.x_axis_f + this.xOffset),
+            y_axis: (this.y_axis_f + this.yOffset),
+            z_axis: (this.z_axis_f + this.zOffset)
+          })
         })
         .catch(err => {
           reject(err)

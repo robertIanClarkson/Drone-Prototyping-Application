@@ -64,7 +64,7 @@ $(document).ready(() => {
 
     // Cube
     Updater.updateCubeSliders(data)
-    cube.set(data.accel.x_axis, data.accel.y_axis, data.accel.z_axis)
+    cube.set(data.accel.roll, data.accel.pitch)
 
     // ++i;
     // now = Date.now()

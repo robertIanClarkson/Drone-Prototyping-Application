@@ -49,10 +49,7 @@ class CubeAnimation {
     animate();
   }
 
-  set(x, y, z) {
-    let roll = Math.atan(y / Math.sqrt(Math.pow(x, 2) + Math.pow(z, 2)));
-    let pitch = Math.atan(x / Math.sqrt(Math.pow(y, 2) + Math.pow(z, 2)));
-
+  set(roll, pitch) {
     this.cube.rotation.x = roll;
     this.cube.rotation.z = pitch;    
   }

@@ -32,23 +32,41 @@ const init = (app, server) => {
     })
   }
 
+  function getHeading(compass, accel) {
+    var heading = Math.round(180 * Math.atan2(compass.y_axis, compass.x_axis) / Math.PI);
+    if (heading < 0) {
+      heading += 360
+    }
+    return heading
+  }
+
+  function getRoll(accel) {
+    return Math.atan(accel.y_axis / Math.sqrt(Math.pow(accel.x_axis, 2) + Math.pow(accel.z_axis, 2)))
+  }
+
+  function getPitch(accel) {
+    return Math.atan(accel.x_axis / Math.sqrt(Math.pow(accel.y_axis, 2) + Math.pow(accel.z_axis, 2)))
+  }
+
   function emitSensorData(sensor) {
     Promise.all([
       compass.read(sensor),
       accel.read(sensor)
     ])
-      .then(([compass_result, accel_result]) => {
+      .then(([compass_data, accel_data]) => {
         io.emit('new-data', {
           compass: {
-            x_axis:  compass_result[0],
-            y_axis:  compass_result[1],
-            z_axis:  compass_result[2],
-            heading: compass_result[3]
+            x_axis: compass_data.x_axis,
+            y_axis: compass_data.y_axis,
+            z_axis: compass_data.z_axis,
+            heading: getHeading(compass_result, accel_result)
           },
           accel: {
-            x_axis: accel_result[0],
-            y_axis: accel_result[1],
-            z_axis: accel_result[2],
+            x_axis: accel_data.x_axis,
+            y_axis: accel_data.y_axis,
+            z_axis: accel_data.z_axis,
+            roll: getRoll(accel_result),
+            pitch: getPitch(accel_result)
           }
         })
       })
