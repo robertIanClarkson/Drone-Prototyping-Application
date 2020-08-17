@@ -17,9 +17,11 @@ function zeroCompass(socket) {
     socket.emit('zero-compass', {})
     $('#zero-compass').addClass('disabled')
     $('#zero-compass-clear').addClass('disabled')
+    $('#zero-compass-message').text('Rotate the sensor')
     setTimeout(function () {
       $('#zero-compass').removeClass('disabled')
       $('#zero-compass-clear').removeClass('disabled')
+      $('#zero-compass-message').empty()
     }, 5000);
   })
 
