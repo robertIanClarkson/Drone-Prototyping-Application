@@ -51,6 +51,7 @@ function updateMotorFields(motor_0, motor_1) {
   }
 }
 
+/* SENSORS */
 /* update compass raw data output from server */
 function updateCompassFields(values) {
   $('#compass-x').text(values.x_axis)
@@ -71,9 +72,9 @@ function updateAccelFields(values) {
   $('#accel-x').text(values.x_axis)
   $('#accel-y').text(values.y_axis)
   $('#accel-z').text(values.z_axis)
-  $('#offset-accel-x').text(`X: ${values.x_off}`)
-  $('#offset-accel-y').text(`Y: ${values.y_off}`)
-  $('#offset-accel-z').text(`Z: ${values.z_off}`)
+  $('#offset-accel-x').text(`X ${values.x_off}`)
+  $('#offset-accel-y').text(`Y ${values.y_off}`)
+  $('#offset-accel-z').text(`Z ${values.z_off}`)
 }
 
 /* update line graph for compass data */
