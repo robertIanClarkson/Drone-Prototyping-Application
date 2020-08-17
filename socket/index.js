@@ -1,4 +1,4 @@
-import * as Logger from './logger'
+const Logger = require('./logger')
 
 const socketIo = require('socket.io')
 const i2c = require('i2c-bus');

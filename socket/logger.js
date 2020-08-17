@@ -1,8 +1,12 @@
 var fs = require('fs');
-var compassLogLocation = "./"
+var compassLogLocation = "./../pi/logs/compassLog.txt"
 
-export function logCompass(x, y, z) {
-  fs.appendFile('./../pi/logs/compassLog.js', `${x} ${y} ${z}`, function (err) {
+function logCompass(x, y, z) {
+  fs.appendFile(compassLogLocation, `${x} ${y} ${z}`, function (err) {
     if (err) throw err;
   })
+}
+
+module.exports = {
+  logCompass
 }
