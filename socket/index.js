@@ -37,7 +37,7 @@ const init = (app, server) => {
       compass.read(sensor),
       accel.read(sensor)
     ])
-      .then(([compass_result, gyro_result, accel_result]) => {
+      .then(([compass_result, accel_result]) => {
         io.emit('new-data', {
           compass: {
             x_axis: compass_result[0],

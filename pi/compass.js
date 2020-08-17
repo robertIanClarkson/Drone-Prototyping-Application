@@ -29,7 +29,7 @@ class Compass {
 
     /* for average */
     this.i = 0;
-    this.bufferSize = 20;
+    this.bufferSize = 10;
   }
 
   start(sensor) {
