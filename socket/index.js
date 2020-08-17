@@ -1,3 +1,5 @@
+import * as Logger from './logger'
+
 const socketIo = require('socket.io')
 const i2c = require('i2c-bus');
 
@@ -5,7 +7,7 @@ const Motor = require('../pi/motor')
 const Compass = require('../pi/compass')
 const Gyro = require('../pi/gyro')
 const Accel = require('../pi/accel')
-import * as Logger from './'
+
 
 const init = (app, server) => {
 
