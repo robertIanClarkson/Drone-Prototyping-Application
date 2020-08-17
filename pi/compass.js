@@ -80,8 +80,8 @@ class Compass {
       ])
         .then(([a, b, c, d, e, f]) => {
           this.x_axis += this.convert(a, b)
-          this.y_axis += this.convert(c, d)
-          this.z_axis += this.convert(e, f)
+          this.z_axis += this.convert(c, d)
+          this.y_axis += this.convert(e, f)
           this.i += 1
           if (this.i == this.bufferSize) {
             resolve()
@@ -109,7 +109,7 @@ class Compass {
           this.x_axis_f = Math.round((1.0 - this.filter) * this.x_axis_f + this.filter * this.x_axis)
           this.y_axis_f = Math.round((1.0 - this.filter) * this.y_axis_f + this.filter * this.y_axis)
           this.z_axis_f = Math.round((1.0 - this.filter) * this.z_axis_f + this.filter * this.z_axis)
-          this.heading = 180 * Math.atan2(this.y_axis_f, this.x_axis_f) / Math.PI;
+          this.heading = Math.round(180 * Math.atan2(this.y_axis_f, this.x_axis_f) / Math.PI);
           resolve([(this.x_axis_f + this.xOffset), (this.y_axis_f + this.yOffset), (this.z_axis_f + this.zOffset), this.heading])
         })
         .catch(err => {
