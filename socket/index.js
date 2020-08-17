@@ -5,6 +5,7 @@ const Motor = require('../pi/motor')
 const Compass = require('../pi/compass')
 const Gyro = require('../pi/gyro')
 const Accel = require('../pi/accel')
+import * as Logger from './'
 
 const init = (app, server) => {
 
@@ -14,6 +15,7 @@ const init = (app, server) => {
   var motor_1;
   var compass;
   var accel;
+  var logCompass = false;
 
   app.set('io', io)
 
@@ -41,8 +43,6 @@ const init = (app, server) => {
     let accYnorm = accel.y_axis / Math.sqrt(accel.x_axis * accel.x_axis + accel.y_axis * accel.y_axis + accel.z_axis * accel.z_axis);
     return - Math.asin(accYnorm / Math.cos(getPitch(accel)));
   }
-
-
 
   function getHeading(compass, accel) {
     // let magX = compass.x_axis * Math.cos(getPitch(accel)) + compass.z_axis * Math.sin(getPitch(accel));
@@ -84,6 +84,9 @@ const init = (app, server) => {
             pitch: getPitch(accel_data)
           }
         })
+        if(logCompass) {
+          Logger.logCompass(compass_data.x_axis, compass_data.y_axis, compass_data.z_axis)
+        }
       })
       .catch(err => {
         console.log(err)
@@ -133,6 +136,17 @@ const init = (app, server) => {
     })
 
     socket.on('zero-accel-clear', _ => {
+      accel.zeroClear()
+    })
+
+    socket.on('zero-compass', _ => {
+      logCompass = true;
+      setTimeout(function() {
+        logCompass = false;
+      }, 5000);
+    })
+
+    socket.on('zero-compass-clear', _ => {
       accel.zeroClear()
     })
 
