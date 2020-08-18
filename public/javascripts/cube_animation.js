@@ -35,28 +35,28 @@ class CubeAnimation {
     var mesh = new THREE.Mesh(geometry, material); // cube instance
     
     // south
-    mesh.geometry.faces[0].color.setHex(  0xffd000 );
-    mesh.geometry.faces[1].color.setHex(  0xffd000 );
+    mesh.geometry.faces[0].color.setHex(  0x4257f5 );
+    mesh.geometry.faces[1].color.setHex(  0x4257f5 );
 
     // north
-    mesh.geometry.faces[2].color.setHex(  0x602ff7 );
-    mesh.geometry.faces[3].color.setHex(  0x602ff7 );
+    mesh.geometry.faces[2].color.setHex(  0xf54242 );
+    mesh.geometry.faces[3].color.setHex(  0xf54242 );
 
     // up
-    mesh.geometry.faces[4].color.setHex(  0xff46a4 );
-    mesh.geometry.faces[5].color.setHex(  0xff46a4 );
+    mesh.geometry.faces[4].color.setHex(  0x7d8c8c );
+    mesh.geometry.faces[5].color.setHex(  0x7d8c8c );
 
     // down
-    mesh.geometry.faces[6].color.setHex(  0xabacab );
-    mesh.geometry.faces[7].color.setHex(  0xabacab );
+    mesh.geometry.faces[6].color.setHex(  0x000000 );
+    mesh.geometry.faces[7].color.setHex(  0x000000 );
 
     // west
-    mesh.geometry.faces[8].color.setHex(  0x5ac18e );
-    mesh.geometry.faces[9].color.setHex(  0x5ac18e );
+    mesh.geometry.faces[8].color.setHex(  0xecf542 );
+    mesh.geometry.faces[9].color.setHex(  0xecf542 );
 
     // east
-    mesh.geometry.faces[10].color.setHex( 0xf9e2f0 );
-    mesh.geometry.faces[11].color.setHex( 0xf9e2f0 );
+    mesh.geometry.faces[10].color.setHex( 0x42e3f5 );
+    mesh.geometry.faces[11].color.setHex( 0x42e3f5 );
 
     this.cube.add(mesh); // add black cube to group
 
