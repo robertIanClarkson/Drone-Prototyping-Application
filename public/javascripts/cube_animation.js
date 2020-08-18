@@ -31,7 +31,28 @@ class CubeAnimation {
     
     // cube - mesh
     var geometry = new THREE.BoxGeometry(3, 3, 3); // 3x3x3 cube
-    var material = new THREE.MeshBasicMaterial({ color: 0x000000 }); // color = black
+    var material = new THREE.MeshBasicMaterial({ color: 0xffffff }); // color = black
+    
+    // cube face color
+    geometry.faces[0].color = new THREE.Color(0xF00000);
+    geometry.faces[1].color = new THREE.Color(0xF00000);
+
+    geometry.faces[2].color = new THREE.Color(0x0F0000);
+    geometry.faces[3].color = new THREE.Color(0x0F0000);
+
+    geometry.faces[4].color = new THREE.Color(0x00F000);
+    geometry.faces[5].color = new THREE.Color(0x00F000);
+
+    geometry.faces[6].color = new THREE.Color(0x000F00);
+    geometry.faces[7].color = new THREE.Color(0x000F00);
+
+    geometry.faces[8].color = new THREE.Color(0x0000F0);
+    geometry.faces[9].color = new THREE.Color(0x0000F0);
+
+    geometry.faces[10].color = new THREE.Color(0x00000F);
+    geometry.faces[11].color = new THREE.Color(0x00000F);
+    geometry.colorsNeedUpdate = true
+
     var mesh = new THREE.Mesh(geometry, material); // cube instance
     this.cube.add(mesh); // add black cube to group
     
