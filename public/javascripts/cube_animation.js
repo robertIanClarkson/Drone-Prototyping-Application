@@ -31,7 +31,7 @@ class CubeAnimation {
 
     // cube - mesh
     var geometry = new THREE.BoxGeometry(3, 3, 3); // 3x3x3 cube
-    var material = new THREE.MeshBasicMaterial({ color: 0xffffff }); // color = black
+    var material = new THREE.MeshBasicMaterial({ color: 0xffffff, vertexColors: THREE.FaceColors }); // color = black
     var mesh = new THREE.Mesh(geometry, material); // cube instance
     
     // south
