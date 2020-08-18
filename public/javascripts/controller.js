@@ -2,6 +2,7 @@ import * as Motors from './motors.js';
 import * as Grapher from './graphs.js';
 import * as Updater from './update.js';
 import * as Zero from './zeroSensors.js';
+import * as Heading from './heading.js';
 import { CubeAnimation } from './cube_animation.js';
 
 var socket = io();
@@ -14,6 +15,9 @@ $(document).ready(() => {
   // Zero Sensors
   Zero.zeroCompass(socket)
   Zero.zeroAccel(socket)
+
+  // Set Heading
+  Heading.setHeading(socket)
 
   // Motors Listeners
   Motors.motorOn(socket)

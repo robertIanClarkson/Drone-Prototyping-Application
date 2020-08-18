@@ -125,6 +125,11 @@ const init = (app, server) => {
         })
       })
 
+    /* SET HEADING */
+    socket.on('set-heading', data => {
+      console.log(data)
+    })
+
     /* SENSORS w/o I2C */
     socket.on('zero-accel-xy', _ => {
       accel.zeroXY()
