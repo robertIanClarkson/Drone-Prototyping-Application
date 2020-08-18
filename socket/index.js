@@ -56,7 +56,7 @@ const init = (app, server) => {
     if (heading < 0) {
       heading += 360
     }
-    return heading
+    return heading.toFixed(1)
   }
 
   function emitSensorData(sensor) {

@@ -180,6 +180,7 @@ block content
               .divider
               h5 Error:
               h6#error.motor-data No Error
+          .divider
           //- Set Heading
           .row
             .col.s2
@@ -188,6 +189,7 @@ block content
               input#set-heading(type="range" min="0" max="360" value="0")
             .col.s2
               h6#set-heading-val
+          .divider
           //- Animation
           .row
             div#cube-anime
@@ -216,4 +218,3 @@ block content
 
     script(src="/socket.io/socket.io.js")
     script(type="module" src="./javascripts/controller.js")
-    //- script(src="./javascripts/cube_animation.js")
