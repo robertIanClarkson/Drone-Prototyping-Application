@@ -10,7 +10,7 @@ block content
     .row
       .row
         //- Sensor
-        .col.s6.vl-right-thick
+        .col.s6
           //- Compass
           .row
             h5 Compass
@@ -101,6 +101,13 @@ block content
                 h5 Coupled:
               .col.s3
                 h5#coupled-status.motor-data NULL
+              .col.s3
+                .switch
+                  label
+                    | Off
+                    input(type="checkbox")
+                    span.lever
+                    | On
             input#coupled(type="range" min="0" max="140" value="0")
             .row
               .col.s6
