@@ -50,9 +50,10 @@ class CubeAnimation {
   }
 
   set(roll, pitch, heading) {
-    this.cube.rotation.x = (- roll);
-    this.cube.rotation.z = (- pitch);
-    this.cube.rotation.y = (- heading) * Math.PI / 180;
+    this.cube.rotation.x = (roll);
+    this.cube.rotation.z = (pitch);
+    this.cube.rotation.y = 0;
+    console.log(heading)
   }
 }
 
