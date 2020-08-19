@@ -109,9 +109,44 @@ $ make go
 ###### This Project was started in 2017. I was very new to programming but was able to get the motors running via a terminal menu. I could not produce enough thrust out of the brushless motors and stopped working on the project. In May of 2020, upon Covid-19 I had a surplus of time and a much better understanding of programming and decided to pick the project back up. Ironically using the same parts as in 2017, I was able to create enough thrust by simply putting my 2 7.4v batteries in series, doubling the voltage. However, the motors and propellers I was using where incredibly violent and loud leading me to make a smaller model. This allowed me to prototype at my desk without be too loud (was still pretty loud). After many hours of working on this project it was really starting to come together and I decided to keep this journal as well as pictures and videos.
 
 ```
+8/18/2020
+Started the first flight code fuctions... need to figure out a good way to do this in OOP. Will probably do some whiteboarding.
+Added a frontend slider (0 - 360) to set the desired heading of the phyiscal hardware.
+```
+```
+8/17/2020
+Added frontend display of offset values set by zeroing the sensor.
+Tilt compensation still wonky on compass.
+Set up a basic logger for compass readings. We can use logger for logging but also for calibration.
+Added cube face colors to cube animation
+
+```
+```
+8/16/2020
+Flora LSM9DS0 compass was not working so I switched to an extra LSM303 I had laying around. I did this because...
+- it has a more sensitive accelerometer & compass
+- it has access to interuppt pins so I can use FIFO registers for super quick data reading
+- I dont have a need for a gyroscope at the moment
+Basic Compass Working but tilt compensation is wonky
+```
+```
+8/14/2020
+Connected the live accel data to the 3D cube animation (pitch & roll)
+Added zeroing code for accel's XYZ data 
+```
+```
+8/13/2020
+Added a 3D animated cube to give a visual representation of the orientation of the physical hardware.
+```
+```
+8/12/2020
+Added error message printout for the frontend. For example, if a sensor fails, the error will be output to the frontend user.
+Deleted all post methods as socket.io has proven to be a better option. Especially for sending sensor data quick.
+```
+```
 8/11/2020
 Worked on both motor speed sliders and the coupled slider be responsive to each other
-Made my first draft of the README
+Made my first draft of the README!!!
 ```
 
 ## Contributing
