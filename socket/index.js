@@ -197,9 +197,8 @@ const init = (app, server) => {
     })
 
     socket.on('tune', data => {
-      var mid = 68;
-      motor_0.tune(mid - data.offset);
-      motor_1.tune(data.offset - mid);
+      motor_0.tune(- data.offset);
+      motor_1.tune(data.offset);
       // console.log(`*** tune ${data.offset}`);
       emitMotorData()
     })

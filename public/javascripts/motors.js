@@ -64,9 +64,9 @@ function tune(socket) {
   output_crossfade.innerHTML = 0;
   crossfade.onchange = function () {
     if (this.value <= 68) {
-      output_crossfade.innerHTML = this.value - 68;
+      output_crossfade.innerHTML = this.value;
     } else {
-      output_crossfade.innerHTML = `+${this.value - 68}`;
+      output_crossfade.innerHTML = `+${this.value}`;
     }
     var data = {
       offset: this.value

@@ -14,15 +14,15 @@ function holdHeading(socket, heading) {
   heading = Math.floor(heading)
   if(heading == userHeading){
     // hold
-    socket.emit('tune', {offset: 68})
+    socket.emit('tune', {offset: 0})
     $('#direction').text('HOLD')
   } else if(heading < (userHeading + 180)) {
     // turn CCW
-    socket.emit('tune', {offset: 69})
+    socket.emit('tune', {offset: 2})
     $('#direction').text('CCW')
   } else if(heading >= (userHeading + 180)) {
     // turn CW
-    socket.emit('tune', {offset: 67})
+    socket.emit('tune', {offset: -2})
     $('#direction').text('CW')
   }
 }
