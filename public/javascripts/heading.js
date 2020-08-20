@@ -16,11 +16,11 @@ function holdHeading(socket, heading) {
     // turn CCW
     socket.emit('tune', {offset: 69})
     $('#direction').text('CCW')
-  } else if(heading > (userHeading + 180)) {
+  } else if(heading >= (userHeading + 180)) {
     // turn CW
     socket.emit('tune', {offset: 67})
     $('#direction').text('CW')
-  } else {
+  } else if(heading == userHeading){
     // hold
     socket.emit('tune', {offset: 68})
     $('#direction').text('HOLD')
