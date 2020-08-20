@@ -75,7 +75,9 @@ class Motor {
   }
 
   tune(offset) {
-    this.motor.servoWrite(this.PWM_VALUE + (offset * 5))
+    if(this.PWM_VALUE >= 1150) {
+      this.motor.servoWrite(this.PWM_VALUE + (offset * 5))
+    }
   };
 }
 

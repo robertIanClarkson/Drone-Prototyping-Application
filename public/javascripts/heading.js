@@ -11,6 +11,7 @@ function setHeading(socket) {
 }
 
 function holdHeading(socket, heading) {
+  heading = Math.floor(heading)
   if(heading < (userHeading + 180)) {
     // turn CCW
     socket.emit('tune', {offset: 69})
