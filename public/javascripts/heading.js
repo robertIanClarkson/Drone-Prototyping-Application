@@ -12,7 +12,11 @@ function setHeading(socket) {
 
 function holdHeading(socket, heading) {
   heading = Math.floor(heading)
-  if(heading < (userHeading + 180)) {
+  if(heading == userHeading){
+    // hold
+    socket.emit('tune', {offset: 68})
+    $('#direction').text('HOLD')
+  } else if(heading < (userHeading + 180)) {
     // turn CCW
     socket.emit('tune', {offset: 69})
     $('#direction').text('CCW')
@@ -20,10 +24,6 @@ function holdHeading(socket, heading) {
     // turn CW
     socket.emit('tune', {offset: 67})
     $('#direction').text('CW')
-  } else if(heading == userHeading){
-    // hold
-    socket.emit('tune', {offset: 68})
-    $('#direction').text('HOLD')
   }
 }
 
