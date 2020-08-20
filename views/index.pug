@@ -86,7 +86,11 @@ block content
         .col.s6.vl-left-thick
           //- Crossfade
           .slidecontainer
-            h5 Tune
+            .row
+              .col.s6
+                h5 Tune
+              .col.s6
+                h6#direction.motor-data NULL
             input#crossfade(type="range" min="0" max="136" value="68")
             .row
               .col.s3

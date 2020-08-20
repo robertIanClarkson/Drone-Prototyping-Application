@@ -71,6 +71,9 @@ $(document).ready(() => {
     Updater.updateCubeSliders(data)
     cube.set(data.accel.roll, data.accel.pitch, data.compass.heading)
 
+    // Heading
+    Heading.holdHeading(socket, data.compass.heading)
+
     // ++i;
     // now = Date.now()
     // if (now - then >= 1000) {
