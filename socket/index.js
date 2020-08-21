@@ -26,12 +26,14 @@ const init = (app, server) => {
       motor_0: {
         isOn: motor_0.getOnStatus(),
         speed: motor_0.getSpeed(),
-        value: motor_0.getValue()
+        value: motor_0.getValue(),
+        tune: motor_0.getTune()
       },
       motor_1: {
         isOn: motor_1.getOnStatus(),
         speed: motor_1.getSpeed(),
-        value: motor_1.getValue()
+        value: motor_1.getValue(),
+        tune: motor_1.getTune()
       }
     })
   }
@@ -197,8 +199,8 @@ const init = (app, server) => {
     })
 
     socket.on('tune', data => {
-      motor_0.tune(- data.offset);
-      motor_1.tune(data.offset);
+      motor_0.setTune(- data.offset);
+      motor_1.setTune(data.offset);
       // console.log(`*** tune ${data.offset}`);
       emitMotorData()
     })

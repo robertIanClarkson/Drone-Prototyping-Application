@@ -1,31 +1,15 @@
 /* UPDATE FUNCTIONS */
 /* update motors raw data output from server */
 function updateMotorFields(motor_0, motor_1) {
-  // on/off
-  $('#status-0').text(motor_0.isOn)
-  $('#status-1').text(motor_1.isOn)
-
-  // speed
-  $('#pwm-0').text(motor_0.speed)
-  $('#pwm-1').text(motor_1.speed)
-
-  // sliders
-  if(motor_0.value < 0) {
-    $('#speed-0').val(0)
-    $('#speedValue-0').text(0)
+  /* Tune */
+  $('#crossfade').val(motor_0.tune)
+  if(motor_0.tune > 0) {
+    $('#crossfade-value').text(`+${motor_0.tune}`)
   } else {
-    $('#speed-0').val(motor_0.value)
-    $('#speedValue-0').text(motor_0.value)
-  }
-  if(motor_1.value < 0) {
-    $('#speed-1').val(0)
-    $('#speedValue-1').text(0)
-  } else {
-    $('#speed-1').val(motor_1.value)
-    $('#speedValue-1').text(motor_1.value)
+    $('#crossfade-value').text(motor_0.tune)
   }
 
-  // universal
+  /* Coupled */
   if (motor_0.isOn == false && motor_1.isOn == false) { // both off
     $('#status-all').text('false')
     if(motor_0.speed == motor_1.speed) {
@@ -49,6 +33,31 @@ function updateMotorFields(motor_0, motor_1) {
     $('#coupled-status').text('false')
     $('#coupled').prop({ disabled: true })
   }
+
+  /* Motors */
+  // sliders
+  if(motor_0.value < 0) {
+    $('#speed-0').val(0)
+    $('#speedValue-0').text(0)
+  } else {
+    $('#speed-0').val(motor_0.value)
+    $('#speedValue-0').text(motor_0.value)
+  }
+  if(motor_1.value < 0) {
+    $('#speed-1').val(0)
+    $('#speedValue-1').text(0)
+  } else {
+    $('#speed-1').val(motor_1.value)
+    $('#speedValue-1').text(motor_1.value)
+  }
+
+  // on/off
+  $('#status-0').text(motor_0.isOn)
+  $('#status-1').text(motor_1.isOn)
+
+  // speed
+  $('#pwm-0').text(motor_0.speed)
+  $('#pwm-1').text(motor_1.speed)
 }
 
 /* SENSORS */

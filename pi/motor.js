@@ -7,7 +7,7 @@ class Motor {
     this.motor;
     this.isOn = false;
     this.PWM_VALUE = 0;
-    this.PWM_AMOUNT = 20;
+    this.TUNE = 0;
     this.motor = new Gpio(pin, { mode: Gpio.OUTPUT });
   }
 
@@ -45,19 +45,16 @@ class Motor {
     this.motor.servoWrite(this.PWM_VALUE)
   };
 
-  setDown() {
-    this.PWM_VALUE -= this.PWM_AMOUNT
-    this.motor.servoWrite(this.PWM_VALUE)
-  };
-
-  setUp() {
-    this.PWM_VALUE += this.PWM_AMOUNT
-    this.motor.servoWrite(this.PWM_VALUE)
-  };
-
   setSpeed(speed) {
     this.PWM_VALUE = 1150 + (speed * 5)
     this.motor.servoWrite(this.PWM_VALUE)
+  };
+
+  setTune(tune) {
+    if(this.PWM_VALUE >= 1150) {
+      this.TUNE = tune
+      this.motor.servoWrite(this.PWM_VALUE + (this.TUNE * 5))
+    }
   };
 
   getOnStatus() {
@@ -65,20 +62,18 @@ class Motor {
   };
 
   getSpeed() {
-    return this.PWM_VALUE
+    return (this.PWM_VALUE + (this.TUNE * 5))
   };
 
   getValue() {
     let val = (this.PWM_VALUE - 1150) / 5
     if(val < 0) return 0
     return val
-  }
-
-  tune(offset) {
-    if(this.PWM_VALUE >= 1150) {
-      this.motor.servoWrite(this.PWM_VALUE + (offset * 5))
-    }
   };
+
+  getTune() {
+    return this.TUNE;
+  }
 }
 
 module.exports = Motor;
