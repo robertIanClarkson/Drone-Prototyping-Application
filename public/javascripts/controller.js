@@ -18,6 +18,7 @@ $(document).ready(() => {
 
   // Set Heading
   Heading.setHeading(socket)
+  // Heading.holdHeading(socket)
 
   // Motors Listeners
   Motors.motorOn(socket)
@@ -72,7 +73,7 @@ $(document).ready(() => {
     cube.set(data.accel.roll, data.accel.pitch, data.compass.heading)
 
     // Heading
-    Heading.holdHeading(socket, data.compass.heading)
+    Heading.updateHeading(data.compass)
 
     // ++i;
     // now = Date.now()
