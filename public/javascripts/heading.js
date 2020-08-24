@@ -25,17 +25,17 @@ function updateHeading(values) {
   heading = values.heading
 }
 
-function headingLogic_CCW() {
+function headingLogic_CCW(socket) {
   return new Promise((resolve, reject) => {
     if (!(heading < startHeading)) { // not turning the right way
       if (MIN <= TUNE && TUNE <= MAX) { // isnt at the tune limit
         TUNE++ // increase the tune
-        console.log()
+        console.log(`TUNE: ${TUNE}`)
         socket.emit('tune', {
           offset: TUNE
         })
         setTimeout(() => {
-          headingLogic_CCW()
+          headingLogic_CCW(socket)
         }, 1000);
       } else {
         reject('HIT TUNE LIMIT')
@@ -48,16 +48,17 @@ function headingLogic_CCW() {
   })
 }
 
-function headingLogic_CW() {
+function headingLogic_CW(socket) {
   return new Promise((resolve, reject) => {
     if (!(heading > startHeading)) { // not turning the right way
       if (MIN <= TUNE && TUNE <= MAX) { // isnt at the tune limit
         TUNE-- // decrease the tune
+        console.log(`TUNE: ${TUNE}`)
         socket.emit('tune', {
           offset: TUNE
         })
         setTimeout(() => {
-          headingLogic_CW()
+          headingLogic_CW(socket)
         }, 1000);
       } else {
         reject('HIT TUNE LIMIT')
@@ -80,10 +81,16 @@ function holdHeading(socket) {
     headingLogic_CCW(socket).then(() => {
       holdHeading(socket)
     })
+    .catch(err => {
+      console.log(err)
+    })
   } else if(!isCCW() && !CW){
     console.log('Entering CW Logic')
     headingLogic_CW(socket).then(() => {
       holdHeading(socket)
+    })
+    .catch(err => {
+      console.log(err)
     })
   }
 }
