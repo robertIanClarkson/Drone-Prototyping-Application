@@ -15,8 +15,8 @@ function setHeading(socket) {
     output.innerHTML = this.value;
     givenHeading = this.value;
     startHeading = $('#compass-heading').text()
-    holdHeading(socket)
     console.log(`New Heading Given\n*** givenHeading: ${givenHeading}\n*** startHeading: ${startHeading}\n`)
+    holdHeading(socket)
   }
 }
 
@@ -35,7 +35,7 @@ function headingLogic_CCW(socket) {
           offset: TUNE
         })
         setTimeout(() => {
-          headingLogic_CCW(socket)
+          resolve(headingLogic_CCW(socket))
         }, 1000);
       } else {
         reject('HIT TUNE LIMIT')
@@ -59,7 +59,7 @@ function headingLogic_CW(socket) {
           offset: TUNE
         })
         setTimeout(() => {
-          headingLogic_CW(socket)
+          resolve(headingLogic_CW(socket))
         }, 1000);
       } else {
         reject('HIT TUNE LIMIT')
