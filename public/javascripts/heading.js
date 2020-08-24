@@ -88,7 +88,6 @@ function holdHeading(socket) {
     })
       .catch(err => {
         console.log(err)
-        reject('Breaking out of holdHeading')
       })
   } else if (!isCCW()) {
     console.log('Entering CW Logic')
@@ -97,7 +96,6 @@ function holdHeading(socket) {
     })
       .catch(err => {
         console.log(err)
-        reject('Breaking out of holdHeading')
       })
   } else {
     console.log('Do Nothing')
