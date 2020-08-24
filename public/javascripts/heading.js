@@ -3,7 +3,7 @@ let startHeading = 0;
 let heading = 0;
 let TUNE = 0;
 let MIN = -8;
-let MAX =  8;
+let MAX = 8;
 let CCW = false;
 let CW = false;
 
@@ -35,16 +35,18 @@ function headingLogic_CCW(socket) {
           offset: TUNE
         })
         setTimeout(() => {
-          resolve(headingLogic_CCW(socket))
+          resolve()
         }, 1000);
       } else {
         reject('HIT TUNE LIMIT')
       }
     } else {
-      CW = false;
-      CCW = true;
-      console.log('Resolve CCW')
-      resolve()
+      setTimeout(() => {
+        CW = false;
+        CCW = true;
+        console.log('Resolve CCW')
+        resolve()
+      }, 1000)
     }
   })
 }
@@ -59,16 +61,19 @@ function headingLogic_CW(socket) {
           offset: TUNE
         })
         setTimeout(() => {
-          resolve(headingLogic_CW(socket))
+          resolve()
         }, 1000);
       } else {
         reject('HIT TUNE LIMIT')
       }
     } else {
-      CW = true;
-      CCW = false;
-      console.log('Resolve CW')
-      resolve()
+      setTimeout(() => {
+        CW = true;
+        CCW = false;
+        console.log('Resolve CW')
+        resolve()
+      }, 1000)
+
     }
   })
 }
@@ -79,7 +84,7 @@ function isCCW() {
 
 function holdHeading(socket) {
   console.log(`HEADING: ${heading}`)
-  if (isCCW() && !CCW) {
+  if (isCCW()) {
     console.log('Entering CCW Logic')
     headingLogic_CCW(socket).then(() => {
       holdHeading(socket)
@@ -87,7 +92,7 @@ function holdHeading(socket) {
       .catch(err => {
         console.log(err)
       })
-  } else if (!isCCW() && !CW) {
+  } else if (!isCCW()) {
     console.log('Entering CW Logic')
     headingLogic_CW(socket).then(() => {
       holdHeading(socket)
