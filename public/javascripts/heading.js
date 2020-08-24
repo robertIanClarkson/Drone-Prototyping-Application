@@ -77,7 +77,7 @@ function isCCW() {
   console.log((parseInt(heading) <= (parseInt(givenHeading) + 180)))
   console.log(CCW)
   console.log(CW)
-  return (heading <= (givenHeading + 180))
+  return (parseInt(heading) <= (parseInt(givenHeading) + 180))
 }
 
 function holdHeading(socket) {
