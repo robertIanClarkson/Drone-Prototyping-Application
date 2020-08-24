@@ -18,9 +18,9 @@ $(document).ready(() => {
 
   // Set Heading
   Heading.setHeading(socket)
-  Heading.holdHeading(socket).catch(err => {
-    console.log(err)
-  })
+  // Heading.holdHeading(socket).catch(err => {
+  //   console.log(err)
+  // })
 
   // Motors Listeners
   Motors.motorOn(socket)

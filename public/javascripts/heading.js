@@ -16,7 +16,9 @@ function setHeading(socket) {
     givenHeading = this.value;
     startHeading = $('#compass-heading').text()
     console.log(`New Heading Given\n*** givenHeading: ${givenHeading}\n*** startHeading: ${startHeading}\n`)
-    // holdHeading(socket)
+    holdHeading(socket).catch((err) => {
+      console.log(err)
+    })
   }
 }
 
