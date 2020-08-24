@@ -66,6 +66,15 @@ Links correspond to what I personally used. However, feel free to mix and match 
   </div>
 </div>
 
+#### After Print
+<div class="row">
+  <div class="col">
+    <img src="./readme_images/physical_1.jpg" alt="physical_1" width="40%"/>
+  </div>
+  <div class="col">
+    <img src="./readme_images/physical_2.jpg" alt="physical_2" width="40%"/>
+  </div>
+</div>
 
 ## Wiring
 #### ***NOTE:** I am not good with fritzing™ software, use notes as well.*
@@ -102,6 +111,7 @@ $ make go
 ```bash
 10.0.0.105:3000
 ```
+<img src="./readme_images/terminal.png" alt="terminal" width="60%"/>
 
 ## Usage
 
