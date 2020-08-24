@@ -2,8 +2,8 @@ let givenHeading = 0;
 let startHeading = 0;
 let heading = 0;
 let TUNE = 0;
-let MIN = -5;
-let MAX = 5;
+let MIN = -8;
+let MAX =  8;
 let CCW = false;
 let CW = false;
 
