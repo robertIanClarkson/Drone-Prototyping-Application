@@ -16,7 +16,7 @@ function setHeading(socket) {
     givenHeading = this.value;
     startHeading = $('#compass-heading').text()
     console.log(`New Heading Given\n*** givenHeading: ${givenHeading}\n*** startHeading: ${startHeading}\n`)
-    holdHeading(socket)
+    // holdHeading(socket)
   }
 }
 
@@ -78,32 +78,37 @@ function isCCW() {
 }
 
 function holdHeading(socket) {
-  console.log(`HEADING: ${heading}`)
-  if (isCCW()) {
-    console.log('Entering CCW Logic')
-    headingLogic_CCW(socket).then(() => {
-      holdHeading(socket)
-    })
-    .catch(err => {
-      console.log(err)
-    })
-  } else if(!isCCW()){
-    console.log('Entering CW Logic')
-    headingLogic_CW(socket).then(() => {
-      holdHeading(socket)
-    })
-    .catch(err => {
-      console.log(err)
-    })
-  } else {
-    console.log('Do Nothing')
-    setTimeout(() => {
-      holdHeading(socket)
-    }, 1000);
-  }
+  return new Promise((resolve, reject) => {
+    console.log(`HEADING: ${heading}`)
+    if (isCCW()) {
+      console.log('Entering CCW Logic')
+      headingLogic_CCW(socket).then(() => {
+        resolve(holdHeading(socket))
+      })
+      .catch(err => {
+        console.log(err)
+        reject('Breaking out of holdHeading')
+      })
+    } else if(!isCCW()){
+      console.log('Entering CW Logic')
+      headingLogic_CW(socket).then(() => {
+        resolve(holdHeading(socket))
+      })
+      .catch(err => {
+        console.log(err)
+        reject('Breaking out of holdHeading')
+      })
+    } else {
+      console.log('Do Nothing')
+      setTimeout(() => {
+        resolve(holdHeading(socket))
+      }, 1000);
+    }
+  })
 }
 
 export {
   setHeading,
-  updateHeading
+  updateHeading,
+  holdHeading
 }
