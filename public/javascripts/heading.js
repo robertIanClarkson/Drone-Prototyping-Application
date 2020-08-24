@@ -79,7 +79,7 @@ function isCCW() {
 
 function holdHeading(socket) {
   console.log(`HEADING: ${heading}`)
-  if (isCCW()) {
+  if (isCCW() && !CCW) {
     console.log('Entering CCW Logic')
     headingLogic_CCW(socket).then(() => {
       holdHeading(socket)
@@ -87,7 +87,7 @@ function holdHeading(socket) {
       .catch(err => {
         console.log(err)
       })
-  } else if (!isCCW()) {
+  } else if (!isCCW() && !CW) {
     console.log('Entering CW Logic')
     headingLogic_CW(socket).then(() => {
       holdHeading(socket)
