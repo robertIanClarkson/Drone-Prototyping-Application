@@ -1,6 +1,8 @@
 # Cube Interface
 A website to be hosted on a raspberry pi ( **raspi** ) for ease of access when prototyping brushless motors and orientation sensors.
 
+<img src="./readme_images/frontend.png" alt="frontend"/>
+
 ## About
 I created this project to prototype a web interface to interact with hardware like motors and sensors. The hardware required, 3D printed objects, and wiring is not designed for a final flying product, but is only to get started. The main goal of this project is to start on a good foot when building an end product. 
 
