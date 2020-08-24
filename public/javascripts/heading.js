@@ -43,6 +43,7 @@ function headingLogic_CCW(socket) {
     } else {
       CW = false;
       CCW = true;
+      console.log('Resolve CCW')
       resolve()
     }
   })
@@ -66,6 +67,7 @@ function headingLogic_CW(socket) {
     } else {
       CW = true;
       CCW = false;
+      console.log('Resolve CW')
       resolve()
     }
   })
@@ -92,6 +94,11 @@ function holdHeading(socket) {
     .catch(err => {
       console.log(err)
     })
+  } else {
+    console.log('Do Nothing')
+    setTimeout(() => {
+      holdHeading(socket)
+    }, 1000);
   }
 }
 
