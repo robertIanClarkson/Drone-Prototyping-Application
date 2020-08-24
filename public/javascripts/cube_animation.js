@@ -78,7 +78,7 @@ class CubeAnimation {
     this.cube.rotation.x = (roll);
     this.cube.rotation.z = (pitch);
     this.cube.rotation.y = 0;
-    console.log(heading)
+    // console.log(heading)
   }
 }
 
