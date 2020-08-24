@@ -30,7 +30,7 @@ function headingLogic_CCW(socket) {
     if (!(heading < startHeading)) { // not turning the right way
       if (MIN <= TUNE && TUNE <= MAX) { // isnt at the tune limit
         TUNE++ // increase the tune
-        console.log(`TUNE: ${TUNE}`)
+        console.log(`*** TUNE: ${TUNE}\n*** HEADING: ${heading}`)
         socket.emit('tune', {
           offset: TUNE
         })
@@ -53,7 +53,7 @@ function headingLogic_CW(socket) {
     if (!(heading > startHeading)) { // not turning the right way
       if (MIN <= TUNE && TUNE <= MAX) { // isnt at the tune limit
         TUNE-- // decrease the tune
-        console.log(`TUNE: ${TUNE}`)
+        console.log(`*** TUNE: ${TUNE}\n*** HEADING: ${heading}`)
         socket.emit('tune', {
           offset: TUNE
         })
