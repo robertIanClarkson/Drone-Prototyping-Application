@@ -14,7 +14,7 @@ function setHeading(socket) {
   slider.onchange = function () {
     output.innerHTML = this.value;
     givenHeading = this.value;
-    startHeading = $('#compass-heading')
+    startHeading = $('#compass-heading').text()
     holdHeading(socket)
     console.log(`New Heading Given\n*** givenHeading: ${givenHeading}\n*** startHeading: ${startHeading}\n`)
   }
