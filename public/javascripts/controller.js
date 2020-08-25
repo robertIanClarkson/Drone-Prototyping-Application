@@ -76,7 +76,7 @@ $(document).ready(() => {
 
     // Heading
     Heading.updateHeading(data.compass)
-
+    Heading.holdHeading(socket, data.compass)
     // ++i;
     // now = Date.now()
     // if (now - then >= 1000) {
