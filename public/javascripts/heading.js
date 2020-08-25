@@ -34,16 +34,12 @@ function needsCW(heading) {
 }
 
 function holdHeading(socket, heading) {
-  if(TUNE != MAX && TUNE != (-MAX)) {
-    if(needsCCW(heading)) {
-      TUNE += 1
-    } else if(needsCW(heading)){
-      TUNE -= 1
-    } else {
-      console.log('do nothing')
-    }
+  if (TUNE != MAX && needsCCW(heading)) {
+    TUNE += 1
+  } else if (TUNE != -MAX && needsCW(heading)) {
+    TUNE -= 1
   } else {
-    $('#error').text('TUNE AT MAX')
+    console.log('do nothing')
   }
   socket.emit('tune', {
     offset: TUNE
