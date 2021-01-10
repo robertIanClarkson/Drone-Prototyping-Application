@@ -81,7 +81,7 @@ Links correspond to what I personally used. However, feel free to mix and match 
 ## Wiring
 #### ***NOTE:** I am not good with fritzing™ software, use notes as well.*
 - red chip --> LSM9DS0
-- 9v Battery --> 14.8v LiPo Batter
+- 9v Battery --> 14.8v LiPo Battery
 
 ![Wiring](./readme_images/wiring.png)
 
