@@ -15,7 +15,7 @@
     "materialize-css": "^1.0.0-rc.2",
     "morgan": "~1.9.1",
     "pigpio": "^3.2.3",
-    "pug": "^3.0.0",
+    "pug": "^3.0.1",
     "socket.io": "^2.3.0"
   },
   "devDependencies": {
