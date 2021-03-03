@@ -1,4 +1,7 @@
 # Drone Prototyping Application
+
+WATCH THIS VIDEO: https://youtu.be/T7Usw2DCu-8
+
 A website to be hosted on a raspberry pi ( **raspi** ) for ease of access when prototyping brushless motors and orientation sensors.
 
 <img src="./readme_images/frontend.png" alt="frontend"/>
